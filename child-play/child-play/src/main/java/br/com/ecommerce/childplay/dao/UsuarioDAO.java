@@ -59,4 +59,55 @@ public class UsuarioDAO {
         }
         return lista;
     }
+    
+    
+    public List<Usuario> getUsuarioById(int id) throws ClassNotFoundException, SQLException {
+
+        String sql = "SELECT * FROM usuario WHERE enable = ?  and idUsuario =?";
+
+        List<Usuario> lista = new ArrayList<>();
+
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setBoolean(1, true);
+            p.setInt(2, id);
+            //Armazenando os resultados
+            rs = p.executeQuery();
+
+            //Enquanto tiver linha de resultado execute esse trecho
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setLogin(rs.getString("login"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setFuncao(rs.getString("funcao"));
+                
+                lista.add(usuario);
+            }
+        } catch (SQLException e) {
+
+        } finally {
+            //Fechando todas as conexões que foram abertas
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return lista;
+    }
 }

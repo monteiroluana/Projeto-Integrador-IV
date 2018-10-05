@@ -12,4 +12,9 @@ public class UsuarioService {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         return new ArrayList<>(usuarioDao.listUsuarios());
     }
+    
+    public List<Usuario> getUsuarioById(int id) throws ClassNotFoundException, SQLException {
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        return new ArrayList<>(usuarioDao.getUsuarioById(id));
+    }
 }
