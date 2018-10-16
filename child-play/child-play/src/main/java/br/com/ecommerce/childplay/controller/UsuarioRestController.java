@@ -1,34 +1,35 @@
 package br.com.ecommerce.childplay.controller;
 
-import br.com.ecommerce.childPlay.model.Usuario;
 import br.com.ecommerce.childPlay.service.UsuarioService;
+import br.com.ecommerce.childplay.model.ResponseEntity;
 import java.sql.SQLException;
-import java.util.List;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioRestController {
 
     @GetMapping("/list-usuario")
-    public ResponseEntity<List<Usuario>> litar() throws ClassNotFoundException, SQLException{
+    public ResponseEntity litar() throws ClassNotFoundException, SQLException {
+        ResponseEntity re = null;
         UsuarioService service = new UsuarioService();
-        List<Usuario> lista = service.listar();
-        return ResponseEntity.ok(lista);
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.listar());
+        } catch (ClassNotFoundException | SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
     }
-    
-    
-    @GetMapping("/get-usuarioById/{id}")
+
+    //POR FAVOR NÃO APAGUEM ISSO
+    /* @GetMapping("/get-usuarioById/{id}")
     public ResponseEntity<List<Usuario>> getUsuarioById(@PathVariable("id") int id) throws ClassNotFoundException, SQLException{
         UsuarioService service = new UsuarioService();
         List<Usuario> lista = service.getUsuarioById(id);
         return ResponseEntity.ok(lista);
     }
- 
+     */
 }
