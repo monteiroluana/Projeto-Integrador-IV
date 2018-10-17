@@ -11,6 +11,15 @@ public class ResponseEntity implements Serializable {
         private static final long serialVersionUID = -5393192543608035163L;
 
         private String returnMsg;
+        private int success;
+
+        public int getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(int success) {
+            this.success = success;
+        }
 
         public String getReturnMsg() {
             return returnMsg;
@@ -23,20 +32,22 @@ public class ResponseEntity implements Serializable {
         public Response() {
         }
 
-        public Response(String returnMsg) {
+        public Response(int success, String returnMsg) {
+            this.success = success;
             this.returnMsg = returnMsg;
+            
         }
 
         public static Response createSuccess() {
-            return new Response( "Success.");
+            return new Response(0, "Success.");
         }
 
         public static Response createUnknownError() {
-            return new Response( "Unknown error.");
+            return new Response(1, "Unknown error.");
         }
 
         public static Response createError(Exception e) {
-            return new Response( e.getMessage());
+            return new Response(1, e.getMessage());
         }
     }
 
@@ -50,8 +61,8 @@ public class ResponseEntity implements Serializable {
         this.response = response;
     }
 
-    public ResponseEntity( String returnMsg) {
-        this.response = new Response(returnMsg);
+    public ResponseEntity(int success, String returnMsg) {
+        this.response = new Response(success,returnMsg);
     }
 
     public static ResponseEntity createSuccess() {
