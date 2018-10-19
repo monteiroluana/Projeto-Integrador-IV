@@ -55,7 +55,7 @@ create table cartao(
 
 
 create table produto(
-    idProduto INTEGER NOT NULL AUTO_INCREMENT,
+    idProduto           INTEGER NOT NULL AUTO_INCREMENT,
     nome		VARCHAR(255),
     marca		VARCHAR(255),
     descricao		VARCHAR(255),
@@ -67,6 +67,30 @@ create table produto(
     desconto		INT,
     enable              BOOLEAN,
    CONSTRAINT PK_PRODUTO PRIMARY KEY (idProduto)
+);
+
+
+create table pedido(
+    idPedido            INTEGER NOT NULL AUTO_INCREMENT,
+    idCliente           INT,
+    idUsuario           INT,
+    dataPedido          DATE,
+    enderecoEntrega     VARCHAR(255),
+    tipoPagamento       VARCHAR(255),
+    status              CHAR,
+    CONSTRAINT PK_PEDIDO PRIMARY KEY (idPedido),
+    FOREIGN KEY(idCliente)REFERENCES cliente(idCliente),
+    FOREIGN KEY(idUsuario)REFERENCES usuario(idUsuario)
+);
+
+
+create table item_pedido(
+    idPedido            INT,
+    idProduto           INT,
+    quantidade          INT,
+    preco               DECIMAL,
+    FOREIGN KEY(idPedido) REFERENCES pedido(idPedido),
+    FOREIGN KEY(idProduto) REFERENCES produto(idProduto)
 );
 
 
