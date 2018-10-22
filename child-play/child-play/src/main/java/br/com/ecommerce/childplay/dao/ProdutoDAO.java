@@ -13,7 +13,8 @@ import java.util.List;
 public class ProdutoDAO {
      public List<Produto> listProduto() throws ClassNotFoundException, SQLException {
 
-        String sql = "SELECT * FROM produto WHERE enable = ?";
+        String sql = "SELECT p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,p.categoria ,p.preco ,p.estoque ,p.desconto, i.imagem, i.alt \n" +
+"FROM produto as p INNER JOIN imagem as i ON i.idProduto = p.idProduto WHERE enable = ?;";
 
         List<Produto> lista = new ArrayList<>();
 
