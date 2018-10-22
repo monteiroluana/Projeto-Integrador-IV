@@ -60,6 +60,8 @@ create table produto(
     marca		VARCHAR(255),
     descricao		VARCHAR(255),
     caracteristicas	VARCHAR(255),
+    imagem              VARCHAR(255),
+    alt                 VARCHAR(255),
     idade		INT,
     categoria		VARCHAR(255),
     preco		DECIMAL,
@@ -101,7 +103,7 @@ INSERT INTO USUARIO (nome,login,senha,funcao,enable) VALUES
 ("Rodrigo Normando","rodrigo.normando","rodrigo","Dev.Front-end",true);
 
 
-INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, categoria, preco, estoque, desconto,enable) VALUES
-("pato","sei lá", "descricao pato", "pato de borracha", 3, "sei lá", 19.99, 21, 0, true),
-("cubo mágico ursal","sei lá", "descricao cubo mágico", "todos os lados iguais", 10, "sei lá", 30.00, 100, 0, true),
-("aviaozinho de papel","sei lá", "descricao aviaozinho", "modelo alienigena para vc", 10, "sei lá", 19.99, 30, 0, true);
+INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, categoria, preco, estoque, desconto, enable, imagem, alt) VALUES
+("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true, "yj9v2sF.jpg", "Patinho de borracha"),
+("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true, "CfJJDDe.jpg", "Cubo mágido unicolor"),
+("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true, "CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?");

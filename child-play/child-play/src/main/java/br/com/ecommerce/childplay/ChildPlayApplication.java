@@ -19,7 +19,7 @@ public class ChildPlayApplication {
                 
                 System.out.println("ESTOU NA CLASSE DE EXECUÇÃO");
                 
-                  List<ItemPedido> list = null;
+              /*    List<ItemPedido> list = null;
                 ItemPedido item = new ItemPedido();
                 item.setIdProduto(1);
                 item.setQuantidade(1);
@@ -42,6 +42,6 @@ public class ChildPlayApplication {
                 
                 PedidoDAO pedidoDao = new PedidoDAO();
                 
-                pedidoDao.savePedido(pedido, cliente, usuario,list);
+                pedidoDao.savePedido(pedido, cliente, usuario,list);*/
 	}
 }
