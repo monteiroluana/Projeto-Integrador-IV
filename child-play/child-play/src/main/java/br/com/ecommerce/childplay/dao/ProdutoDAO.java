@@ -13,8 +13,9 @@ import java.util.List;
 public class ProdutoDAO {
      public List<Produto> listProduto() throws ClassNotFoundException, SQLException {
 
-        String sql = "SELECT p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,p.categoria ,p.preco ,p.estoque ,p.desconto, i.imagem, i.alt \n" +
-"FROM produto as p INNER JOIN imagem as i ON i.idProduto = p.idProduto WHERE enable = ?;";
+        String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
+                + "p.categoria ,p.preco ,p.estoque ,p.desconto, i.imagem, i.alt \n"
+                + "FROM produto as p INNER JOIN imagem as i ON i.idProduto = p.idProduto WHERE enable = ?;";
 
         List<Produto> lista = new ArrayList<>();
 
@@ -42,7 +43,9 @@ public class ProdutoDAO {
                 produto.setPreco(rs.getFloat("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
-         
+                produto.setImagem(rs.getString("imagem"));
+                produto.setAlt(rs.getString("alt"));
+                         
                 lista.add(produto);
             }
         } catch (SQLException e) {

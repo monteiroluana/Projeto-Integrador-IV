@@ -13,7 +13,25 @@ public class Produto {
     private int estoque;
     private int desconto;
     private boolean enable;
+    private String imagem;
+    private String alt;
 
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public String getAlt() {
+        return alt;
+    }
+
+    public void setAlt(String alt) {
+        this.alt = alt;
+    }
+    
     public int getIdProduto() {
         return idProduto;
     }
