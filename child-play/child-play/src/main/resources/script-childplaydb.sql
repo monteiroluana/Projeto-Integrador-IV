@@ -113,10 +113,28 @@ INSERT INTO USUARIO (nome,login,senha,funcao,enable) VALUES
 INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, categoria, preco, estoque, desconto, enable) VALUES
 ("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true),
 ("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true),
+("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true),
+("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true),
+("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true),
+("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true),
+("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true),
+("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true),
+("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true),
+("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true),
+("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true),
 ("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true);
 
 
 INSERT INTO IMAGEM (idProduto, imagem, alt) VALUES
 (1,"yj9v2sF.jpg", "Patinho de borracha"),
 (2,"CfJJDDe.jpg", "Cubo mágido unicolor"),
-(3,"CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?");
+(3,"CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
+(4,"yj9v2sF.jpg", "Patinho de borracha"),
+(5,"CfJJDDe.jpg", "Cubo mágido unicolor"),
+(6,"CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
+(7,"yj9v2sF.jpg", "Patinho de borracha"),
+(8,"CfJJDDe.jpg", "Cubo mágido unicolor"),
+(9,"CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
+(10,"yj9v2sF.jpg", "Patinho de borracha"),
+(11,"CfJJDDe.jpg", "Cubo mágido unicolor"),
+(12,"CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?");
