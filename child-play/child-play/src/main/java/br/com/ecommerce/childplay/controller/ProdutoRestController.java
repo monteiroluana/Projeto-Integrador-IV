@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 //https://www.youtube.com/watch?v=1wYNFfgrXTI
 @RestController
@@ -40,5 +42,12 @@ public class ProdutoRestController {
             re = ResponseEntity.createUnknownError();
         }
         return re;
+    }
+    
+    @PostMapping("/save")
+    public ModelAndView saveProduto(@ModelAttribute("produto") Produto produto){
+        ProdutoService service = new ProdutoService();
+        service.saveProduto(produto);
+    
     }
 }
