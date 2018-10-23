@@ -17,4 +17,9 @@ public class ProdutoService {
       ProdutoDAO produtoDao = new ProdutoDAO();
         return new ArrayList<>(produtoDao.getProdutoById(id));
     }
+     
+     public boolean saveProduto(Produto produto) throws ClassNotFoundException, SQLException{
+           ProdutoDAO produtoDao = new ProdutoDAO();
+        return (produtoDao.saveProduto(produto));
+     }
 }
