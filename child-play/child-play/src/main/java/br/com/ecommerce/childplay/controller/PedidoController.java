@@ -3,7 +3,7 @@ package br.com.ecommerce.childplay.controller;
 import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childPlay.model.Usuario;
 import br.com.ecommerce.childplay.dao.PedidoDAO;
-import br.com.ecommerce.childplay.dao.testeDAO;
+import br.com.ecommerce.childplay.dao.PedidoDAO;
 import br.com.ecommerce.childplay.model.ItemPedido;
 import br.com.ecommerce.childplay.model.Pedido;
 import java.sql.SQLException;
@@ -49,7 +49,7 @@ public class PedidoController {
         pedido.setStatus("d");
 
         //PedidoDAO pedidoDao = new PedidoDAO();
-        testeDAO teste = new testeDAO();
+        PedidoDAO teste = new PedidoDAO();
 
         teste.savePedido(pedido, usuario.getIdUsuario(), cliente.getIdCliente(),list);
         

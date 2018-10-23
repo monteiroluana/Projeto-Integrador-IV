@@ -62,7 +62,7 @@ create table produto(
     caracteristicas	VARCHAR(255),
     idade		INT,
     categoria		VARCHAR(255),
-    preco		DECIMAL,
+    preco		DOUBLE,
     estoque		INT,
     desconto		INT,
     enable              BOOLEAN,
@@ -97,7 +97,7 @@ create table item_pedido(
     idPedido            INT,
     idProduto           INT,
     quantidade          INT,
-    preco               DECIMAL,
+    preco               DOUBLE,
     FOREIGN KEY(idPedido) REFERENCES pedido(idPedido),
     FOREIGN KEY(idProduto) REFERENCES produto(idProduto)
 );
@@ -138,3 +138,6 @@ INSERT INTO IMAGEM (idProduto, imagem, alt) VALUES
 (10,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
 (11,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
 (12,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?");
+
+
+INSERT INTO `cliente`(`nome`, `email`, `login`, `senha`, `enable`) VALUES ('aoi', 'aoi@aoi.com', 'kunieda', 'kunieda',true);

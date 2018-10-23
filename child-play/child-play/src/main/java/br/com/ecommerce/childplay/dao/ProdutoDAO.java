@@ -42,7 +42,7 @@ public class ProdutoDAO {
                 produto.setCaracteristicas(rs.getString("caracteristicas"));
                 produto.setCategoria(rs.getString("categoria"));
                 produto.setIdade(rs.getInt("idade"));
-                produto.setPreco(rs.getFloat("preco"));
+                produto.setPreco(rs.getDouble("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
 
@@ -99,7 +99,7 @@ public class ProdutoDAO {
                 produto.setCaracteristicas(rs.getString("caracteristicas"));
                 produto.setCategoria(rs.getString("categoria"));
                 produto.setIdade(rs.getInt("idade"));
-                produto.setPreco(rs.getFloat("preco"));
+                produto.setPreco(rs.getDouble("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
 

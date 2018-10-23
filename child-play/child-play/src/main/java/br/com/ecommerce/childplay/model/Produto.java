@@ -12,7 +12,7 @@ public class Produto {
     private String caracteristicas;  
     private int idade;
     private String categoria;
-    private float preco;
+    private double preco;
     private int estoque;
     private int desconto;
     private boolean enable;
@@ -82,11 +82,11 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    public float getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
