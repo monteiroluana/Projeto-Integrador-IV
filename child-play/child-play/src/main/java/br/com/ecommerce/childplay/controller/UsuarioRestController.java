@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/usuario")
 public class UsuarioRestController {
 
-    @GetMapping("/list-usuario/{id}")
+    @GetMapping("/list-usuario")
     public ResponseEntity litar() throws ClassNotFoundException, SQLException {
         UsuarioService service = new UsuarioService();
         ResponseEntity re = null;

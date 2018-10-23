@@ -1,37 +1,31 @@
 
 package br.com.ecommerce.childPlay.model;
 
+import br.com.ecommerce.childplay.model.Imagem;
+import java.util.List;
+
 public class Produto {
     private int idProduto;
     private String nome;
     private String marca;
     private String descricao;
-    private String caracteristicas;
+    private String caracteristicas;  
     private int idade;
     private String categoria;
     private float preco;
     private int estoque;
     private int desconto;
     private boolean enable;
-    private String imagem;
-    private String alt;
+    private List<Imagem> imagem;
 
-    public String getImagem() {
+    public List<Imagem> getImagem() {
         return imagem;
     }
 
-    public void setImagem(String imagem) {
+    public void setImagem(List<Imagem> imagem) {
         this.imagem = imagem;
     }
-
-    public String getAlt() {
-        return alt;
-    }
-
-    public void setAlt(String alt) {
-        this.alt = alt;
-    }
-    
+  
     public int getIdProduto() {
         return idProduto;
     }

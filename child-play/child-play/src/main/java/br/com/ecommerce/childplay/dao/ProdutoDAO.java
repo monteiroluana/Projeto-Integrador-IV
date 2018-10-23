@@ -1,8 +1,8 @@
-
 package br.com.ecommerce.childPlay.dao;
 
 import br.com.ecommerce.childPlay.conexao.Conexao;
 import br.com.ecommerce.childPlay.model.Produto;
+import br.com.ecommerce.childplay.model.Imagem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoDAO {
-     public List<Produto> listProduto() throws ClassNotFoundException, SQLException {
+
+    public List<Produto> listProduto() throws ClassNotFoundException, SQLException {
 
         String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
                 + "p.categoria ,p.preco ,p.estoque ,p.desconto, i.imagem, i.alt \n"
@@ -33,6 +34,7 @@ public class ProdutoDAO {
             //Enquanto tiver linha de resultado execute esse trecho
             while (rs.next()) {
                 Produto produto = new Produto();
+
                 produto.setIdProduto(rs.getInt("idProduto"));
                 produto.setNome(rs.getString("nome"));
                 produto.setMarca(rs.getString("marca"));
@@ -43,9 +45,10 @@ public class ProdutoDAO {
                 produto.setPreco(rs.getFloat("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
-                produto.setImagem(rs.getString("imagem"));
-                produto.setAlt(rs.getString("alt"));
-                         
+
+                List<Imagem> imgList = getImagemByProdutoId(produto.getIdProduto());
+                produto.setImagem(imgList);
+
                 lista.add(produto);
             }
         } catch (SQLException e) {
@@ -68,14 +71,14 @@ public class ProdutoDAO {
         }
         return lista;
     }
-     
-     
-     public List<Produto> getProdutoById(int id) throws ClassNotFoundException, SQLException {
 
-        String sql = "SELECT * FROM produto WHERE enable = ? and idProduto = ?";
+    public Produto getProdutoById(int id) throws ClassNotFoundException, SQLException {
 
-        List<Produto> lista = new ArrayList<>();
+        String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
+                + "p.categoria ,p.preco ,p.estoque ,p.desconto, i.imagem, i.alt \n"
+                + "FROM produto as p INNER JOIN imagem as i ON i.idProduto = p.idProduto WHERE p.enable = ? AND p.idProduto = ? ;";
 
+        Produto produto = new Produto();
         Connection connection = null;
         ResultSet rs = null;
         PreparedStatement p = null;
@@ -88,9 +91,7 @@ public class ProdutoDAO {
             //Armazenando os resultados
             rs = p.executeQuery();
 
-            //Enquanto tiver linha de resultado execute esse trecho
-            while (rs.next()) {
-                Produto produto = new Produto();
+            if (rs.next()) {
                 produto.setIdProduto(rs.getInt("idProduto"));
                 produto.setNome(rs.getString("nome"));
                 produto.setMarca(rs.getString("marca"));
@@ -101,57 +102,98 @@ public class ProdutoDAO {
                 produto.setPreco(rs.getFloat("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
-         
-                lista.add(produto);
+
+                List<Imagem> imgList = getImagemByProdutoId(produto.getIdProduto());
+                produto.setImagem(imgList);
             }
         } catch (SQLException e) {
 
         } finally {
             //Fechando todas as conexões que foram abertas
-            try {create database teste;
 
-use teste;
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
 
-                if (connection != null) {
-                    connection.close();
-                }
-                if (p != null) {
-                    p.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
+        }
+        return produto;
+    }
 
+    public List<Imagem> getImagemByProdutoId(int idProduto) throws SQLException {
+        String sql = "select i.idImagem, i.idProduto, i.imagem, i.alt from "
+                + "imagem as i inner join produto on i.idProduto = produto.idProduto "
+                + "Where produto.idProduto = ?;";
+
+        List<Imagem> lista = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setInt(1, idProduto);
+            rs = p.executeQuery();
+
+            while (rs.next()) {
+                Imagem img = new Imagem();
+                img.setIdIMagem(rs.getInt("idImagem"));
+                img.setIdProduto(rs.getInt("idProduto"));
+                img.setImagem(rs.getString("imagem"));
+                img.setAlt(rs.getString("alt"));
+
+                lista.add(img);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+
+        } finally {
+
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+            if (rs != null) {
+                rs.close();
             }
         }
         return lista;
+
     }
-     
-     
-     public boolean saveProduto(Produto produto){
-      String sql = "INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, "
+
+    public boolean saveProduto(Produto produto) throws SQLException {
+        String sql = "INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, "
                 + "categoria, preco, estoque, desconto, enable) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";
-       
+
         Connection connection = null;
         PreparedStatement p = null;
-    
-          try {
-            connectin = Conexao.obterConexao();
+
+        try {
+            connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
-            p.setStrig(1,produto.getNome());
-            p.setString (2, produto.getMarca());      
-               p.setString (3, produto.getDescricao());
-               p.setString (4, produto.getCaracteristicas());
-               p.setInt (5, produto.getIdade());
-               p.setString (6, produto.getCategoria());
-               p.setDouble (7, produto.getPreco());
-               p.setInt (8,produto.getEstoque());
-               p.setInt(9,produto.getDesconto());
-               p.setBoolean(10, true);
-               
-               p.execute();
+            p.setString(1, produto.getNome());
+            p.setString(2, produto.getMarca());
+            p.setString(3, produto.getDescricao());
+            p.setString(4, produto.getCaracteristicas());
+            p.setInt(5, produto.getIdade());
+            p.setString(6, produto.getCategoria());
+            p.setDouble(7, produto.getPreco());
+            p.setInt(8, produto.getEstoque());
+            p.setInt(9, produto.getDesconto());
+            p.setBoolean(10, true);
+
+            p.execute();
             return (true);
 
         } catch (SQLException ex) {
@@ -159,16 +201,14 @@ use teste;
             return (false);
 
         } finally {
-            
-                if (connection != null) {
-                    connection.close();
-                }
-                if (p != null) {
-                    p.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
+
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+
         }
-     }
+    }
 }
