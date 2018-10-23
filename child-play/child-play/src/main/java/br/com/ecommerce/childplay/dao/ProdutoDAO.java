@@ -108,7 +108,10 @@ public class ProdutoDAO {
 
         } finally {
             //Fechando todas as conexões que foram abertas
-            try {
+            try {create database teste;
+
+use teste;
+
                 if (connection != null) {
                     connection.close();
                 }
@@ -124,4 +127,48 @@ public class ProdutoDAO {
         }
         return lista;
     }
+     
+     
+     public boolean saveProduto(Produto produto){
+      String sql = "INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, "
+                + "categoria, preco, estoque, desconto, enable) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+       
+        Connection connection = null;
+        PreparedStatement p = null;
+    
+          try {
+            connectin = Conexao.obterConexao();
+            p = connection.prepareStatement(sql);
+            p.setStrig(1,produto.getNome());
+            p.setString (2, produto.getMarca());      
+               p.setString (3, produto.getDescricao());
+               p.setString (4, produto.getCaracteristicas());
+               p.setInt (5, produto.getIdade());
+               p.setString (6, produto.getCategoria());
+               p.setDouble (7, produto.getPreco());
+               p.setInt (8,produto.getEstoque());
+               p.setInt(9,produto.getDesconto());
+               p.setBoolean(10, true);
+               
+               p.execute();
+            return (true);
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return (false);
+
+        } finally {
+            
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+        }
+     }
 }
