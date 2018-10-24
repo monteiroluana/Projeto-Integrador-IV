@@ -127,17 +127,51 @@ INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, categoria, 
 
 INSERT INTO IMAGEM (idProduto, imagem, alt) VALUES
 (1,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
-(2,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
-(3,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
-(4,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
-(5,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
-(6,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
-(7,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
-(8,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
-(9,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
-(10,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
-(11,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
-(12,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?");
+(1,"https://i.imgur.com/xqe6RBd.jpg", "Patinho de borracha"),
+(1,"https://i.imgur.com/LNJh1W9.jpg", "Patinho de borracha"),
 
+(2,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
+(2,"https://i.imgur.com/dpXbmkH.jpg", "Cubo mágido unicolor"),
+(2,"https://i.imgur.com/nzc40We.jpg", "Cubo mágido unicolor"),
+
+(3,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
+(3,"https://i.imgur.com/5VQVCyx.jpg", "Seu pai sabe fazer aviões de papel?"),
+(3,"https://i.imgur.com/oVbYcO8.jpg", "Seu pai sabe fazer aviões de papel?"),
+
+(4,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
+(4,"https://i.imgur.com/xqe6RBd.jpg", "Patinho de borracha"),
+(4,"https://i.imgur.com/LNJh1W9.jpg", "Patinho de borracha"),
+
+(5,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
+(5,"https://i.imgur.com/dpXbmkH.jpg", "Cubo mágido unicolor"),
+(5,"https://i.imgur.com/nzc40We.jpg", "Cubo mágido unicolor"),
+
+(6,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
+(6,"https://i.imgur.com/5VQVCyx.jpg", "Seu pai sabe fazer aviões de papel?"),
+(6,"https://i.imgur.com/oVbYcO8.jpg", "Seu pai sabe fazer aviões de papel?"),
+
+(7,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
+(7,"https://i.imgur.com/xqe6RBd.jpg", "Patinho de borracha"),
+(7,"https://i.imgur.com/LNJh1W9.jpg", "Patinho de borracha"),
+
+(8,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
+(8,"https://i.imgur.com/dpXbmkH.jpg", "Cubo mágido unicolor"),
+(8,"https://i.imgur.com/nzc40We.jpg", "Cubo mágido unicolor"),
+
+(9,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
+(9,"https://i.imgur.com/5VQVCyx.jpg", "Seu pai sabe fazer aviões de papel?"),
+(9,"https://i.imgur.com/oVbYcO8.jpg", "Seu pai sabe fazer aviões de papel?"),
+
+(10,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
+(10,"https://i.imgur.com/xqe6RBd.jpg", "Patinho de borracha"),
+(10,"https://i.imgur.com/LNJh1W9.jpg", "Patinho de borracha"),
+
+(11,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
+(11,"https://i.imgur.com/dpXbmkH.jpg", "Cubo mágido unicolor"),
+(11,"https://i.imgur.com/nzc40We.jpg", "Cubo mágido unicolor"),
+
+(12,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
+(12,"https://i.imgur.com/5VQVCyx.jpg", "Seu pai sabe fazer aviões de papel?"),
+(12,"https://i.imgur.com/oVbYcO8.jpg", "Seu pai sabe fazer aviões de papel?");
 
 INSERT INTO `cliente`(`nome`, `email`, `login`, `senha`, `enable`) VALUES ('aoi', 'aoi@aoi.com', 'kunieda', 'kunieda',true);
