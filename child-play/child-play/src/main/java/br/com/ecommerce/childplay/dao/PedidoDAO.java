@@ -14,8 +14,8 @@ import java.util.List;
 public class PedidoDAO {
 
     public static int idGerado;
-    public void savePedido(Pedido pedido, int usuario, int cliente, List<ItemPedido> itens) throws SQLException {
-        String sql = "INSERT INTO PEDIDO (idCliente, idUsuario, enderecoEntrega, tipoPagamento, status) VALUES (?,?,?,?,?)";
+    public String savePedido(Pedido pedido, int cliente, List<ItemPedido> itens) throws SQLException {
+        String sql = "INSERT INTO PEDIDO (idCliente, enderecoEntrega, tipoPagamento, status, protocolo) VALUES (?,?,?,?,?)";
 
         Connection con = null;
         PreparedStatement p = null;
@@ -24,10 +24,10 @@ public class PedidoDAO {
             con = Conexao.getConnection();
             p = con.prepareStatement(sql, p.RETURN_GENERATED_KEYS);
             p.setInt(1, cliente);
-            p.setInt(2, usuario);
-            p.setString(3, pedido.getEnderecoEntrega());
-            p.setString(4, pedido.getTipoPagamento());
-            p.setString(5, pedido.getStatus());
+            p.setString(2, pedido.getEnderecoEntrega());
+            p.setString(3, pedido.getTipoPagamento());
+            p.setString(4, pedido.getStatus());
+            p.setString(5,pedido.getProtocolo());
             
             Timestamp dtNow = new Timestamp(pedido.getDataPedido().getTime());
             
@@ -42,6 +42,7 @@ public class PedidoDAO {
             
             saveItemPedido(itens,idGerado);
  
+            return pedido.getProtocolo();
         } catch (SQLException e) {
 
         } finally {
@@ -52,6 +53,8 @@ public class PedidoDAO {
                 p.close();
             }
         }
+        return null;
+    
     }
     
      public void saveItemPedido(List<ItemPedido>itens, int idPedido) throws SQLException {

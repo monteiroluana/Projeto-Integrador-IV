@@ -10,6 +10,15 @@ public class Pedido {
     private String status;
     private int idUsuario;
     private String tipoPagamento;
+    private String protocolo;
+
+    public String getProtocolo() {
+        return protocolo;
+    }
+
+    public void setProtocolo(String protocolo) {
+        this.protocolo = protocolo;
+    }
 
     public int getIdPedido() {
         return idPedido;

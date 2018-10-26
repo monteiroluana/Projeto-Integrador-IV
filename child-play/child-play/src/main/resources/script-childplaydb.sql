@@ -86,7 +86,8 @@ create table pedido(
     dataPedido          DATE,
     enderecoEntrega     VARCHAR(255),
     tipoPagamento       VARCHAR(255),
-    status              CHAR,
+    status              VARCHAR(30),
+    protocolo           VARCHAR(20),
     CONSTRAINT PK_PEDIDO PRIMARY KEY (idPedido),
     FOREIGN KEY(idCliente)REFERENCES cliente(idCliente),
     FOREIGN KEY(idUsuario)REFERENCES usuario(idUsuario)
