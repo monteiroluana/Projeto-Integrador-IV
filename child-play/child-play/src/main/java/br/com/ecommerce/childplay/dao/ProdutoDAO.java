@@ -15,8 +15,8 @@ public class ProdutoDAO {
     public List<Produto> listProduto() throws ClassNotFoundException, SQLException {
 
         String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
-                + "p.categoria ,p.preco ,p.estoque ,p.desconto, i.imagem, i.alt \n"
-                + "FROM produto as p INNER JOIN imagem as i ON i.idProduto = p.idProduto WHERE enable = ?;";
+                + "p.categoria ,p.preco ,p.estoque ,p.desconto "
+                + "FROM produto as p WHERE enable = ?;";
 
         List<Produto> lista = new ArrayList<>();
 
@@ -75,8 +75,8 @@ public class ProdutoDAO {
     public Produto getProdutoById(int id) throws ClassNotFoundException, SQLException {
 
         String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
-                + "p.categoria ,p.preco ,p.estoque ,p.desconto, i.imagem, i.alt \n"
-                + "FROM produto as p INNER JOIN imagem as i ON i.idProduto = p.idProduto WHERE p.enable = ? AND p.idProduto = ? ;";
+                + "p.categoria ,p.preco ,p.estoque ,p.desconto "
+                + "FROM produto as p WHERE p.enable = ? AND p.idProduto = ? ;";
 
         Produto produto = new Produto();
         Connection connection = null;
