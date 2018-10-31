@@ -4,6 +4,7 @@ import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childplay.model.ResponseEntity;
 import br.com.ecommerce.childplay.service.ClienteService;
 import java.sql.SQLException;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/cliente")
 public class ClienteController {
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain", "application/*"})
     public ResponseEntity saveProduto(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
