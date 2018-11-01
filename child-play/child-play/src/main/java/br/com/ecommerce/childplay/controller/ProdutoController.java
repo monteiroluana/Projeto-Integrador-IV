@@ -5,12 +5,15 @@ import br.com.ecommerce.childplay.model.ResponseEntity;
 import br.com.ecommerce.childplay.service.ProdutoService;
 import java.sql.SQLException;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+
 
 //https://www.youtube.com/watch?v=1wYNFfgrXTI
 @RestController
@@ -58,7 +61,7 @@ public class ProdutoController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity saveProduto(@ModelAttribute("produto") Produto produto) throws ClassNotFoundException, SQLException {
+    public ResponseEntity saveProduto(@RequestBoduy Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
         try {
@@ -70,12 +73,12 @@ public class ProdutoController {
       return re;
     }
       
-    @GetMapping("/form")
-    public ModelAndView abrirForm() {
-        ModelAndView retorno = new ModelAndView("telaTesteProduto")
-                .addObject("produto", new Produto());
-        return retorno;
-    }
+//     @GetMapping("/form")
+//     public ModelAndView abrirForm() {
+//         ModelAndView retorno = new ModelAndView("telaTesteProduto")
+//                 .addObject("produto", new Produto());
+//         return retorno;
+//     }
     
     
 }
