@@ -6,6 +6,16 @@ import java.sql.SQLException;
 
 public class ClienteService {
 
+    public List<Cliente> listClientes() throws ClassNotFoundException, SQLException {
+        ClienteDAO clienteDao = new ClienteDAO();
+        return new ArrayList<>(clienteDao.listClientes());
+    }
+    
+    public Cliente getClienteByLoginSenha() throws ClassNotFoundException, SQLException {
+        ClienteDAO clienteDao = new ClienteDAO();
+        return clienteDao.getClienteByLoginSenha());
+    }
+   
     public String saveCliente(Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
