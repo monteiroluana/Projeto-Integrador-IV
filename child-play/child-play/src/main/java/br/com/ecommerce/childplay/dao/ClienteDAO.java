@@ -64,8 +64,7 @@ public class ClienteDAO {
     public Cliente getClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM Cliente WHERE enable = ? and login = ? and senha = ?";
 
-        List<Cliente> lista = new ArrayList<>();
-
+        Cliente cliente = new Cliente();
         Connection connection = null;
         ResultSet rs = null;
         PreparedStatement p = null;
@@ -80,8 +79,7 @@ public class ClienteDAO {
             rs = p.executeQuery();
 
             //Enquanto tiver linha de resultado execute esse trecho
-            while (rs.next()) {
-                Cliente cliente = new Cliente();
+            if (rs.next()) {
                 Cliente.setIdCliente(rs.getInt("idCliente"));
                 Cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
@@ -90,9 +88,7 @@ public class ClienteDAO {
                 cliente.setString(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
                 Cliente.setLogin(rs.getString("login"));
-                Cliente.setSenha(rs.getString("senha"));
- 
-                lista.add(Cliente);
+                Cliente.setSenha(rs.getString("senha")); 
             }
         } catch (SQLException e) {
 
@@ -112,7 +108,7 @@ public class ClienteDAO {
 
             }
         }
-        return lista;
+        return cliente;
     }
     
     
