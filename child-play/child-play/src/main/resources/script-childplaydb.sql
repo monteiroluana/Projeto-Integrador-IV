@@ -88,6 +88,7 @@ create table pedido(
     tipoPagamento       VARCHAR(255),
     status              VARCHAR(30),
     protocolo           VARCHAR(20),
+    valorTotal          DOUBLE,
     CONSTRAINT PK_PEDIDO PRIMARY KEY (idPedido),
     FOREIGN KEY(idCliente)REFERENCES cliente(idCliente),
     FOREIGN KEY(idUsuario)REFERENCES usuario(idUsuario)
