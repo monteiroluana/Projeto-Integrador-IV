@@ -125,6 +125,62 @@ public class ProdutoDAO {
         return produto;
     }
 
+    public List<Produto> getProdutoByNome(String nome) throws ClassNotFoundException, SQLException {
+
+        String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
+                + "p.categoria ,p.preco ,p.estoque ,p.desconto "
+                + "FROM produto as p WHERE p.enable = ? AND p.nome = ? ;";
+
+        List<Produto> lista = new ArrayList<>();
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setBoolean(1, true);
+            p.setString(2, "%"+nome+"%");
+            //Armazenando os resultados
+            rs = p.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setIdProduto(rs.getInt("idProduto"));
+                produto.setNome(rs.getString("nome"));
+                produto.setMarca(rs.getString("marca"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setCaracteristicas(rs.getString("caracteristicas"));
+                produto.setCategoria(rs.getString("categoria"));
+                produto.setIdade(rs.getInt("idade"));
+                produto.setPreco(rs.getDouble("preco"));
+                produto.setEstoque(rs.getInt("estoque"));
+                produto.setDesconto(rs.getInt("desconto"));
+
+                List<Imagem> imgList = getImagemByProdutoId(produto.getIdProduto());
+                produto.setImagem(imgList);
+                
+                lista.add(produto);
+            }
+        } catch (SQLException e) {
+
+        } finally {
+            //Fechando todas as conexões que foram abertas
+
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+
+        }
+        return produto;
+    }    
+    
     public List<Imagem> getImagemByProdutoId(int idProduto) throws SQLException {
         String sql = "select i.idImagem, i.idProduto, i.imagem, i.alt from "
                 + "imagem as i inner join produto on i.idProduto = produto.idProduto "
