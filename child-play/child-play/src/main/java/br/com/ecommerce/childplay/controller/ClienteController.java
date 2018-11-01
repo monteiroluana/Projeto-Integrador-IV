@@ -17,17 +17,38 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/cliente")
 public class ClienteController {
     
+    @GetMapping("/list-cliente")
+    public ResponseEntity listClientes() throws ClassNotFoundException, SQLException {
+        ClienteService service = new ClienteService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.listClientes());
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+    }
+    
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/auth", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity getClienteByLoginSenha(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
+        ClienteService service = new ClienteService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.getClienteByLoginSenha(cliente.getLogin(), cliente.getSenha()));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+    }
+      
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity saveProduto(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
-        System.out.println("\n --------");
-        System.out.println("Cliente: "+cliente);
-         System.out.println("resposta URL:cliente/save: " + cliente.getNome());
-         System.out.println("resposta URL:cliente/save: " + cliente.getLogin());
-         System.out.println("resposta URL:cliente/save: " + cliente.getSenha());
-         System.out.println("resposta URL:cliente/save: " + cliente.getCpf());
         try {
             re = ResponseEntity.createSuccess();
             re.setData(service.saveCliente(cliente));
@@ -38,10 +59,10 @@ public class ClienteController {
        
     }
 
-    @GetMapping("/form")
-    public ModelAndView abrirForm() {
-        ModelAndView retorno = new ModelAndView("telaTesteCliente")
-                .addObject("cliente", new Cliente());
-        return retorno;
-    }
+//     @GetMapping("/form")
+//     public ModelAndView abrirForm() {
+//         ModelAndView retorno = new ModelAndView("telaTesteCliente")
+//                 .addObject("cliente", new Cliente());
+//         return retorno;
+//     }
 }
