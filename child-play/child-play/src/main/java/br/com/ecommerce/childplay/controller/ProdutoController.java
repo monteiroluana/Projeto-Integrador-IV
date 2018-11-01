@@ -56,7 +56,8 @@ public class ProdutoController {
         return re;
     }
 
-    @PostMapping("/save")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity saveProduto(@ModelAttribute("produto") Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
