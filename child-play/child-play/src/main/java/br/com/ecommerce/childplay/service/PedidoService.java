@@ -14,29 +14,10 @@ import java.util.List;
 
 public class PedidoService {
 
-    public String savePedido() throws SQLException {
-        List<ItemPedido> list = new ArrayList<>();
-        ItemPedido item = new ItemPedido();
-        item.setIdProduto(1);
-        item.setQuantidade(1);
-        //item.setPreco(84.6);
-        list.add(item);
-
-//        for (ItemPedido itemPedido : list) {
-//            System.out.println("itemPedido: "+ itemPedido.getIdProduto());
-//        }
-        Pedido pedido = new Pedido();
-
-        Date date = new Date(System.currentTimeMillis());
-        //pedido.setDataPedido(date);
-      //  System.out.println(pedido.getDataPedido());
-        pedido.setEnderecoEntrega("haha 5");
-        pedido.setTipoPagamento("cartão");
-        pedido.setStatus("d");
+    public String savePedido(Pedido pedido) throws SQLException {
         pedido.setProtocolo(gerarProtocolo());
-
         PedidoDAO pedidoDao = new PedidoDAO();
-        return pedidoDao.savePedido(pedido, list, 2);
+        return pedidoDao.savePedido(pedido);
 //        return gerarProtocolo();
     }
 

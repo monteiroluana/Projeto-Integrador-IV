@@ -15,7 +15,7 @@ public class PedidoDAO {
 
     public static int idGerado;
 
-    public String savePedido(Pedido pedido, List<ItemPedido> itens, int idCliente) throws SQLException {
+    public String savePedido(Pedido pedido) throws SQLException {
         String sql = "INSERT INTO PEDIDO (idCliente, enderecoEntrega, tipoPagamento, status, protocolo, dataPedido) VALUES (?,?,?,?,?,?)";
 
         Connection con = null;
@@ -24,7 +24,7 @@ public class PedidoDAO {
         try {
             con = Conexao.getConnection();
             p = con.prepareStatement(sql, p.RETURN_GENERATED_KEYS);
-            p.setInt(1, idCliente);
+            p.setInt(1, pedido.getIdCliente());
             p.setString(2, pedido.getEnderecoEntrega());
             p.setString(3, pedido.getTipoPagamento());
             p.setString(4, pedido.getStatus());
@@ -41,7 +41,7 @@ public class PedidoDAO {
                 idGerado = rs.getInt(1);
             }
 
-            saveItemPedido(itens, idGerado);
+            saveItemPedido(pedido.getItens(), idGerado);
 
             return pedido.getProtocolo();
         } catch (SQLException e) {
@@ -70,7 +70,6 @@ public class PedidoDAO {
             //INSERINDO ITEM-PEDIDO
             p = con.prepareStatement(sql);
             for (ItemPedido iten : itens) {
-                System.out.println("dentro do for saveItemPedido: " + idPedido + " | " + iten.getIdProduto());
                 p.setInt(1, idPedido);
                 p.setInt(2, iten.getIdProduto());
                 p.setInt(3, iten.getQuantidade());

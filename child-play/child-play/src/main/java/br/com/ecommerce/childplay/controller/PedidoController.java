@@ -8,6 +8,7 @@ import br.com.ecommerce.childplay.model.Pedido;
 import br.com.ecommerce.childplay.model.ResponseEntity;
 import br.com.ecommerce.childplay.service.PedidoService;
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,24 +20,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pedido")
 public class PedidoController {
 
-    @GetMapping("/teste")
-    public ResponseEntity haha() throws SQLException, ClassNotFoundException {
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity pedido(@RequestBody Pedido pedido) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.savePedido());
+            re.setData(service.savePedido(pedido));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
         return re;
     }
-
+    
+    
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public void pedido(@RequestBody Pedido pedido, ItemPedido itens) throws SQLException, ClassNotFoundException {
-
-        System.out.println("pedido: "+pedido.getEnderecoEntrega());
-        System.out.println("itens: "+itens.getQuantidade());
+    @RequestMapping(value = "/teste", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public void teste(@RequestBody Pedido pedido) throws SQLException, ClassNotFoundException {
+        List<ItemPedido> lista = pedido.getItens();
+        
+        for (ItemPedido itemPedido : lista) {
+            System.out.println(itemPedido.getIdProduto());
+        }
     }
 }

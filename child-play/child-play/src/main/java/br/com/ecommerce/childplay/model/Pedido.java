@@ -1,6 +1,7 @@
 package br.com.ecommerce.childplay.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Pedido {
     private int idPedido;
@@ -11,6 +12,15 @@ public class Pedido {
     private int idUsuario;
     private String tipoPagamento;
     private String protocolo;
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
+    }
+    private List<ItemPedido> itens;
 
     public String getProtocolo() {
         return protocolo;
