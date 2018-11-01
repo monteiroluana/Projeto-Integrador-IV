@@ -61,12 +61,11 @@ public class UsuarioDAO {
     }
     
     
-    public List<Usuario> getUsuarioById(int id) throws ClassNotFoundException, SQLException {
+    public UsuariogetUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
 
-        String sql = "SELECT * FROM usuario WHERE enable = ?  and idUsuario =?";
-
-        List<Usuario> lista = new ArrayList<>();
-
+        String sql = "SELECT * FROM usuario WHERE enable = ?  and login = ? and senha = ?";
+        
+        Usuario usuario = new Usuario();
         Connection connection = null;
         ResultSet rs = null;
         PreparedStatement p = null;
@@ -75,13 +74,13 @@ public class UsuarioDAO {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
             p.setBoolean(1, true);
-            p.setInt(2, id);
+            p.setString(2, login);
+            p.setString(3, senha);
             //Armazenando os resultados
             rs = p.executeQuery();
 
             //Enquanto tiver linha de resultado execute esse trecho
-            while (rs.next()) {
-                Usuario usuario = new Usuario();
+            if (rs.next()) {
                 usuario.setIdUsuario(rs.getInt("idUsuario"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setLogin(rs.getString("login"));
@@ -108,6 +107,42 @@ public class UsuarioDAO {
 
             }
         }
-        return lista;
+        return usuario;
     }
+    
+    
+    public boolean saveUsuario (Usuario usuario) throws SQLException {
+        String sql = "INSERT INTO USUARIO (nome, login, senha, funcao) VALUES (?,?,?,?,?)";
+
+        Connection connection = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setString(1, usuario.getNome());
+            p.setString(2, usuario.getLogin());
+            p.setString(3, usuario.getSenha());
+            p.setString(4, usuario.getFuncao());
+            p.setBoolean(5, true);
+
+            p.execute();
+            return (true);
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return (false);
+
+        } finally {
+
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+
+        }
+    }
+    
 }
