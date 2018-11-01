@@ -61,7 +61,7 @@ public class UsuarioDAO {
     }
     
     
-    public UsuariogetUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
+    public Usuario getUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
 
         String sql = "SELECT * FROM usuario WHERE enable = ?  and login = ? and senha = ?";
         
