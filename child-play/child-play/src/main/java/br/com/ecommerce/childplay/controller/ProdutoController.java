@@ -42,6 +42,19 @@ public class ProdutoController {
         }
         return re;
     }
+    
+    @GetMapping("/nome/{produto_nome}")
+    public ResponseEntity produtoById(@PathVariable("produto_nome") int produtoNome) throws ClassNotFoundException, SQLException {
+        ProdutoService service = new ProdutoService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.getProdutoByNome(produtoNome));
+        } catch (ClassNotFoundException | SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+    }
 
     @PostMapping("/save")
     public ResponseEntity saveProduto(@ModelAttribute("produto") Produto produto) throws ClassNotFoundException, SQLException {
