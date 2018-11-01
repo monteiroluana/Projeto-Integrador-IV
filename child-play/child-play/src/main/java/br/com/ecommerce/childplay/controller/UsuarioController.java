@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -24,6 +28,35 @@ public class UsuarioController {
         }
         return re;
     }
+    
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/auth", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity getUsuarioByLoginSenha(@RequestBody Usuario usuario) throws ClassNotFoundException, SQLException {
+        UsuarioService service = new UsuarioService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.getUsuarioByLoginSenha(usuario.getLogin(), usuario.getSenha()));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+    }
+    
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity saveUsuario(@RequestBody Usuario usuario) throws ClassNotFoundException, SQLException {
+        UsuarioService service = new UsuarioService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.saveUsuario(usuario));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+    }
+
 
     //POR FAVOR NÃO APAGUEM ISSO
     /* @GetMapping("/get-usuarioById/{id}")
