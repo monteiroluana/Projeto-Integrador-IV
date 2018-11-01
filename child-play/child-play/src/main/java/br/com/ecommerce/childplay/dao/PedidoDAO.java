@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoDAO {
@@ -16,8 +17,10 @@ public class PedidoDAO {
     public static int idGerado;
 
     public String savePedido(Pedido pedido) throws SQLException {
-        String sql = "INSERT INTO PEDIDO (idCliente, enderecoEntrega, tipoPagamento, status, protocolo, dataPedido) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO PEDIDO (idCliente, enderecoEntrega, tipoPagamento, status, protocolo, dataPedido, valorTotal) VALUES (?,?,?,?,?,?,?)";
 
+        Timestamp times = new Timestamp(System.currentTimeMillis());
+        Date date = new Date(times.getTime());
         Connection con = null;
         PreparedStatement p = null;
 
@@ -29,11 +32,8 @@ public class PedidoDAO {
             p.setString(3, pedido.getTipoPagamento());
             p.setString(4, pedido.getStatus());
             p.setString(5, pedido.getProtocolo());
-
-            Timestamp times = new Timestamp(System.currentTimeMillis());
-            Date date = new Date(times.getTime());
-
             p.setDate(6, date);
+            p.setDouble(7, pedido.getValorTotal());
             p.execute();
 
             ResultSet rs = p.getGeneratedKeys();
@@ -88,5 +88,44 @@ public class PedidoDAO {
                 p.close();
             }
         }
+    }
+
+    public List<Pedido> listPedidos() throws SQLException {
+
+        String sql = "select * from pedido";
+        Connection con = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+
+        List<Pedido> list = new ArrayList<>();
+        try {
+            con = Conexao.getConnection();
+            p = con.prepareStatement(sql);
+            rs = p.executeQuery();
+
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("idPedido"));
+                pedido.setIdCliente(rs.getInt("idCliente"));
+                pedido.setDataPedido(rs.getDate("dataPedido"));
+                pedido.setEnderecoEntrega(rs.getString("enderecoEntrega"));
+                pedido.setValorTotal(rs.getDouble("valorTotal"));
+                pedido.setTipoPagamento(rs.getString("tipoPagamento"));
+                pedido.setStatus(rs.getString("status"));
+                list.add(pedido);
+
+            }
+
+        } catch (SQLException e) {
+
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+        return list;
     }
 }

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class Pedido {
+
     private int idPedido;
     private Date dataPedido;
     private int idCliente;
@@ -12,6 +13,16 @@ public class Pedido {
     private int idUsuario;
     private String tipoPagamento;
     private String protocolo;
+    private List<ItemPedido> itens;
+    private double valorTotal;
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
 
     public List<ItemPedido> getItens() {
         return itens;
@@ -20,7 +31,6 @@ public class Pedido {
     public void setItens(List<ItemPedido> itens) {
         this.itens = itens;
     }
-    private List<ItemPedido> itens;
 
     public String getProtocolo() {
         return protocolo;

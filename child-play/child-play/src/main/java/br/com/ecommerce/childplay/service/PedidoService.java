@@ -16,9 +16,21 @@ public class PedidoService {
 
     public String savePedido(Pedido pedido) throws SQLException {
         pedido.setProtocolo(gerarProtocolo());
+        List<ItemPedido> itens = pedido.getItens();
+
+        double total = 0; //Somando o valor total dos itens
+        for (ItemPedido iten : itens) {
+            total = total + iten.getPreco();
+        }
+
+        pedido.setValorTotal(total);
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.savePedido(pedido);
-//        return gerarProtocolo();
+    }
+
+    public List<Pedido> listPedidos() throws SQLException {
+        PedidoDAO pedidoDao = new PedidoDAO();
+        return pedidoDao.listPedidos();
     }
 
     public static String gerarProtocolo() {
