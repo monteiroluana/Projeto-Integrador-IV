@@ -25,24 +25,19 @@ public class PedidoService {
 //        for (ItemPedido itemPedido : list) {
 //            System.out.println("itemPedido: "+ itemPedido.getIdProduto());
 //        }
-        Cliente cliente = new Cliente();
-        cliente.setIdCliente(1);
-
-        Usuario usuario = new Usuario();
-        usuario.setIdUsuario(2);
-
         Pedido pedido = new Pedido();
 
         Date date = new Date(System.currentTimeMillis());
-        pedido.setDataPedido(date);
-        System.out.println(pedido.getDataPedido());
+        //pedido.setDataPedido(date);
+      //  System.out.println(pedido.getDataPedido());
         pedido.setEnderecoEntrega("haha 5");
         pedido.setTipoPagamento("cartão");
         pedido.setStatus("d");
         pedido.setProtocolo(gerarProtocolo());
 
         PedidoDAO pedidoDao = new PedidoDAO();
-        return pedidoDao.savePedido(pedido, cliente.getIdCliente(), list);
+        return pedidoDao.savePedido(pedido, list, 2);
+//        return gerarProtocolo();
     }
 
     public static String gerarProtocolo() {

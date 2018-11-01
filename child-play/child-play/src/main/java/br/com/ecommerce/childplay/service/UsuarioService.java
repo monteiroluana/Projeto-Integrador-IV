@@ -12,12 +12,13 @@ public class UsuarioService {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         return new ArrayList<>(usuarioDao.listUsuarios());
     }
-    
-    public Usuario getUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
+
+    public boolean authUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         UsuarioDAO usuarioDao = new UsuarioDAO();
-        return usuarioDao.getUsuarioByLoginSenha(login, senha);
+        return usuarioDao.authUsuarioByLoginSenha(login, senha);
+       
     }
-    
+
     public String saveUsuario(Usuario usuario) throws ClassNotFoundException, SQLException {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         String msg = null;

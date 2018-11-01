@@ -32,12 +32,12 @@ public class UsuarioController {
     
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/auth", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity getUsuarioByLoginSenha(@RequestBody Usuario usuario) throws ClassNotFoundException, SQLException {
+    public ResponseEntity authUsuarioByLoginSenha(@RequestBody Usuario usuario) throws ClassNotFoundException, SQLException {
         UsuarioService service = new UsuarioService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.getUsuarioByLoginSenha(usuario.getLogin(), usuario.getSenha()));
+            re.setData(service.authUsuarioByLoginSenha(usuario.getLogin(), usuario.getSenha()));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }

@@ -1,6 +1,6 @@
 package br.com.ecommerce.childplay.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Pedido {
     private int idPedido;

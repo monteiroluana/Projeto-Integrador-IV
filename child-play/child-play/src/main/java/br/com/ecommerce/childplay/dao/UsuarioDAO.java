@@ -61,7 +61,7 @@ public class UsuarioDAO {
     }
     
     
-    public Usuario getUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
+    public boolean authUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
 
         String sql = "SELECT * FROM usuario WHERE enable = ?  and login = ? and senha = ?";
         
@@ -85,7 +85,8 @@ public class UsuarioDAO {
                 usuario.setNome(rs.getString("nome"));
                 usuario.setLogin(rs.getString("login"));
                 usuario.setSenha(rs.getString("senha"));
-                usuario.setFuncao(rs.getString("funcao"));         
+                usuario.setFuncao(rs.getString("funcao"));
+                return true;
             }
         } catch (SQLException e) {
 
@@ -105,12 +106,12 @@ public class UsuarioDAO {
 
             }
         }
-        return usuario;
+        return false;
     }
     
     
     public boolean saveUsuario (Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO USUARIO (nome, login, senha, funcao) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO USUARIO (nome, login, senha, funcao, enable) VALUES (?,?,?,?,?)";
 
         Connection connection = null;
         PreparedStatement p = null;

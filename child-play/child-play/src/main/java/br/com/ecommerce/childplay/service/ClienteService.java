@@ -13,9 +13,9 @@ public class ClienteService {
         return new ArrayList<>(clienteDao.listClientes());
     }
     
-    public Cliente getClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
+    public boolean authClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
-        return clienteDao.getClienteByLoginSenha(login, senha);
+        return clienteDao.authClienteByLoginSenha(login, senha);
     }
    
     public String saveCliente(Cliente cliente) throws ClassNotFoundException, SQLException {

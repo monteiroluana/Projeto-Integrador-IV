@@ -63,7 +63,7 @@ public class ClienteDAO {
         return lista;
     }
     
-    public Cliente getClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
+    public boolean authClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM Cliente WHERE enable = ? and login = ? and senha = ?";
 
         Cliente cliente = new Cliente();
@@ -75,8 +75,8 @@ public class ClienteDAO {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
             p.setBoolean(1, true);
-            p.setString(2, cliente.getLogin());
-            p.setString(3, cliente.getSenha());
+            p.setString(2, login);
+            p.setString(3, senha);
             //Armazenando os resultados
             rs = p.executeQuery();
 
@@ -90,7 +90,8 @@ public class ClienteDAO {
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setLogin(rs.getString("login"));
-                cliente.setSenha(rs.getString("senha")); 
+                cliente.setSenha(rs.getString("senha"));
+                return true;
             }
         } catch (SQLException e) {
 
@@ -110,7 +111,7 @@ public class ClienteDAO {
 
             }
         }
-        return cliente;
+        return false;
     }
     
     

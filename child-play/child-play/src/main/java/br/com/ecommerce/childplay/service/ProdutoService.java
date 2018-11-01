@@ -22,7 +22,7 @@ public class ProdutoService {
         ProdutoDAO produtoDao = new ProdutoDAO();
         return produtoDao.getProdutoByNome(nome);
     }
-    
+
     public String saveProduto(Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoDAO produtoDao = new ProdutoDAO();
         String msg = null;

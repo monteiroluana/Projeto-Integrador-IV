@@ -32,12 +32,12 @@ public class ClienteController {
     
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/auth", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity getClienteByLoginSenha(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
+    public ResponseEntity authClienteByLoginSenha(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.getClienteByLoginSenha(cliente.getLogin(), cliente.getSenha()));
+            re.setData(service.authClienteByLoginSenha(cliente.getLogin(), cliente.getSenha()));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }

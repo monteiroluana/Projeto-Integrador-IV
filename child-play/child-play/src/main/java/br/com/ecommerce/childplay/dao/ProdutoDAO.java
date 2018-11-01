@@ -129,7 +129,7 @@ public class ProdutoDAO {
 
         String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
                 + "p.categoria ,p.preco ,p.estoque ,p.desconto "
-                + "FROM produto as p WHERE p.enable = ? AND p.nome = ? ;";
+                + "FROM produto as p WHERE p.enable = ? AND p.nome LIKE ? ;";
 
         List<Produto> lista = new ArrayList<>();
         Connection connection = null;
@@ -137,6 +137,7 @@ public class ProdutoDAO {
         PreparedStatement p = null;
 
         try {
+            System.out.println("Produto DAO");
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
             p.setBoolean(1, true);
@@ -159,7 +160,6 @@ public class ProdutoDAO {
 
                 List<Imagem> imgList = getImagemByProdutoId(produto.getIdProduto());
                 produto.setImagem(imgList);
-                
                 lista.add(produto);
             }
         } catch (SQLException e) {

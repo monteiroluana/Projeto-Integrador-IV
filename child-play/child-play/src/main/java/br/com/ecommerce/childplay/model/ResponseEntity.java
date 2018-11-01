@@ -5,21 +5,15 @@ import java.io.Serializable;
 
 @JsonInclude(content = JsonInclude.Include.NON_NULL, value = JsonInclude.Include.NON_DEFAULT)
 public class ResponseEntity implements Serializable {
+    private Object data;
+    private Response response;
 
+    
     public static class Response {
 
         private static final long serialVersionUID = -5393192543608035163L;
 
         private String returnMsg;
-        private int success;
-
-        public int getSuccess() {
-            return success;
-        }
-
-        public void setSuccess(int success) {
-            this.success = success;
-        }
 
         public String getReturnMsg() {
             return returnMsg;
@@ -32,27 +26,23 @@ public class ResponseEntity implements Serializable {
         public Response() {
         }
 
-        public Response(int success, String returnMsg) {
-            this.success = success;
-            this.returnMsg = returnMsg;
+        public Response( String returnMsg) {
+                      this.returnMsg = returnMsg;
             
         }
-
+        
         public static Response createSuccess() {
-            return new Response(0, "Success.");
+            return new Response("Success.");
         }
 
         public static Response createUnknownError() {
-            return new Response(1, "Unknown error.");
+            return new Response("Error.");
         }
 
         public static Response createError(Exception e) {
-            return new Response(1, e.getMessage());
+            return new Response(e.getMessage());
         }
     }
-
-    private Object data;
-    private Response response;
 
     public ResponseEntity() {
     }
@@ -61,8 +51,8 @@ public class ResponseEntity implements Serializable {
         this.response = response;
     }
 
-    public ResponseEntity(int success, String returnMsg) {
-        this.response = new Response(success,returnMsg);
+    public ResponseEntity(String returnMsg) {
+        this.response = new Response(returnMsg);
     }
 
     public static ResponseEntity createSuccess() {
