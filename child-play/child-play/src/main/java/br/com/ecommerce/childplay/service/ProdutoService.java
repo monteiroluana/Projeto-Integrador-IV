@@ -18,6 +18,11 @@ public class ProdutoService {
         return produtoDao.getProdutoById(id);
     }
 
+    public List<Produto> getProdutoByNome(String nome) throws ClassNotFoundException, SQLException {
+        ProdutoDAO produtoDao = new ProdutoDAO();
+        return produtoDao.getProdutoByNome(nome);
+    }
+    
     public String saveProduto(Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoDAO produtoDao = new ProdutoDAO();
         String msg = null;
