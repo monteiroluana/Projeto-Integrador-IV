@@ -13,8 +13,20 @@ public class UsuarioService {
         return new ArrayList<>(usuarioDao.listUsuarios());
     }
     
-    public List<Usuario> getUsuarioById(int id) throws ClassNotFoundException, SQLException {
+    public Usuario getUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         UsuarioDAO usuarioDao = new UsuarioDAO();
-        return new ArrayList<>(usuarioDao.getUsuarioById(id));
+        return new usuarioDao.getUsuarioById(login, senha);
     }
+    
+    public String saveUsuario(Usuario usuario) throws ClassNotFoundException, SQLException {
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        String msg = null;
+        if (usuarioDao.saveUsuario(usuario)) {
+            msg = "Usuário foi inserido com Sucesso!";
+        } else {
+            msg = "Falha ao inserir o Usuário!";
+        }
+        return msg;
+    }
+
 }
