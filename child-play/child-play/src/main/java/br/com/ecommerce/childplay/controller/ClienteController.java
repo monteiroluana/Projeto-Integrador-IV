@@ -4,6 +4,7 @@ import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childplay.model.ResponseEntity;
 import br.com.ecommerce.childplay.service.ClienteService;
 import java.sql.SQLException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,12 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
-
-    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain", "application/*"})
+    
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity saveProduto(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
         System.out.println("\n --------");
+        System.out.println("Cliente: "+cliente);
          System.out.println("resposta URL:cliente/save: " + cliente.getNome());
          System.out.println("resposta URL:cliente/save: " + cliente.getLogin());
          System.out.println("resposta URL:cliente/save: " + cliente.getSenha());
