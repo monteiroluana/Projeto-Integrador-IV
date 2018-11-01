@@ -4,8 +4,10 @@ import br.com.ecommerce.childPlay.conexao.Conexao;
 import br.com.ecommerce.childPlay.model.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO {
 
@@ -28,17 +30,17 @@ public class ClienteDAO {
             //Enquanto tiver linha de resultado execute esse trecho
             while (rs.next()) {
                 Cliente cliente = new Cliente();
-                Cliente.setIdCliente(rs.getInt("idCliente"));
-                Cliente.setNome(rs.getString("nome"));
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setDataNasc(rs.getDate("dataNasc"));
-                cliente.setStringGenero(rs.getString("genero"));
-                cliente.setString(rs.getString("telefone"));
+                cliente.setGenero(rs.getString("genero"));
+                cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
-                Cliente.setLogin(rs.getString("login"));
-                Cliente.setSenha(rs.getString("senha"));
+                cliente.setLogin(rs.getString("login"));
+                cliente.setSenha(rs.getString("senha"));
  
-                lista.add(Cliente);
+                lista.add(cliente);
             }
         } catch (SQLException e) {
 
@@ -80,15 +82,15 @@ public class ClienteDAO {
 
             //Enquanto tiver linha de resultado execute esse trecho
             if (rs.next()) {
-                Cliente.setIdCliente(rs.getInt("idCliente"));
-                Cliente.setNome(rs.getString("nome"));
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setDataNasc(rs.getDate("dataNasc"));
-                cliente.setStringGenero(rs.getString("genero"));
-                cliente.setString(rs.getString("telefone"));
+                cliente.setGenero(rs.getString("genero"));
+                cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
-                Cliente.setLogin(rs.getString("login"));
-                Cliente.setSenha(rs.getString("senha")); 
+                cliente.setLogin(rs.getString("login"));
+                cliente.setSenha(rs.getString("senha")); 
             }
         } catch (SQLException e) {
 

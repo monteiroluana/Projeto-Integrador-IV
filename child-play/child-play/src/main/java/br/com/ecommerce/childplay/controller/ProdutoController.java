@@ -47,7 +47,7 @@ public class ProdutoController {
     }
     
     @GetMapping("/nome/{produto_nome}")
-    public ResponseEntity produtoById(@PathVariable("produto_nome") int produtoNome) throws ClassNotFoundException, SQLException {
+    public ResponseEntity produtoById(@PathVariable("produto_nome") String produtoNome) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
         try {
@@ -61,7 +61,7 @@ public class ProdutoController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity saveProduto(@RequestBoduy Produto produto) throws ClassNotFoundException, SQLException {
+    public ResponseEntity saveProduto(@RequestBody Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
         try {

@@ -1,5 +1,6 @@
 package br.com.ecommerce.childplay.controller;
 
+import br.com.ecommerce.childPlay.model.Usuario;
 import br.com.ecommerce.childPlay.service.UsuarioService;
 import br.com.ecommerce.childplay.model.ResponseEntity;
 import java.sql.SQLException;

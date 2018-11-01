@@ -3,6 +3,8 @@ package br.com.ecommerce.childplay.service;
 import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childplay.dao.ClienteDAO;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteService {
 
@@ -11,9 +13,9 @@ public class ClienteService {
         return new ArrayList<>(clienteDao.listClientes());
     }
     
-    public Cliente getClienteByLoginSenha() throws ClassNotFoundException, SQLException {
+    public Cliente getClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
-        return clienteDao.getClienteByLoginSenha());
+        return clienteDao.getClienteByLoginSenha(login, senha);
     }
    
     public String saveCliente(Cliente cliente) throws ClassNotFoundException, SQLException {

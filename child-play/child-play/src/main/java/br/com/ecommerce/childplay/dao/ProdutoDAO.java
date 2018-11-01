@@ -178,7 +178,7 @@ public class ProdutoDAO {
             }
 
         }
-        return produto;
+        return lista;
     }    
     
     public List<Imagem> getImagemByProdutoId(int idProduto) throws SQLException {

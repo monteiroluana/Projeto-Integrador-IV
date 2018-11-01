@@ -15,7 +15,7 @@ public class UsuarioService {
     
     public Usuario getUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         UsuarioDAO usuarioDao = new UsuarioDAO();
-        return new usuarioDao.getUsuarioById(login, senha);
+        return usuarioDao.getUsuarioByLoginSenha(login, senha);
     }
     
     public String saveUsuario(Usuario usuario) throws ClassNotFoundException, SQLException {

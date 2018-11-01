@@ -85,9 +85,7 @@ public class UsuarioDAO {
                 usuario.setNome(rs.getString("nome"));
                 usuario.setLogin(rs.getString("login"));
                 usuario.setSenha(rs.getString("senha"));
-                usuario.setFuncao(rs.getString("funcao"));
-                
-                lista.add(usuario);
+                usuario.setFuncao(rs.getString("funcao"));         
             }
         } catch (SQLException e) {
 
