@@ -112,10 +112,11 @@ public class PedidoDAO {
                 pedido.setValorTotal(rs.getDouble("valorTotal"));
                 pedido.setTipoPagamento(rs.getString("tipoPagamento"));
                 pedido.setStatus(rs.getString("status"));
-                
+                pedido.setProtocolo(rs.getString("protocolo"));
+
                 List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
                 pedido.setItens(itens);
-                
+
                 list.add(pedido);
 
             }
@@ -132,8 +133,49 @@ public class PedidoDAO {
         }
         return list;
     }
-    
-    
+
+    public Pedido getPedidosByProtocolo(String protocolo) throws SQLException {
+
+        String sql = "select * from pedido where protocolo = ?";
+        Connection con = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+        Pedido pedido = new Pedido();
+        
+        try {
+            con = Conexao.getConnection();
+            p = con.prepareStatement(sql);
+            p.setString(1, protocolo);
+            rs = p.executeQuery();
+
+            if (rs.next()) {
+
+                pedido.setIdPedido(rs.getInt("idPedido"));
+                pedido.setIdCliente(rs.getInt("idCliente"));
+                pedido.setDataPedido(rs.getDate("dataPedido"));
+                pedido.setEnderecoEntrega(rs.getString("enderecoEntrega"));
+                pedido.setValorTotal(rs.getDouble("valorTotal"));
+                pedido.setTipoPagamento(rs.getString("tipoPagamento"));
+                pedido.setStatus(rs.getString("status"));
+                pedido.setProtocolo(rs.getString("protocolo"));
+
+                List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
+                pedido.setItens(itens);     
+            }
+
+        } catch (SQLException e) {
+
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+        return pedido;
+    }
+
     public List<ItemPedido> getItensPedido(int idPedido) throws SQLException {
         String sql = "select idPedido, idProduto, quantidade, preco from item_pedido where idPedido = ?;";
 

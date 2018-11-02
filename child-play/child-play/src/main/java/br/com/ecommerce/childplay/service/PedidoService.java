@@ -33,6 +33,11 @@ public class PedidoService {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.listPedidos();
     }
+    
+     public Pedido getPedidosByProtocolo(String protocolo) throws SQLException {
+        PedidoDAO pedidoDao = new PedidoDAO();
+        return pedidoDao.getPedidosByProtocolo(protocolo);
+    }
 
     public static String gerarProtocolo() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/ddHH:mm:ss"); //formato da data
