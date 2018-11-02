@@ -112,6 +112,10 @@ public class PedidoDAO {
                 pedido.setValorTotal(rs.getDouble("valorTotal"));
                 pedido.setTipoPagamento(rs.getString("tipoPagamento"));
                 pedido.setStatus(rs.getString("status"));
+                
+                List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
+                pedido.setItens(itens);
+                
                 list.add(pedido);
 
             }
@@ -127,5 +131,49 @@ public class PedidoDAO {
             }
         }
         return list;
+    }
+    
+    
+    public List<ItemPedido> getItensPedido(int idPedido) throws SQLException {
+        String sql = "select idPedido, idProduto, quantidade, preco from item_pedido where idPedido = ?;";
+
+        List<ItemPedido> lista = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setInt(1, idPedido);
+            rs = p.executeQuery();
+
+            while (rs.next()) {
+                ItemPedido item = new ItemPedido();
+                item.setIdPedido(rs.getInt("idPedido"));
+                item.setIdProduto(rs.getInt("idProduto"));
+                item.setPreco(rs.getDouble("preco"));
+                item.setQuantidade(rs.getInt("quantidade"));
+                lista.add(item);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+
+        } finally {
+
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return lista;
+
     }
 }

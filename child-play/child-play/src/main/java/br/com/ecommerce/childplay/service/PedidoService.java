@@ -20,9 +20,10 @@ public class PedidoService {
 
         double total = 0; //Somando o valor total dos itens
         for (ItemPedido iten : itens) {
-            total = total + iten.getPreco();
+            total = total + (iten.getPreco() * iten.getQuantidade());
         }
-
+       
+        
         pedido.setValorTotal(total);
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.savePedido(pedido);
