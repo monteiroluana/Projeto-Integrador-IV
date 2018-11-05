@@ -117,15 +117,9 @@ INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, categoria, 
 ("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true),
 ("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true),
 ("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true),
-("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true),
-("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true),
-("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true),
-("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true),
-("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true),
-("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true),
-("pato","marca do pato", "descricao pato", "pato de borracha", 3, "brinquedos pra nené", 19.99, 21, 0, true),
-("cubo mágico ursal","marca do cubo", "descricao cubo mágico", "todos os lados iguais", 10, "estratégia", 30.00, 100, 0, true),
-("aviaozinho de papel","marca do avião", "descricao aviaozinho", "modelo alienigena para vc", 10, "brinquedo pra neném", 19.99, 30, 0, true);
+("Ursinho","marca do Ursinho", "descricao do Ursinho", "ursinho de apertar", 3, "brinquedos pra nené", 17.99, 21, 0, true),
+("Skate","marca do Skate", "descricao do Skate", "Skate radical", 10, "brinquedos e esportes", 129.99, 21, 0, true),
+("Bike infantil","marca da Bike", "descricao da Bike", "Bike radical", 10, "brinquedos e esportes", 129.99, 21, 0, true);
 
 
 INSERT INTO IMAGEM (idProduto, imagem, alt) VALUES
@@ -141,40 +135,16 @@ INSERT INTO IMAGEM (idProduto, imagem, alt) VALUES
 (3,"https://i.imgur.com/5VQVCyx.jpg", "Seu pai sabe fazer aviões de papel?"),
 (3,"https://i.imgur.com/oVbYcO8.jpg", "Seu pai sabe fazer aviões de papel?"),
 
-(4,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
-(4,"https://i.imgur.com/xqe6RBd.jpg", "Patinho de borracha"),
-(4,"https://i.imgur.com/LNJh1W9.jpg", "Patinho de borracha"),
+(4,"https://i.imgur.com/DOBgyJa.jpg", "Ursinho"),
+(4,"https://i.imgur.com/dVIQjEG.jpg", "Ursinho"),
+(4,"https://i.imgur.com/dg6aFRJ.jpg", "Ursinho"),
 
-(5,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
-(5,"https://i.imgur.com/dpXbmkH.jpg", "Cubo mágido unicolor"),
-(5,"https://i.imgur.com/nzc40We.jpg", "Cubo mágido unicolor"),
+(5,"https://i.imgur.com/tvJnTaA.jpg", "Skate"),
+(5,"https://i.imgur.com/BDCsVAg.jpg", "Skate"),
+(5,"https://i.imgur.com/72xOay5.jpg", "Skate"),
 
-(6,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
-(6,"https://i.imgur.com/5VQVCyx.jpg", "Seu pai sabe fazer aviões de papel?"),
-(6,"https://i.imgur.com/oVbYcO8.jpg", "Seu pai sabe fazer aviões de papel?"),
-
-(7,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
-(7,"https://i.imgur.com/xqe6RBd.jpg", "Patinho de borracha"),
-(7,"https://i.imgur.com/LNJh1W9.jpg", "Patinho de borracha"),
-
-(8,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
-(8,"https://i.imgur.com/dpXbmkH.jpg", "Cubo mágido unicolor"),
-(8,"https://i.imgur.com/nzc40We.jpg", "Cubo mágido unicolor"),
-
-(9,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
-(9,"https://i.imgur.com/5VQVCyx.jpg", "Seu pai sabe fazer aviões de papel?"),
-(9,"https://i.imgur.com/oVbYcO8.jpg", "Seu pai sabe fazer aviões de papel?"),
-
-(10,"https://i.imgur.com/yj9v2sF.jpg", "Patinho de borracha"),
-(10,"https://i.imgur.com/xqe6RBd.jpg", "Patinho de borracha"),
-(10,"https://i.imgur.com/LNJh1W9.jpg", "Patinho de borracha"),
-
-(11,"https://i.imgur.com/CfJJDDe.jpg", "Cubo mágido unicolor"),
-(11,"https://i.imgur.com/dpXbmkH.jpg", "Cubo mágido unicolor"),
-(11,"https://i.imgur.com/nzc40We.jpg", "Cubo mágido unicolor"),
-
-(12,"https://i.imgur.com/CceQ45v.jpg", "Seu pai sabe fazer aviões de papel?"),
-(12,"https://i.imgur.com/5VQVCyx.jpg", "Seu pai sabe fazer aviões de papel?"),
-(12,"https://i.imgur.com/oVbYcO8.jpg", "Seu pai sabe fazer aviões de papel?");
+(6,"https://i.imgur.com/4LDYycI.jpg", "Bike"),
+(6,"https://i.imgur.com/oLmrawq.jpg", "Bike"),
+(6,"https://i.imgur.com/rYemDSt.jpg", "Bike");
 
 INSERT INTO `cliente`(`nome`, `email`, `login`, `senha`, `enable`) VALUES ('aoi', 'aoi@aoi.com', 'kunieda', 'kunieda',true);
