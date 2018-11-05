@@ -24,7 +24,7 @@ public class PedidoService {
         }
        
         
-        pedido.setValorTotal(total);
+        pedido.setValorTotal(total+pedido.getValorFrete());
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.savePedido(pedido);
     }

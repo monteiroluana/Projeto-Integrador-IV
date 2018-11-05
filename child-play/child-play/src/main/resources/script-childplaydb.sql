@@ -89,13 +89,14 @@ create table pedido(
     status              VARCHAR(30),
     protocolo           VARCHAR(20),
     valorTotal          DOUBLE,
+    valorFrete          DOUBLE,
     CONSTRAINT PK_PEDIDO PRIMARY KEY (idPedido),
     FOREIGN KEY(idCliente)REFERENCES cliente(idCliente),
     FOREIGN KEY(idUsuario)REFERENCES usuario(idUsuario)
 );
 
 
-create table item_pedido(
+create table itemPedido(
     idPedido            INT,
     idProduto           INT,
     quantidade          INT,

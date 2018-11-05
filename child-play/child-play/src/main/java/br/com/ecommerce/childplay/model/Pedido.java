@@ -13,8 +13,17 @@ public class Pedido {
     private int idUsuario;
     private String tipoPagamento;
     private String protocolo;
+
+    public double getValorFrete() {
+        return valorFrete;
+    }
+
+    public void setValorFrete(double valorFrete) {
+        this.valorFrete = valorFrete;
+    }
     private List<ItemPedido> itens;
     private double valorTotal;
+    private double valorFrete;
 
     public double getValorTotal() {
         return valorTotal;

@@ -17,7 +17,7 @@ public class PedidoDAO {
     public static int idGerado;
 
     public String savePedido(Pedido pedido) throws SQLException {
-        String sql = "INSERT INTO PEDIDO (idCliente, enderecoEntrega, tipoPagamento, status, protocolo, dataPedido, valorTotal) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO PEDIDO (idCliente, enderecoEntrega, tipoPagamento, status, protocolo, dataPedido, valorTotal, valorFrete) VALUES (?,?,?,?,?,?,?,?)";
 
         Timestamp times = new Timestamp(System.currentTimeMillis());
         Date date = new Date(times.getTime());
@@ -34,6 +34,7 @@ public class PedidoDAO {
             p.setString(5, pedido.getProtocolo());
             p.setDate(6, date);
             p.setDouble(7, pedido.getValorTotal());
+            p.setDouble(8, pedido.getValorFrete());
             p.execute();
 
             ResultSet rs = p.getGeneratedKeys();
@@ -59,7 +60,7 @@ public class PedidoDAO {
     }
 
     public void saveItemPedido(List<ItemPedido> itens, int idPedido) throws SQLException {
-        String sql = "INSERT INTO ITEM_PEDIDO (idPedido, idProduto, quantidade, preco)VALUES (?,?,?,?)";
+        String sql = "INSERT INTO itemPedido (idPedido, idProduto, quantidade, preco)VALUES (?,?,?,?)";
 
         Connection con = null;
         PreparedStatement p = null;
@@ -113,12 +114,12 @@ public class PedidoDAO {
                 pedido.setTipoPagamento(rs.getString("tipoPagamento"));
                 pedido.setStatus(rs.getString("status"));
                 pedido.setProtocolo(rs.getString("protocolo"));
+                pedido.setValorFrete(rs.getDouble("valorFrete"));
 
                 List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
                 pedido.setItens(itens);
 
                 list.add(pedido);
-
             }
 
         } catch (SQLException e) {
@@ -136,12 +137,16 @@ public class PedidoDAO {
 
     public Pedido getPedidosByProtocolo(String protocolo) throws SQLException {
 
-        String sql = "select * from pedido where protocolo = ?";
+        String sql = "SELECT * FROM pedido \n"
+                + "INNER JOIN itemPedido ON itemPedido.idPedido = pedido.idPedido \n"
+                + "INNER JOIN produto ON produto.idProduto = itemPedido.idProduto\n"
+                + "INNER JOIN cliente ON cliente.idCliente = pedido.idCliente \n"
+                + "WHERE pedido.protocolo = ?";
         Connection con = null;
         PreparedStatement p = null;
         ResultSet rs = null;
         Pedido pedido = new Pedido();
-        
+
         try {
             con = Conexao.getConnection();
             p = con.prepareStatement(sql);
@@ -158,9 +163,10 @@ public class PedidoDAO {
                 pedido.setTipoPagamento(rs.getString("tipoPagamento"));
                 pedido.setStatus(rs.getString("status"));
                 pedido.setProtocolo(rs.getString("protocolo"));
+                pedido.setValorFrete(rs.getDouble("valorFrete"));
 
                 List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
-                pedido.setItens(itens);     
+                pedido.setItens(itens);
             }
 
         } catch (SQLException e) {
@@ -177,7 +183,7 @@ public class PedidoDAO {
     }
 
     public List<ItemPedido> getItensPedido(int idPedido) throws SQLException {
-        String sql = "select idPedido, idProduto, quantidade, preco from item_pedido where idPedido = ?;";
+        String sql = "select idPedido, idProduto, quantidade, preco from itemPedido where idPedido = ?;";
 
         List<ItemPedido> lista = new ArrayList<>();
 
