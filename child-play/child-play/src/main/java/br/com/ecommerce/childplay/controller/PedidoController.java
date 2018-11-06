@@ -31,13 +31,27 @@ public class PedidoController {
         return re;
     }
 
-    @GetMapping("/list-pedido")
-    public ResponseEntity listClientes() throws ClassNotFoundException, SQLException {
+//    @GetMapping("/list-pedido")
+//    public ResponseEntity listClientes() throws ClassNotFoundException, SQLException {
+//        PedidoService service = new PedidoService();
+//        ResponseEntity re = null;
+//        try {
+//            re = ResponseEntity.createSuccess();
+//            re.setData(service.listPedidos());
+//        } catch (SQLException e) {
+//            re = ResponseEntity.createUnknownError();
+//        }
+//        return re;
+//    }
+    
+     @GetMapping("/list-planz")
+    public ResponseEntity listPlanZ() throws ClassNotFoundException, SQLException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.listPedidos());
+             System.out.println("listPlanZ CONTROLLER");
+            re.setData(service.listPedido());
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }

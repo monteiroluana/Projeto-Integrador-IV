@@ -14,7 +14,17 @@ public class Cliente {
     private String email;
     private String login;
     private String senha;
-    private ArrayList<Endereco> endereco;
+  //  private ArrayList<Endereco> endereco;
+    private Endereco endereco;
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+    
 
     public int getIdCliente() {
         return idCliente;
@@ -88,13 +98,13 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public ArrayList<Endereco> getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(ArrayList<Endereco> endereco) {
-        this.endereco = endereco;
-    }
+//    public ArrayList<Endereco> getEndereco() {
+//        return endereco;
+//    }
+//
+//    public void setEndereco(ArrayList<Endereco> endereco) {
+//        this.endereco = endereco;
+//    }
 
     public ArrayList<Cartao> getCartao() {
         return cartao;

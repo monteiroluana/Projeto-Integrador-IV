@@ -5,6 +5,7 @@ import br.com.ecommerce.childPlay.model.Usuario;
 import br.com.ecommerce.childplay.dao.PedidoDAO;
 import br.com.ecommerce.childplay.model.ItemPedido;
 import br.com.ecommerce.childplay.model.Pedido;
+import br.com.ecommerce.childplay.model.PlanZ;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,9 +30,15 @@ public class PedidoService {
         return pedidoDao.savePedido(pedido);
     }
 
-    public List<Pedido> listPedidos() throws SQLException {
+//    public List<Pedido> listPedidos() throws SQLException {
+//        PedidoDAO pedidoDao = new PedidoDAO();
+//        return pedidoDao.listPedidos();
+//    }
+        
+     public List<PlanZ> listPlanZ() throws SQLException {
         PedidoDAO pedidoDao = new PedidoDAO();
-        return pedidoDao.listPedidos();
+         System.out.println("listPlanZ SERVICE");
+        return pedidoDao.listPlanZ();
     }
     
      public Pedido getPedidosByProtocolo(String protocolo) throws SQLException {

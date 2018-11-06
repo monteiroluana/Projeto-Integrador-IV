@@ -1,8 +1,11 @@
 package br.com.ecommerce.childplay.dao;
 
 import br.com.ecommerce.childPlay.conexao.Conexao;
+import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childplay.model.ItemPedido;
 import br.com.ecommerce.childplay.model.Pedido;
+import br.com.ecommerce.childplay.model.PlanZ;
+import br.com.ecommerce.childPlay.model.Endereco;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -89,50 +92,6 @@ public class PedidoDAO {
                 p.close();
             }
         }
-    }
-
-    public List<Pedido> listPedidos() throws SQLException {
-
-        String sql = "select * from pedido";
-        Connection con = null;
-        PreparedStatement p = null;
-        ResultSet rs = null;
-
-        List<Pedido> list = new ArrayList<>();
-        try {
-            con = Conexao.getConnection();
-            p = con.prepareStatement(sql);
-            rs = p.executeQuery();
-
-            while (rs.next()) {
-                Pedido pedido = new Pedido();
-                pedido.setIdPedido(rs.getInt("idPedido"));
-                pedido.setIdCliente(rs.getInt("idCliente"));
-                pedido.setDataPedido(rs.getDate("dataPedido"));
-                pedido.setEnderecoEntrega(rs.getString("enderecoEntrega"));
-                pedido.setValorTotal(rs.getDouble("valorTotal"));
-                pedido.setTipoPagamento(rs.getString("tipoPagamento"));
-                pedido.setStatus(rs.getString("status"));
-                pedido.setProtocolo(rs.getString("protocolo"));
-                pedido.setValorFrete(rs.getDouble("valorFrete"));
-
-                List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
-                pedido.setItens(itens);
-
-                list.add(pedido);
-            }
-
-        } catch (SQLException e) {
-
-        } finally {
-            if (con != null) {
-                con.close();
-            }
-            if (p != null) {
-                p.close();
-            }
-        }
-        return list;
     }
 
     public Pedido getPedidosByProtocolo(String protocolo) throws SQLException {
@@ -224,4 +183,112 @@ public class PedidoDAO {
         return lista;
 
     }
+
+    public List<PlanZ> listPlanZ() throws SQLException {
+        String sql = "select p.idPedido, p.dataPedido, p.protocolo, p.status, p.tipoPagamento, p.valorTotal, p.valorFrete, p.enderecoEntrega, "
+                  + "c.idCliente, c.nome, c.cpf, c.dataNasc, c.email, c.genero, c.login, c.senha, c.telefone "
+                + "from pedido as p "
+                + "inner join cliente as c on p.idCliente = c.idCliente";
+
+        Connection con = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+
+        List<PlanZ> list = new ArrayList<>();
+        try {
+            con = Conexao.getConnection();
+            p = con.prepareStatement(sql);
+            rs = p.executeQuery();
+
+            while (rs.next()) {
+                PlanZ pedido = new PlanZ();
+                pedido.setIdPedido(rs.getInt("idPedido"));
+
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setDataNasc(rs.getDate("dataNasc"));
+                cliente.setGenero(rs.getString("genero"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setLogin(rs.getString("login"));
+                cliente.setSenha(rs.getString("senha"));      
+                pedido.setCliente(cliente);
+                pedido.setDataPedido(rs.getDate("dataPedido"));
+
+                Endereco endereco = new Endereco();
+                endereco.setLogradouro(rs.getString("enderecoEntrega"));
+                pedido.setEndereco(endereco);
+
+                pedido.setValorTotal(rs.getDouble("valorTotal"));
+                pedido.setTipoPagamento(rs.getString("tipoPagamento"));
+                pedido.setStatus(rs.getString("status"));
+                pedido.setProtocolo(rs.getString("protocolo"));
+                pedido.setValorFrete(rs.getDouble("valorFrete"));
+
+                List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
+                pedido.setItens(itens);
+
+                list.add(pedido);
+
+                System.out.println(pedido.getProtocolo());
+            }
+
+        } catch (SQLException e) {
+
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+        return list;
+    }
+    
+//    public List<Pedido> listPedidos() throws SQLException {
+//
+//        String sql = "select * from pedido";
+//        Connection con = null;
+//        PreparedStatement p = null;
+//        ResultSet rs = null;
+//
+//        List<Pedido> list = new ArrayList<>();
+//        try {
+//            con = Conexao.getConnection();
+//            p = con.prepareStatement(sql);
+//            rs = p.executeQuery();
+//
+//            while (rs.next()) {
+//                Pedido pedido = new Pedido();
+//                pedido.setIdPedido(rs.getInt("idPedido"));
+//                pedido.setIdCliente(rs.getInt("idCliente"));
+//                pedido.setDataPedido(rs.getDate("dataPedido"));
+//                pedido.setEnderecoEntrega(rs.getString("enderecoEntrega"));
+//                pedido.setValorTotal(rs.getDouble("valorTotal"));
+//                pedido.setTipoPagamento(rs.getString("tipoPagamento"));
+//                pedido.setStatus(rs.getString("status"));
+//                pedido.setProtocolo(rs.getString("protocolo"));
+//                pedido.setValorFrete(rs.getDouble("valorFrete"));
+//
+//                List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
+//                pedido.setItens(itens);
+//
+//                list.add(pedido);
+//            }
+//
+//        } catch (SQLException e) {
+//
+//        } finally {
+//            if (con != null) {
+//                con.close();
+//            }
+//            if (p != null) {
+//                p.close();
+//            }
+//        }
+//        return list;
+//    }
 }
