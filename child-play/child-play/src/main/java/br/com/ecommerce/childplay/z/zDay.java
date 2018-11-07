@@ -28,6 +28,7 @@ public class zDay {
 
         Datas datas = Datas.novasDatas()
                 .comDocumento(1, 5, 2008)
+//                .comProcessamento(1, 5, 2008)
                 .comProcessamento(1, 5, 2008)
                 .comVencimento(2, 5, 2008);
 
@@ -71,10 +72,8 @@ public class zDay {
                 .comPagador(pagador)
                 .comValorBoleto(pedido.getValorTotal())
                 .comNumeroDoDocumento(pedido.getProtocolo())
-                .comInstrucoes(pedido.listItens())
+                .comInstrucoes("Não receber após o vencimento")
                 .comLocaisDePagamento("local 1", "local 2");
-
-        System.out.println("número código de barras: " + boleto.getCodigoDeBarras());
 
         GeradorDeBoleto gerador = new GeradorDeBoleto(boleto);
         byte[] bPDF = gerador.geraPDF();
