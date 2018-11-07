@@ -6,6 +6,7 @@ import br.com.ecommerce.childplay.model.ItemPedido;
 import br.com.ecommerce.childplay.model.Pedido;
 import br.com.ecommerce.childplay.model.PlanZ;
 import br.com.ecommerce.childPlay.model.Endereco;
+import br.com.ecommerce.childPlay.model.Produto;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -75,7 +76,7 @@ public class PedidoDAO {
             p = con.prepareStatement(sql);
             for (ItemPedido iten : itens) {
                 p.setInt(1, idPedido);
-                p.setInt(2, iten.getIdProduto());
+                p.setInt(2, iten.getProduto().getIdProduto());
                 p.setInt(3, iten.getQuantidade());
                 p.setDouble(4, iten.getPreco());
 
@@ -159,7 +160,11 @@ public class PedidoDAO {
             while (rs.next()) {
                 ItemPedido item = new ItemPedido();
                 item.setIdPedido(rs.getInt("idPedido"));
-                item.setIdProduto(rs.getInt("idProduto"));
+                
+                Produto produto = new Produto();
+                produto.setIdProduto(rs.getInt("idProduto"));
+                item.setProduto(produto);
+                
                 item.setPreco(rs.getDouble("preco"));
                 item.setQuantidade(rs.getInt("quantidade"));
                 lista.add(item);
@@ -184,9 +189,9 @@ public class PedidoDAO {
 
     }
 
-    public List<PlanZ> listPlanZ() throws SQLException {
+    public List<PlanZ> listPedido() throws SQLException {
         String sql = "select p.idPedido, p.dataPedido, p.protocolo, p.status, p.tipoPagamento, p.valorTotal, p.valorFrete, p.enderecoEntrega, "
-                  + "c.idCliente, c.nome, c.cpf, c.dataNasc, c.email, c.genero, c.login, c.senha, c.telefone "
+                + "c.idCliente, c.nome, c.cpf, c.dataNasc, c.email, c.genero, c.login, c.senha, c.telefone "
                 + "from pedido as p "
                 + "inner join cliente as c on p.idCliente = c.idCliente";
 
@@ -213,7 +218,7 @@ public class PedidoDAO {
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setLogin(rs.getString("login"));
-                cliente.setSenha(rs.getString("senha"));      
+                cliente.setSenha(rs.getString("senha"));
                 pedido.setCliente(cliente);
                 pedido.setDataPedido(rs.getDate("dataPedido"));
 
@@ -247,7 +252,7 @@ public class PedidoDAO {
         }
         return list;
     }
-    
+
 //    public List<Pedido> listPedidos() throws SQLException {
 //
 //        String sql = "select * from pedido";

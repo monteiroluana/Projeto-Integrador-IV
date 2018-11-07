@@ -35,10 +35,9 @@ public class PedidoService {
 //        return pedidoDao.listPedidos();
 //    }
         
-     public List<PlanZ> listPlanZ() throws SQLException {
+     public List<PlanZ> listPedido() throws SQLException {
         PedidoDAO pedidoDao = new PedidoDAO();
-         System.out.println("listPlanZ SERVICE");
-        return pedidoDao.listPlanZ();
+        return pedidoDao.listPedido();
     }
     
      public Pedido getPedidosByProtocolo(String protocolo) throws SQLException {

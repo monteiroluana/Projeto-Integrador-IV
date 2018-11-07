@@ -98,5 +98,15 @@ public class PlanZ {
         this.valorFrete = valorFrete;
     }
 
-   
+    public String listItens() {
+        List<ItemPedido> itensPedido = itens;
+        String resultado="";
+        for (ItemPedido i : itensPedido) {
+            System.out.println("item: "+i.getProduto().getNome()+ " "+ i.getProduto().getPreco()+ "\n");
+            resultado = resultado + i.getProduto().getNome();
+            System.out.println(resultado);
+        }
+        return resultado;
+    }
+
 }

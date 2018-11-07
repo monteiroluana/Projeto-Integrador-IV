@@ -43,22 +43,19 @@ public class PedidoController {
 //        }
 //        return re;
 //    }
-    
-     @GetMapping("/list-planz")
-    public ResponseEntity listPlanZ() throws ClassNotFoundException, SQLException {
+    @GetMapping("/list-pedido")
+    public ResponseEntity listPedido() throws ClassNotFoundException, SQLException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-             System.out.println("listPlanZ CONTROLLER");
             re.setData(service.listPedido());
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
         return re;
     }
-    
-    
+
     @GetMapping("/{protocolo}")
     public ResponseEntity getPedidosByProtocolo(@PathVariable("protocolo") String protocolo) throws ClassNotFoundException, SQLException {
         PedidoService service = new PedidoService();

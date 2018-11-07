@@ -8,17 +8,23 @@ import br.com.caelum.stella.boleto.Endereco;
 import br.com.caelum.stella.boleto.Pagador;
 import br.com.caelum.stella.boleto.bancos.BancoDoBrasil;
 import br.com.caelum.stella.boleto.transformer.GeradorDeBoleto;
+import br.com.ecommerce.childplay.model.Pedido;
+import br.com.ecommerce.childplay.model.PlanZ;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/zday")
 public class zDay {
 
-    @RequestMapping("/z")
-    public void generateReport(HttpServletResponse response) throws IOException {
+   @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public void generateReport(@RequestBody PlanZ pedido,HttpServletResponse response) throws IOException {
 
         Datas datas = Datas.novasDatas()
                 .comDocumento(1, 5, 2008)
@@ -45,15 +51,15 @@ public class zDay {
 
         //Quem paga o boleto
         Endereco enderecoPagador = Endereco.novoEndereco()
-                .comLogradouro("Av dos testes, 111 apto 333")
-                .comBairro("Bairro Teste")
-                .comCep("01234-111")
-                .comCidade("São Paulo")
-                .comUf("SP");
+                .comLogradouro(pedido.getEndereco().getLogradouro())
+                .comBairro(pedido.getEndereco().getBairro())
+                .comCep(pedido.getEndereco().getCep())
+                .comCidade(pedido.getEndereco().getCidade())
+                .comUf(pedido.getEndereco().getEstado());
 
         Pagador pagador = Pagador.novoPagador()
-                .comNome("Fulano da Silva")
-                .comDocumento("111.222.333-12")
+                .comNome(pedido.getCliente().getNome())
+                .comDocumento(pedido.getCliente().getCpf())
                 .comEndereco(enderecoPagador);
 
         Banco banco = new BancoDoBrasil();
@@ -63,9 +69,9 @@ public class zDay {
                 .comDatas(datas)
                 .comBeneficiario(beneficiario)
                 .comPagador(pagador)
-                .comValorBoleto("200.00")
-                .comNumeroDoDocumento("1234")
-                .comInstrucoes("instrucao 1", "instrucao 2", "instrucao 3", "instrucao 4", "instrucao 5")
+                .comValorBoleto(pedido.getValorTotal())
+                .comNumeroDoDocumento(pedido.getProtocolo())
+                .comInstrucoes(pedido.listItens())
                 .comLocaisDePagamento("local 1", "local 2");
 
         System.out.println("número código de barras: " + boleto.getCodigoDeBarras());
