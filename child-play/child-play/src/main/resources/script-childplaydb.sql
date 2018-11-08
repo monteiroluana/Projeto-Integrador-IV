@@ -35,7 +35,7 @@ create table endereco(
     numero		VARCHAR(10),
     bairro		VARCHAR(255),
     cidade		VARCHAR(255),
-    estado		VARCHAR(2),
+    uf		VARCHAR(2),
     complemento		VARCHAR(255),
     enable		BOOLEAN,
     FOREIGN KEY(idCliente) REFERENCES cliente(idCliente)
@@ -148,3 +148,9 @@ INSERT INTO IMAGEM (idProduto, imagem, alt) VALUES
 (6,"https://i.imgur.com/rYemDSt.jpg", "Bike");
 
 INSERT INTO `cliente`(`nome`, `email`, `login`, `senha`, `enable`) VALUES ('aoi', 'aoi@aoi.com', 'kunieda', 'kunieda',true);
+
+/*
+INSERT INTO cliente (nome, cpf, dataNasc, genero, telefone, email, login, senha, enable) VALUES ('Benício Kevin José das Neves','40049341847','16/04/1996','masculino','7135421150','beniciokevinjosedasneves@cheryamur.com.br','beniciokevinjosedasneves','PMrln1f7GX',true);
+INSERT INTO cartao (idCliente, nomeTitular, tipoCartao, numCartao, codSeguranca, validade, enable) VALUES (2,'','cartão de crédito','5184 6943 2861 0388','882','08/10/2019', true);
+INSERT INTO endereco (idCliente, logradouro, numero, cep, complemento, bairro, cidade, uf, enable) VALUES (2,'3ª Travessa Carneiro da Rocha','576','40335335','','Pero Vaz','Salvador','BA',true);
+*/
