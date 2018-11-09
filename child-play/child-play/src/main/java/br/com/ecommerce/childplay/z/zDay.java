@@ -72,8 +72,8 @@ public class zDay {
                 .comPagador(pagador)
                 .comValorBoleto(pedido.getValorTotal())
                 .comNumeroDoDocumento(pedido.getProtocolo())
-                .comInstrucoes("Não receber após o vencimento")
-                .comLocaisDePagamento("local 1", "local 2");
+                .comInstrucoes("Não receber após vencimento")
+                .comLocaisDePagamento("Pagável em qualquer agẽncia bancária até a data de vencimento");
 
         GeradorDeBoleto gerador = new GeradorDeBoleto(boleto);
         byte[] bPDF = gerador.geraPDF();
