@@ -52,11 +52,11 @@ public class zDay {
 
         //Quem paga o boleto
         Endereco enderecoPagador = Endereco.novoEndereco()
-                .comLogradouro(pedido.getEndereco().getLogradouro())
-                .comBairro(pedido.getEndereco().getBairro())
-                .comCep(pedido.getEndereco().getCep())
-                .comCidade(pedido.getEndereco().getCidade())
-                .comUf(pedido.getEndereco().getEstado());
+                .comLogradouro(pedido.getLogradouro())
+                .comBairro(pedido.getBairro())
+                .comCep(pedido.getCep())
+                .comCidade(pedido.getCidade())
+                .comUf(pedido.getUf());
 
         Pagador pagador = Pagador.novoPagador()
                 .comNome(pedido.getCliente().getNome())

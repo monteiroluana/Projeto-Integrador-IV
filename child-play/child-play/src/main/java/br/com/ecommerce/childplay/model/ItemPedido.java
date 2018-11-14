@@ -3,11 +3,19 @@ package br.com.ecommerce.childplay.model;
 import br.com.ecommerce.childPlay.model.Produto;
 
 public class ItemPedido {
+    private int idItem;
     private int idPedido;
-   // private int idProduto;
     private int quantidade;
     private double preco;
     private Produto produto;
+
+    public int getIdItem() {
+        return idItem;
+    }
+
+    public void setIdItem(int idItem) {
+        this.idItem = idItem;
+    }
 
     public Produto getProduto() {
         return produto;

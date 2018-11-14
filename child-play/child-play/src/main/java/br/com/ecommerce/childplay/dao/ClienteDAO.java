@@ -1,6 +1,7 @@
 package br.com.ecommerce.childplay.dao;
 
 import br.com.ecommerce.childPlay.conexao.Conexao;
+import br.com.ecommerce.childPlay.model.Cartao;
 import br.com.ecommerce.childPlay.model.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ import java.util.List;
 public class ClienteDAO {
 
     public List<Cliente> listClientes() throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM Cliente WHERE enable = ?";
+        String sql = "select * from cliente where enable = ?";
 
         List<Cliente> lista = new ArrayList<>();
 
@@ -39,7 +40,8 @@ public class ClienteDAO {
                 cliente.setEmail(rs.getString("email"));
                 cliente.setLogin(rs.getString("login"));
                 cliente.setSenha(rs.getString("senha"));
- 
+
+                cliente.setCartao(listCartaoByClienteId(cliente.getIdCliente()));
                 lista.add(cliente);
             }
         } catch (SQLException e) {
@@ -62,7 +64,7 @@ public class ClienteDAO {
         }
         return lista;
     }
-    
+
     public boolean authClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM Cliente WHERE enable = ? and login = ? and senha = ?";
 
@@ -91,6 +93,7 @@ public class ClienteDAO {
                 cliente.setEmail(rs.getString("email"));
                 cliente.setLogin(rs.getString("login"));
                 cliente.setSenha(rs.getString("senha"));
+                cliente.setCartao(listCartaoByClienteId(cliente.getIdCliente()));
                 return true;
             }
         } catch (SQLException e) {
@@ -113,11 +116,11 @@ public class ClienteDAO {
         }
         return false;
     }
-    
-    
+
     public boolean saveCliente(Cliente cliente) throws SQLException {
 
-        String sql = "INSERT INTO cliente (nome, cpf, dataNasc, genero, telefone, email, login, senha, enable) VALUES (?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO cliente (nome, cpf, dataNasc, genero, telefone, email, login, senha, enable,"
+                + "logradouro, numero, cep, complemento, bairro, cidade, uf) VALUES (?,?,?,?,?,?,?,?,? , ?,?,?,?,?,?,?);";
         Connection connection = null;
         PreparedStatement p = null;
 
@@ -133,6 +136,14 @@ public class ClienteDAO {
             p.setString(7, cliente.getLogin());
             p.setString(8, cliente.getSenha());
             p.setBoolean(9, true);
+            p.setString(10, cliente.getLogradouro());
+            p.setString(11, cliente.getNumero());
+            p.setString(12, cliente.getCep());
+            p.setString(13, cliente.getComplemento());
+            p.setString(14, cliente.getBairro());
+            p.setString(15, cliente.getCidade());
+            p.setString(16, cliente.getUf());
+
             p.execute();
             return (true);
 
@@ -150,4 +161,51 @@ public class ClienteDAO {
         }
 
     }
+
+    public List<Cartao> listCartaoByClienteId(int idCliente) throws SQLException {
+        String sql = "select * from cartao where idCliente = ?";
+
+        List<Cartao> lista = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setInt(1, idCliente);
+            rs = p.executeQuery();
+
+            while (rs.next()) {
+                Cartao cartao = new Cartao();
+                cartao.setNomeTitular(rs.getString("nomeTitular"));
+                cartao.setTipoCartao(rs.getString("tipoCartao"));
+                cartao.setNumCartao(rs.getString("numCartao"));
+                cartao.setCodSeguranca(rs.getString("codSeguranca"));
+                cartao.setValidade(rs.getDate("validade"));
+                cartao.setEnable(rs.getBoolean("enable"));
+
+                lista.add(cartao);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+
+        } finally {
+
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return lista;
+
+    }
+
 }

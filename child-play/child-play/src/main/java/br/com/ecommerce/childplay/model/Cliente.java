@@ -2,7 +2,7 @@
 package br.com.ecommerce.childPlay.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Cliente {
     private int idCliente;
@@ -14,18 +14,16 @@ public class Cliente {
     private String email;
     private String login;
     private String senha;
-  //  private ArrayList<Endereco> endereco;
-    private Endereco endereco;
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-    
-
+    private String token;
+    private List<Cartao> cartao;
+    private String cep;
+    private String logradouro;
+    private String numero;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String complemento;
+  
     public int getIdCliente() {
         return idCliente;
     }
@@ -98,20 +96,76 @@ public class Cliente {
         this.senha = senha;
     }
 
-//    public ArrayList<Endereco> getEndereco() {
-//        return endereco;
-//    }
-//
-//    public void setEndereco(ArrayList<Endereco> endereco) {
-//        this.endereco = endereco;
-//    }
-
-    public ArrayList<Cartao> getCartao() {
+    public List<Cartao> getCartao() {
         return cartao;
     }
 
-    public void setCartao(ArrayList<Cartao> cartao) {
+    public void setCartao(List<Cartao> cartao) {
         this.cartao = cartao;
     }
-    private ArrayList<Cartao> cartao;
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }

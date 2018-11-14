@@ -22,6 +22,7 @@ public class PedidoService {
         double total = 0; //Somando o valor total dos itens
         for (ItemPedido iten : itens) {
             total = total + (iten.getPreco() * iten.getQuantidade());
+            System.out.println("item: "+iten.getProduto().getIdProduto());
         }
        
         

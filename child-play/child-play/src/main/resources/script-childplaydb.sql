@@ -4,41 +4,39 @@ use childplaydb;
 
 create table usuario(
     idUsuario		INTEGER NOT NULL AUTO_INCREMENT,
-    nome		VARCHAR(255) NOT NULL,
-    login		VARCHAR(30) NOT NULL,
-    senha		VARCHAR(28) NOT NULL,
+    nome		VARCHAR(255),
+    login		VARCHAR(30),
+    senha		VARCHAR(255),
     funcao		VARCHAR(255),
     enable		BOOLEAN,	
-   CONSTRAINT PK_USUARIO PRIMARY KEY (idUsuario)
+    CONSTRAINT PK_USUARIO PRIMARY KEY (idUsuario),
+    CONSTRAINT UC_USUARIO UNIQUE (idUsuario,login)
+   
 );
 
 
 create table cliente(
     idCliente           INTEGER NOT NULL AUTO_INCREMENT,
-    nome		VARCHAR(255) NOT NULL,
-    cpf			VARCHAR(11) NOT NULL,
+    nome		VARCHAR(255),
+    cpf			VARCHAR(11),
     dataNasc		DATE,
     genero		VARCHAR(10),
     telefone		VARCHAR(15),
     email		VARCHAR(255),
-    login		VARCHAR(255) NOT NULL,
-    senha		VARCHAR(255) NOT NULL,
-    enable		BOOLEAN,
-    CONSTRAINT PK_USUARIO PRIMARY KEY (idCliente)
-);
-
-
-create table endereco(
-    idCliente           INTEGER NOT NULL AUTO_INCREMENT,
+    login		VARCHAR(255),
+    senha		VARCHAR(255),
+    token               VARCHAR(255),
+   
     cep			VARCHAR(8),
     logradouro          VARCHAR(255),
     numero		VARCHAR(10),
     bairro		VARCHAR(255),
     cidade		VARCHAR(255),
-    uf		VARCHAR(2),
+    uf                  VARCHAR(2),
     complemento		VARCHAR(255),
     enable		BOOLEAN,
-    FOREIGN KEY(idCliente) REFERENCES cliente(idCliente)
+    CONSTRAINT PK_CLIENTE PRIMARY KEY (idCliente),
+    CONSTRAINT UC_CLIENTE UNIQUE (idCliente,login)
 );
 
 
@@ -81,28 +79,52 @@ create table imagem(
 
 create table pedido(
     idPedido            INTEGER NOT NULL AUTO_INCREMENT,
+    protocolo           VARCHAR(20),
     idCliente           INT,
     idUsuario           INT,
     dataPedido          DATE,
-    enderecoEntrega     VARCHAR(255),
     tipoPagamento       VARCHAR(255),
     status              VARCHAR(30),
-    protocolo           VARCHAR(20),
     valorTotal          DOUBLE,
     valorFrete          DOUBLE,
+
+    cep			VARCHAR(8),
+    logradouro            VARCHAR(255),
+    numero		VARCHAR(10),
+    bairro		VARCHAR(255),
+    cidade		VARCHAR(255),
+    uf                  VARCHAR(2),
+    complemento		VARCHAR(255),
     CONSTRAINT PK_PEDIDO PRIMARY KEY (idPedido),
+    CONSTRAINT UC_PEDIDO UNIQUE (idPedido,protocolo),
     FOREIGN KEY(idCliente)REFERENCES cliente(idCliente),
     FOREIGN KEY(idUsuario)REFERENCES usuario(idUsuario)
 );
 
 
 create table itemPedido(
+    idItem              INTEGER NOT NULL AUTO_INCREMENT,
     idPedido            INT,
     idProduto           INT,
     quantidade          INT,
     preco               DOUBLE,
+    CONSTRAINT PK_PEDIDO PRIMARY KEY (idItem),
     FOREIGN KEY(idPedido) REFERENCES pedido(idPedido),
     FOREIGN KEY(idProduto) REFERENCES produto(idProduto)
+);
+
+
+create table endereco(
+    idCliente           INTEGER NOT NULL AUTO_INCREMENT,
+    cep			VARCHAR(8),
+    logradouro          VARCHAR(255),
+    numero		VARCHAR(10),
+    bairro		VARCHAR(255),
+    cidade		VARCHAR(255),
+    uf		VARCHAR(2),
+    complemento		VARCHAR(255),
+    enable		BOOLEAN,
+    FOREIGN KEY(idCliente) REFERENCES cliente(idCliente)
 );
 
 

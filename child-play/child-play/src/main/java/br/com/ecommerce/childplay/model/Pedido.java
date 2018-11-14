@@ -6,13 +6,23 @@ import java.util.List;
 public class Pedido {
 
     private int idPedido;
-    private Date dataPedido;
-    private int idCliente;
-    private String enderecoEntrega;
-    private String status;
-    private int idUsuario;
-    private String tipoPagamento;
     private String protocolo;
+    private int idUsuario;
+    private int idCliente;
+    private String status;
+    private Date dataPedido;
+    private String tipoPagamento;
+    private List<ItemPedido> itens;
+    private double valorTotal;
+    private double valorFrete;
+    
+    private String cep;
+    private String logradouro;
+    private String numero;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String complemento;
 
     public double getValorFrete() {
         return valorFrete;
@@ -21,9 +31,6 @@ public class Pedido {
     public void setValorFrete(double valorFrete) {
         this.valorFrete = valorFrete;
     }
-    private List<ItemPedido> itens;
-    private double valorTotal;
-    private double valorFrete;
 
     public double getValorTotal() {
         return valorTotal;
@@ -73,14 +80,6 @@ public class Pedido {
         this.idCliente = idCliente;
     }
 
-    public String getEnderecoEntrega() {
-        return enderecoEntrega;
-    }
-
-    public void setEnderecoEntrega(String enderecoEntrega) {
-        this.enderecoEntrega = enderecoEntrega;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -103,5 +102,61 @@ public class Pedido {
 
     public void setTipoPagamento(String tipoPagamento) {
         this.tipoPagamento = tipoPagamento;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 }
