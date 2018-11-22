@@ -47,9 +47,9 @@ public class PedidoService {
     }
     
     
-    public List<Pedido> listPedidosByCliente(Cliente cliente) throws SQLException {
+    public List<Pedido> listPedidosByCliente(String email) throws SQLException {
         PedidoDAO pedidoDao = new PedidoDAO();
-        return pedidoDao.listPedidosByCliente(cliente);
+        return pedidoDao.listPedidosByCliente(email);
     }
 
     public static String gerarProtocolo() {

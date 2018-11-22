@@ -255,7 +255,7 @@ public class PedidoDAO {
         return list;
     }
     
-    public List<Pedido> listPedidosByCliente(Cliente cliente) throws SQLException {
+    public List<Pedido> listPedidosByCliente(String email) throws SQLException {
         
         String sql = "SELECT * FROM pedido \n"
                 + "INNER JOIN itemPedido ON itemPedido.idPedido = pedido.idPedido \n"
@@ -270,7 +270,7 @@ public class PedidoDAO {
         try {
             con = Conexao.getConnection();
             p = con.prepareStatement(sql);
-            p.setString(1, cliente.getCpf());
+            p.setString(1, email);
             rs = p.executeQuery();
             
             while (rs.next()) {

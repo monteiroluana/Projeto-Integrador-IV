@@ -67,7 +67,7 @@ public class PedidoController {
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.listPedidosByCliente(cliente));
+            re.setData(service.listPedidosByCliente(cliente.getEmail()));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
