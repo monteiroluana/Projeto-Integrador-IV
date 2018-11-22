@@ -45,6 +45,12 @@ public class PedidoService {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.getPedidosByProtocolo(protocolo);
     }
+    
+    
+    public List<Pedido> listPedidosByCliente(Cliente cliente) throws SQLException {
+        PedidoDAO pedidoDao = new PedidoDAO();
+        return pedidoDao.listPedidoByCliente(cliente);
+    }
 
     public static String gerarProtocolo() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/ddHH:mm:ss"); //formato da data
