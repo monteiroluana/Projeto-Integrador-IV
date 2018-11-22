@@ -199,7 +199,7 @@ public class PedidoDAO {
     
     public List<PlanZ> listPedido() throws SQLException {
         String sql = "select p.idPedido, p.dataPedido, p.protocolo, p.status, p.tipoPagamento, p.valorTotal, p.valorFrete, "
-                + "c.idCliente, c.nome, c.cpf, c.dataNasc, c.email, c.genero, c.login, c.senha, c.telefone "
+                + "c.idCliente, c.nome, c.cpf, c.dataNasc, c.email, c.genero, c.senha, c.telefone "
                 + "from pedido as p "
                 + "inner join cliente as c on p.idCliente = c.idCliente";
         
@@ -225,7 +225,7 @@ public class PedidoDAO {
                 cliente.setGenero(rs.getString("genero"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setLogin(rs.getString("login"));
+               // cliente.setLogin(rs.getString("login"));
                 cliente.setSenha(rs.getString("senha"));
                 pedido.setCliente(cliente);
                 pedido.setDataPedido(rs.getDate("dataPedido"));
@@ -261,7 +261,7 @@ public class PedidoDAO {
                 + "INNER JOIN itemPedido ON itemPedido.idPedido = pedido.idPedido \n"
                 + "INNER JOIN produto ON produto.idProduto = itemPedido.idProduto\n"
                 + "INNER JOIN cliente ON cliente.idCliente = pedido.idCliente \n"
-                + "WHERE cliente.cpf = ?";
+                + "WHERE cliente.email = ?";
         Connection con = null;
         PreparedStatement p = null;
         ResultSet rs = null;

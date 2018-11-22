@@ -12,6 +12,8 @@ import java.util.List;
 
 public class ClienteDAO {
 
+    public static int idGerado;
+
     public List<Cliente> listClientes() throws ClassNotFoundException, SQLException {
         String sql = "select * from cliente where enable = ?";
 
@@ -38,8 +40,15 @@ public class ClienteDAO {
                 cliente.setGenero(rs.getString("genero"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setLogin(rs.getString("login"));
+                //cliente.setLogin(rs.getString("login"));
                 cliente.setSenha(rs.getString("senha"));
+                cliente.setLogradouro(rs.getString("logradouro"));
+                cliente.setNumero(rs.getString("numero"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
 
                 cliente.setCartao(listCartaoByClienteId(cliente.getIdCliente()));
                 lista.add(cliente);
@@ -65,8 +74,8 @@ public class ClienteDAO {
         return lista;
     }
 
-    public boolean authClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM Cliente WHERE enable = ? and login = ? and senha = ?";
+    public boolean authClienteByLoginSenha(String email, String senha) throws ClassNotFoundException, SQLException {
+        String sql = "SELECT * FROM Cliente WHERE enable = ? and email = ? and senha = ?";
 
         Cliente cliente = new Cliente();
         Connection connection = null;
@@ -77,7 +86,7 @@ public class ClienteDAO {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
             p.setBoolean(1, true);
-            p.setString(2, login);
+            p.setString(2, email);
             p.setString(3, senha);
             //Armazenando os resultados
             rs = p.executeQuery();
@@ -91,7 +100,7 @@ public class ClienteDAO {
                 cliente.setGenero(rs.getString("genero"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setLogin(rs.getString("login"));
+                // cliente.setLogin(rs.getString("login"));
                 cliente.setSenha(rs.getString("senha"));
                 cliente.setCartao(listCartaoByClienteId(cliente.getIdCliente()));
                 return true;
@@ -119,31 +128,74 @@ public class ClienteDAO {
 
     public boolean saveCliente(Cliente cliente) throws SQLException {
 
-        String sql = "INSERT INTO cliente (nome, cpf, dataNasc, genero, telefone, email, login, senha, enable,"
-                + "logradouro, numero, cep, complemento, bairro, cidade, uf) VALUES (?,?,?,?,?,?,?,?,? , ?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO cliente (nome, cpf, dataNasc, genero, telefone, email, senha, enable,"
+                + "logradouro, numero, cep, complemento, bairro, cidade, uf, token) VALUES (?,?,?,?,?,?,?,?,? , ?,?,?,?,?,?,?);";
         Connection connection = null;
         PreparedStatement p = null;
 
         try {
             connection = Conexao.getConnection();
-            p = connection.prepareStatement(sql);
+            p = connection.prepareStatement(sql, p.RETURN_GENERATED_KEYS);
             p.setString(1, cliente.getNome());
             p.setString(2, cliente.getCpf());
             p.setDate(3, cliente.getDataNasc());
             p.setString(4, cliente.getGenero());
             p.setString(5, cliente.getTelefone());
             p.setString(6, cliente.getEmail());
-            p.setString(7, cliente.getLogin());
-            p.setString(8, cliente.getSenha());
-            p.setBoolean(9, true);
-            p.setString(10, cliente.getLogradouro());
-            p.setString(11, cliente.getNumero());
-            p.setString(12, cliente.getCep());
-            p.setString(13, cliente.getComplemento());
-            p.setString(14, cliente.getBairro());
-            p.setString(15, cliente.getCidade());
-            p.setString(16, cliente.getUf());
 
+            p.setString(7, cliente.getSenha());
+            p.setBoolean(8, true);
+            p.setString(9, cliente.getLogradouro());
+            p.setString(10, cliente.getNumero());
+            p.setString(11, cliente.getCep());
+            p.setString(12, cliente.getComplemento());
+            p.setString(13, cliente.getBairro());
+            p.setString(14, cliente.getCidade());
+            p.setString(15, cliente.getUf());
+            p.setString(16, cliente.getToken());
+
+            p.execute();
+
+            if (!cliente.getCartao().get(0).getNumCartao().isEmpty()||cliente.getCartao().get(0).getNumCartao()!="") {
+                ResultSet rs = p.getGeneratedKeys();
+                if (rs.next()) {
+                    idGerado = rs.getInt(1);
+                }
+                saveCartao(cliente.getCartao().get(0));
+            }
+            return (true);
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return (false);
+
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+
+    }
+
+    public boolean saveCartao(Cartao cartao) throws SQLException {
+
+        String sql = "INSERT INTO cartao (idCliente, nomeTitular, tipoCartao, numCartao, codSeguranca, validade, enable) VALUES (?,?,?,?,?,?,?);";
+        Connection connection = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setInt(1, cartao.getIdCliente());
+            p.setString(2,cartao.getNomeTitular());
+            p.setString(3,cartao.getTipoCartao());
+            p.setString(4,cartao.getNumCartao());
+            p.setString(5,cartao.getCodSeguranca());
+            p.setDate(6,cartao.getValidade());
+            p.setBoolean(7,true);  
             p.execute();
             return (true);
 
@@ -179,6 +231,7 @@ public class ClienteDAO {
 
             while (rs.next()) {
                 Cartao cartao = new Cartao();
+                cartao.setIdCliente(rs.getInt("idCliente"));
                 cartao.setNomeTitular(rs.getString("nomeTitular"));
                 cartao.setTipoCartao(rs.getString("tipoCartao"));
                 cartao.setNumCartao(rs.getString("numCartao"));

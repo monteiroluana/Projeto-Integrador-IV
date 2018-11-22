@@ -16,14 +16,13 @@ create table usuario(
 
 
 create table cliente(
-    idCliente           INTEGER NOT NULL AUTO_INCREMENT,
+    idCliente   INTEGER NOT NULL AUTO_INCREMENT,
     nome		VARCHAR(255),
     cpf			VARCHAR(11),
     dataNasc		DATE,
     genero		VARCHAR(10),
-    telefone		VARCHAR(15),
+    telefone	VARCHAR(15),
     email		VARCHAR(255),
-    login		VARCHAR(255),
     senha		VARCHAR(255),
     token               VARCHAR(255),
    
@@ -36,7 +35,7 @@ create table cliente(
     complemento		VARCHAR(255),
     enable		BOOLEAN,
     CONSTRAINT PK_CLIENTE PRIMARY KEY (idCliente),
-    CONSTRAINT UC_CLIENTE UNIQUE (idCliente,login)
+    CONSTRAINT UC_CLIENTE UNIQUE (idCliente,email)
 );
 
 
@@ -169,7 +168,7 @@ INSERT INTO IMAGEM (idProduto, imagem, alt) VALUES
 (6,"https://i.imgur.com/oLmrawq.jpg", "Bike"),
 (6,"https://i.imgur.com/rYemDSt.jpg", "Bike");
 
-INSERT INTO `cliente`(`nome`, `email`, `login`, `senha`, `enable`) VALUES ('aoi', 'aoi@aoi.com', 'kunieda', 'kunieda',true);
+INSERT INTO `cliente`(`nome`, `email`, `senha`, `enable`) VALUES ('aoi', 'aoi@aoi.com', 'kuni3d@',true);
 
 /*
 INSERT INTO cliente (nome, cpf, dataNasc, genero, telefone, email, login, senha, enable) VALUES ('Benício Kevin José das Neves','40049341847','16/04/1996','masculino','7135421150','beniciokevinjosedasneves@cheryamur.com.br','beniciokevinjosedasneves','PMrln1f7GX',true);

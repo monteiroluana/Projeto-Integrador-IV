@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
-    
+
     @GetMapping("/list-cliente")
     public ResponseEntity listClientes() throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
@@ -29,9 +29,9 @@ public class ClienteController {
         }
         return re;
     }
-    
+
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/auth", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    @RequestMapping(value = "/auth", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity authClienteByLoginSenha(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
@@ -43,20 +43,20 @@ public class ClienteController {
         }
         return re;
     }
-      
+
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity saveProduto(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
             re.setData(service.saveCliente(cliente));
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
         return re;
-       
+
     }
 
 //     @GetMapping("/form")
