@@ -255,4 +255,53 @@ public class PedidoDAO {
         return list;
     }
     
+    public List<Pedido> listPedidosByCliente(Cliente cliente) throws SQLException {
+        
+        String sql = "SELECT * FROM pedido \n"
+                + "INNER JOIN itemPedido ON itemPedido.idPedido = pedido.idPedido \n"
+                + "INNER JOIN produto ON produto.idProduto = itemPedido.idProduto\n"
+                + "INNER JOIN cliente ON cliente.idCliente = pedido.idCliente \n"
+                + "WHERE cliente.cpf = ?";
+        Connection con = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+        List<Pedido> list = new ArrayList<>();
+        
+        try {
+            con = Conexao.getConnection();
+            p = con.prepareStatement(sql);
+            p.setString(1, cliente.getCpf());
+            rs = p.executeQuery();
+            
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("idPedido"));
+                pedido.setIdCliente(rs.getInt("idCliente"));
+                pedido.setDataPedido(rs.getDate("dataPedido"));
+                // pedido.setEnderecoEntrega(rs.getString("enderecoEntrega"));
+                pedido.setValorTotal(rs.getDouble("valorTotal"));
+                pedido.setTipoPagamento(rs.getString("tipoPagamento"));
+                pedido.setStatus(rs.getString("status"));
+                pedido.setProtocolo(rs.getString("protocolo"));
+                pedido.setValorFrete(rs.getDouble("valorFrete"));
+                
+                List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
+                pedido.setItens(itens);
+                
+                list.add(pedido);
+            }
+            
+        } catch (SQLException e) {
+            
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+        return list;
+    }
+    
 }
