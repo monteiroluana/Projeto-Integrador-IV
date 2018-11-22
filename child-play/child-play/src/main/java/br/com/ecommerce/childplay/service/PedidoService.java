@@ -49,7 +49,7 @@ public class PedidoService {
     
     public List<Pedido> listPedidosByCliente(Cliente cliente) throws SQLException {
         PedidoDAO pedidoDao = new PedidoDAO();
-        return pedidoDao.listPedidoByCliente(cliente);
+        return pedidoDao.listPedidosByCliente(cliente);
     }
 
     public static String gerarProtocolo() {
