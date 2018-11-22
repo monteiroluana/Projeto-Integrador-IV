@@ -32,18 +32,7 @@ public class PedidoController {
         return re;
     }
 
-//    @GetMapping("/list-pedido")
-//    public ResponseEntity listClientes() throws ClassNotFoundException, SQLException {
-//        PedidoService service = new PedidoService();
-//        ResponseEntity re = null;
-//        try {
-//            re = ResponseEntity.createSuccess();
-//            re.setData(service.listPedidos());
-//        } catch (SQLException e) {
-//            re = ResponseEntity.createUnknownError();
-//        }
-//        return re;
-//    }
+
     @GetMapping("/list-pedido")
     public ResponseEntity listPedido() throws ClassNotFoundException, SQLException {
         PedidoService service = new PedidoService();
@@ -84,15 +73,4 @@ public class PedidoController {
         }
         return re;
     }
-
-
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(value = "/teste", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-//    public void teste(@RequestBody Pedido pedido) throws SQLException, ClassNotFoundException {
-//        List<ItemPedido> lista = pedido.getItens();
-//        
-//        for (ItemPedido itemPedido : lista) {
-//            System.out.println(itemPedido.getIdProduto());
-//        }
-//    }
 }
