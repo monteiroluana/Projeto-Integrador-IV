@@ -59,10 +59,18 @@ public class ClienteController {
 
     }
 
-//     @GetMapping("/form")
-//     public ModelAndView abrirForm() {
-//         ModelAndView retorno = new ModelAndView("telaTesteCliente")
-//                 .addObject("cliente", new Cliente());
-//         return retorno;
-//     }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity update(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
+        ClienteService service = new ClienteService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.update(cliente));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+
+    }
 }

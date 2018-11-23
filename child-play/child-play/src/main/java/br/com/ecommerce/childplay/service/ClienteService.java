@@ -28,5 +28,16 @@ public class ClienteService {
         }
         return msg;
     }
+    
+    public String update(Cliente cliente) throws ClassNotFoundException, SQLException {
+        ClienteDAO clienteDao = new ClienteDAO();
+        String msg = null;
+        if (clienteDao.update(cliente)) {
+            msg = "Dados atualizados com Sucesso!";
+        } else {
+            msg = "Os dados não puderam ser atualizados!";
+        }
+        return msg;
+    }
 
 }

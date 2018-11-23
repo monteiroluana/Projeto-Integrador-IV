@@ -262,4 +262,48 @@ public class ClienteDAO {
 
     }
 
+    public boolean update(Cliente cliente) throws ClassNotFoundException, SQLException {
+        String sql = "uptade cliente set genero = ?,telefone = ?, senha = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, complemento = ?, token = ? where email = ?";
+  
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setString(1, cliente.getGenero());
+            p.setString(2, cliente.getTelefone());
+            p.setString(3, cliente.getSenha());
+            p.setString(4, cliente.getCep());
+            p.setString(5, cliente.getLogradouro());
+            p.setString(6, cliente.getNumero());
+            p.setString(7, cliente.getBairro());
+            p.setString(8, cliente.getCidade());
+            p.setString(9, cliente.getUf());
+            p.setString(10, cliente.getComplemento());
+            p.setString(11, cliente.getToken());
+            
+           p.execute();
+
+        } catch (SQLException e) {
+
+        } finally {
+            //Fechando todas as conexões que foram abertas
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return false;
+    }
 }
