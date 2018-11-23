@@ -156,13 +156,14 @@ public class ClienteDAO {
 
             p.execute();
 
-            if (!cliente.getCartao().get(0).getNumCartao().isEmpty()||cliente.getCartao().get(0).getNumCartao()!="") {
-                ResultSet rs = p.getGeneratedKeys();
-                if (rs.next()) {
-                    idGerado = rs.getInt(1);
-                }
-                saveCartao(cliente.getCartao().get(0));
-            }
+           // if (!cliente.getCartao().get(1).getNumCartao().isEmpty()) {
+//                ResultSet rs = p.getGeneratedKeys();
+//                if (rs.next()) {
+//                    idGerado = rs.getInt(1);
+//                }
+//                saveCartao(cliente.getCartao().get(0));
+                System.out.println("não está vazio");
+           // }
             return (true);
 
         } catch (SQLException ex) {
@@ -190,12 +191,12 @@ public class ClienteDAO {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
             p.setInt(1, cartao.getIdCliente());
-            p.setString(2,cartao.getNomeTitular());
-            p.setString(3,cartao.getTipoCartao());
-            p.setString(4,cartao.getNumCartao());
-            p.setString(5,cartao.getCodSeguranca());
-            p.setDate(6,cartao.getValidade());
-            p.setBoolean(7,true);  
+            p.setString(2, cartao.getNomeTitular());
+            p.setString(3, cartao.getTipoCartao());
+            p.setString(4, cartao.getNumCartao());
+            p.setString(5, cartao.getCodSeguranca());
+            p.setDate(6, cartao.getValidade());
+            p.setBoolean(7, true);
             p.execute();
             return (true);
 

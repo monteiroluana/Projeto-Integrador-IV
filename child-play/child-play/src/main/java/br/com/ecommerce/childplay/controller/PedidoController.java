@@ -59,15 +59,13 @@ public class PedidoController {
         return re;
     }
     
-    
-    @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/historico", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity pedido(@RequestBody Cliente cliente) throws SQLException, ClassNotFoundException {
+    @GetMapping("/history/{email}")
+    public ResponseEntity pedido(@PathVariable("email") String email) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.listPedidosByCliente(cliente.getEmail()));
+            re.setData(service.listPedidosByCliente(email));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
