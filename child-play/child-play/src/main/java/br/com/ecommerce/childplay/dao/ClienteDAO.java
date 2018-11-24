@@ -50,7 +50,7 @@ public class ClienteDAO {
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
 
-                cliente.setCartao(listCartaoByClienteId(cliente.getIdCliente()));
+                cliente.setCartao(getCartaoByClienteId(cliente.getIdCliente()));
                 lista.add(cliente);
             }
         } catch (SQLException e) {
@@ -102,7 +102,7 @@ public class ClienteDAO {
                 cliente.setEmail(rs.getString("email"));
                 // cliente.setLogin(rs.getString("login"));
                 cliente.setSenha(rs.getString("senha"));
-                cliente.setCartao(listCartaoByClienteId(cliente.getIdCliente()));
+                cliente.setCartao(getCartaoByClienteId(cliente.getIdCliente()));
                 return true;
             }
         } catch (SQLException e) {
@@ -156,14 +156,14 @@ public class ClienteDAO {
 
             p.execute();
 
-           // if (!cliente.getCartao().get(1).getNumCartao().isEmpty()) {
-//                ResultSet rs = p.getGeneratedKeys();
-//                if (rs.next()) {
-//                    idGerado = rs.getInt(1);
-//                }
-//                saveCartao(cliente.getCartao().get(0));
-                System.out.println("não está vazio");
-           // }
+            if (!cliente.getCartao().getNumCartao().isEmpty()&&!cliente.getCartao().getNumCartao().equals("")) {
+                ResultSet rs = p.getGeneratedKeys();
+                if (rs.next()) {
+                    idGerado = rs.getInt(1);
+                    System.out.println("idGerado: "+idGerado);
+                }
+                saveCartao(cliente.getCartao(),idGerado);
+            }
             return (true);
 
         } catch (SQLException ex) {
@@ -181,7 +181,7 @@ public class ClienteDAO {
 
     }
 
-    public boolean saveCartao(Cartao cartao) throws SQLException {
+    public boolean saveCartao(Cartao cartao, int idCliente) throws SQLException {
 
         String sql = "INSERT INTO cartao (idCliente, nomeTitular, tipoCartao, numCartao, codSeguranca, validade, enable) VALUES (?,?,?,?,?,?,?);";
         Connection connection = null;
@@ -215,7 +215,7 @@ public class ClienteDAO {
 
     }
 
-    public List<Cartao> listCartaoByClienteId(int idCliente) throws SQLException {
+    public Cartao getCartaoByClienteId(int idCliente) throws SQLException {
         String sql = "select * from cartao where idCliente = ?";
 
         List<Cartao> lista = new ArrayList<>();
@@ -223,6 +223,7 @@ public class ClienteDAO {
         Connection connection = null;
         PreparedStatement p = null;
         ResultSet rs = null;
+         Cartao cartao = new Cartao();
 
         try {
             connection = Conexao.getConnection();
@@ -231,7 +232,7 @@ public class ClienteDAO {
             rs = p.executeQuery();
 
             while (rs.next()) {
-                Cartao cartao = new Cartao();
+               
                 cartao.setIdCliente(rs.getInt("idCliente"));
                 cartao.setNomeTitular(rs.getString("nomeTitular"));
                 cartao.setTipoCartao(rs.getString("tipoCartao"));
@@ -258,12 +259,12 @@ public class ClienteDAO {
                 rs.close();
             }
         }
-        return lista;
+        return cartao;
 
     }
 
     public boolean update(Cliente cliente) throws ClassNotFoundException, SQLException {
-        String sql = "uptade cliente set genero = ?,telefone = ?, senha = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, complemento = ?, token = ? where email = ?";
+        String sql = "update cliente set telefone = ?, senha = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, complemento = ?, token = ? where email = ?";
   
         Connection connection = null;
         ResultSet rs = null;
@@ -272,19 +273,20 @@ public class ClienteDAO {
         try {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
-            p.setString(1, cliente.getGenero());
-            p.setString(2, cliente.getTelefone());
-            p.setString(3, cliente.getSenha());
-            p.setString(4, cliente.getCep());
-            p.setString(5, cliente.getLogradouro());
-            p.setString(6, cliente.getNumero());
-            p.setString(7, cliente.getBairro());
-            p.setString(8, cliente.getCidade());
-            p.setString(9, cliente.getUf());
-            p.setString(10, cliente.getComplemento());
-            p.setString(11, cliente.getToken());
+            p.setString(1, cliente.getTelefone());
+            p.setString(2, cliente.getSenha());
+            p.setString(3, cliente.getCep());
+            p.setString(4, cliente.getLogradouro());
+            p.setString(5, cliente.getNumero());
+            p.setString(6, cliente.getBairro());
+            p.setString(7, cliente.getCidade());
+            p.setString(8, cliente.getUf());
+            p.setString(9, cliente.getComplemento());
+            p.setString(10, cliente.getToken());
+            p.setString(11,cliente.getEmail());
             
            p.execute();
+           return true;
 
         } catch (SQLException e) {
 

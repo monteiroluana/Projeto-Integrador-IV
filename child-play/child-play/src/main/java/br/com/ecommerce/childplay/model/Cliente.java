@@ -15,7 +15,7 @@ public class Cliente {
     private String login;
     private String senha;
     private String token;
-    private List<Cartao> cartao;
+    private Cartao cartao;
     private String cep;
     private String logradouro;
     private String numero;
@@ -96,11 +96,11 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public List<Cartao> getCartao() {
+    public Cartao getCartao() {
         return cartao;
     }
 
-    public void setCartao(List<Cartao> cartao) {
+    public void setCartao(Cartao cartao) {
         this.cartao = cartao;
     }
 
