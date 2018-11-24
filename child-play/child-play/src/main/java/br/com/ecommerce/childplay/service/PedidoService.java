@@ -36,18 +36,18 @@ public class PedidoService {
 //        return pedidoDao.listPedidos();
 //    }
         
-     public List<PlanZ> listPedido() throws SQLException {
+     public List<PlanZ> listPedido() throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.listPedido();
     }
     
-     public Pedido getPedidosByProtocolo(String protocolo) throws SQLException {
+     public Pedido getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.getPedidosByProtocolo(protocolo);
     }
     
     
-    public List<Pedido> listPedidosByCliente(String email) throws SQLException {
+    public List<Pedido> listPedidosByCliente(String email) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.listPedidosByCliente(email);
     }
