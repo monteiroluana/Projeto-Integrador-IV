@@ -12,12 +12,12 @@ public class ClienteService {
         ClienteDAO clienteDao = new ClienteDAO();
         return new ArrayList<>(clienteDao.listClientes());
     }
-    
+
     public boolean authClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
         return clienteDao.authClienteByLoginSenha(login, senha);
     }
-   
+
     public String saveCliente(Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
@@ -28,7 +28,7 @@ public class ClienteService {
         }
         return msg;
     }
-    
+
     public String update(Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
@@ -40,4 +40,9 @@ public class ClienteService {
         return msg;
     }
 
+    public List<Cliente> getCliente(String email) throws ClassNotFoundException, SQLException {
+        ClienteDAO clienteDao = new ClienteDAO();
+        System.out.println(email);
+        return new ArrayList<>(clienteDao.getClientePorEmail(email));
+    }
 }

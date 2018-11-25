@@ -73,4 +73,18 @@ public class ClienteController {
         return re;
 
     }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/cliente", method = RequestMethod.GET, consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity getCliente(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
+        ClienteService service = new ClienteService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.getCliente(cliente.getEmail()));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+
+    }
 }

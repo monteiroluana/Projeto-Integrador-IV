@@ -14,6 +14,66 @@ public class ClienteDAO {
 
     public static int idGerado;
 
+    public List<Cliente> getClientePorEmail(String email) throws ClassNotFoundException, SQLException {
+        String sql = "select * from cliente where email = ?";
+
+        List<Cliente> lista = new ArrayList<>();
+
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setString(1, email);
+            //Armazenando os resultados
+            rs = p.executeQuery();
+
+            //Enquanto tiver linha de resultado execute esse trecho
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setDataNasc(rs.getDate("dataNasc"));
+                cliente.setGenero(rs.getString("genero"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setEmail(rs.getString("email"));
+                //cliente.setLogin(rs.getString("login"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setLogradouro(rs.getString("logradouro"));
+                cliente.setNumero(rs.getString("numero"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
+
+                cliente.setCartao(getCartaoByClienteId(cliente.getIdCliente()));
+                lista.add(cliente);
+            }
+        } catch (SQLException e) {
+
+        } finally {
+            //Fechando todas as conexões que foram abertas
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return lista;
+    }
+
     public List<Cliente> listClientes() throws ClassNotFoundException, SQLException {
         String sql = "select * from cliente where enable = ?";
 
@@ -156,13 +216,13 @@ public class ClienteDAO {
 
             p.execute();
 
-            if (!cliente.getCartao().getNumCartao().isEmpty()&&!cliente.getCartao().getNumCartao().equals("")) {
+            if (!cliente.getCartao().getNumCartao().isEmpty() && !cliente.getCartao().getNumCartao().equals("")) {
                 ResultSet rs = p.getGeneratedKeys();
                 if (rs.next()) {
                     idGerado = rs.getInt(1);
-                    System.out.println("idGerado: "+idGerado);
+                    System.out.println("idGerado: " + idGerado);
                 }
-                saveCartao(cliente.getCartao(),idGerado);
+                saveCartao(cliente.getCartao(), idGerado);
             }
             return (true);
 
@@ -223,7 +283,7 @@ public class ClienteDAO {
         Connection connection = null;
         PreparedStatement p = null;
         ResultSet rs = null;
-         Cartao cartao = new Cartao();
+        Cartao cartao = new Cartao();
 
         try {
             connection = Conexao.getConnection();
@@ -232,7 +292,7 @@ public class ClienteDAO {
             rs = p.executeQuery();
 
             while (rs.next()) {
-               
+
                 cartao.setIdCliente(rs.getInt("idCliente"));
                 cartao.setNomeTitular(rs.getString("nomeTitular"));
                 cartao.setTipoCartao(rs.getString("tipoCartao"));
@@ -265,7 +325,7 @@ public class ClienteDAO {
 
     public boolean update(Cliente cliente) throws ClassNotFoundException, SQLException {
         String sql = "update cliente set telefone = ?, senha = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, complemento = ?, token = ? where email = ?";
-  
+
         Connection connection = null;
         ResultSet rs = null;
         PreparedStatement p = null;
@@ -283,10 +343,10 @@ public class ClienteDAO {
             p.setString(8, cliente.getUf());
             p.setString(9, cliente.getComplemento());
             p.setString(10, cliente.getToken());
-            p.setString(11,cliente.getEmail());
-            
-           p.execute();
-           return true;
+            p.setString(11, cliente.getEmail());
+
+            p.execute();
+            return true;
 
         } catch (SQLException e) {
 
