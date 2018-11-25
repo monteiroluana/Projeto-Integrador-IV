@@ -40,8 +40,6 @@ public class ClienteDAO {
                 cliente.setGenero(rs.getString("genero"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
-                //cliente.setLogin(rs.getString("login"));
-                cliente.setSenha(rs.getString("senha"));
                 cliente.setLogradouro(rs.getString("logradouro"));
                 cliente.setNumero(rs.getString("numero"));
                 cliente.setCep(rs.getString("cep"));
