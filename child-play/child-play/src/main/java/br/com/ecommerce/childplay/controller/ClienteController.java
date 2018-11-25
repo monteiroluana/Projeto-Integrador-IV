@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,13 +75,13 @@ public class ClienteController {
 
     }
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/cliente", method = RequestMethod.GET, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity getCliente(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
+    @RequestMapping(value = "/cliente/{email}", method = RequestMethod.GET, consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity getCliente(@PathVariable("email") String email) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.getCliente(cliente.getEmail()));
+            re.setData(service.getCliente(email));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }

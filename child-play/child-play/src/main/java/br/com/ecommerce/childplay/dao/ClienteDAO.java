@@ -159,7 +159,7 @@ public class ClienteDAO {
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
                 // cliente.setLogin(rs.getString("login"));
-                cliente.setSenha(rs.getString("senha"));
+                //cliente.setSenha(rs.getString("senha"));
                 cliente.setCartao(getCartaoByClienteId(cliente.getIdCliente()));
                 return true;
             }

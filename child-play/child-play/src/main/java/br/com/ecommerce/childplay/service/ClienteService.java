@@ -35,14 +35,13 @@ public class ClienteService {
         if (clienteDao.update(cliente)) {
             msg = "Dados atualizados com Sucesso!";
         } else {
-            msg = "Os dados n√£o puderam ser atualizados!";
+            msg = "Os dados n„o puderam ser atualizados!";
         }
         return msg;
     }
 
     public List<Cliente> getCliente(String email) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
-        System.out.println(email);
         return new ArrayList<>(clienteDao.getClientePorEmail(email));
     }
 }
