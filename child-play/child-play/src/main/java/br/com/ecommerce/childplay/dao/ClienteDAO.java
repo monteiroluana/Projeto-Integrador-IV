@@ -12,12 +12,10 @@ import java.util.List;
 
 public class ClienteDAO {
 
-    public static int idGerado;
-
-    public List<Cliente> getClientePorEmail(String email) throws ClassNotFoundException, SQLException {
+    public Cliente getClientePorEmail(String email) throws ClassNotFoundException, SQLException {
         String sql = "select * from cliente where email = ?";
 
-        List<Cliente> lista = new ArrayList<>();
+        Cliente cliente = new Cliente();
 
         Connection connection = null;
         ResultSet rs = null;
@@ -32,7 +30,7 @@ public class ClienteDAO {
 
             //Enquanto tiver linha de resultado execute esse trecho
             while (rs.next()) {
-                Cliente cliente = new Cliente();
+
                 cliente.setIdCliente(rs.getInt("idCliente"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
@@ -48,8 +46,10 @@ public class ClienteDAO {
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
 
-                cliente.setCartao(getCartaoByClienteId(cliente.getIdCliente()));
-                lista.add(cliente);
+                CartaoDAO cartaoDao = new CartaoDAO();
+                Cartao cartao = cartaoDao.getCartaoByClienteId(cliente.getIdCliente());
+                cliente.setCartao(cartao);
+
             }
         } catch (SQLException e) {
 
@@ -69,7 +69,7 @@ public class ClienteDAO {
 
             }
         }
-        return lista;
+        return cliente;
     }
 
     public List<Cliente> listClientes() throws ClassNotFoundException, SQLException {
@@ -98,7 +98,6 @@ public class ClienteDAO {
                 cliente.setGenero(rs.getString("genero"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
-                //cliente.setLogin(rs.getString("login"));
                 cliente.setSenha(rs.getString("senha"));
                 cliente.setLogradouro(rs.getString("logradouro"));
                 cliente.setNumero(rs.getString("numero"));
@@ -108,7 +107,10 @@ public class ClienteDAO {
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
 
-                cliente.setCartao(getCartaoByClienteId(cliente.getIdCliente()));
+                CartaoDAO cartaoDao = new CartaoDAO();
+                Cartao cartao = cartaoDao.getCartaoByClienteId(cliente.getIdCliente());
+                cliente.setCartao(cartao);
+
                 lista.add(cliente);
             }
         } catch (SQLException e) {
@@ -132,7 +134,7 @@ public class ClienteDAO {
         return lista;
     }
 
-    public boolean authClienteByLoginSenha(String email, String senha) throws ClassNotFoundException, SQLException {
+    public Cliente authClienteByEmailSenha(String email, String senha) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM Cliente WHERE enable = ? and email = ? and senha = ?";
 
         Cliente cliente = new Cliente();
@@ -158,10 +160,19 @@ public class ClienteDAO {
                 cliente.setGenero(rs.getString("genero"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
-                // cliente.setLogin(rs.getString("login"));
-                //cliente.setSenha(rs.getString("senha"));
-                cliente.setCartao(getCartaoByClienteId(cliente.getIdCliente()));
-                return true;
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setLogradouro(rs.getString("logradouro"));
+                cliente.setNumero(rs.getString("numero"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
+
+                CartaoDAO cartaoDao = new CartaoDAO();
+                Cartao cartao = cartaoDao.getCartaoByClienteId(cliente.getIdCliente());
+                cliente.setCartao(cartao);
+
             }
         } catch (SQLException e) {
 
@@ -181,7 +192,7 @@ public class ClienteDAO {
 
             }
         }
-        return false;
+        return cliente;
     }
 
     public boolean saveCliente(Cliente cliente) throws SQLException {
@@ -190,6 +201,7 @@ public class ClienteDAO {
                 + "logradouro, numero, cep, complemento, bairro, cidade, uf, token) VALUES (?,?,?,?,?,?,?,?,? , ?,?,?,?,?,?,?);";
         Connection connection = null;
         PreparedStatement p = null;
+        int idGerado = -1;
 
         try {
             connection = Conexao.getConnection();
@@ -214,14 +226,15 @@ public class ClienteDAO {
 
             p.execute();
 
-            if (!cliente.getCartao().getNumCartao().isEmpty() && !cliente.getCartao().getNumCartao().equals("")) {
-                ResultSet rs = p.getGeneratedKeys();
-                if (rs.next()) {
-                    idGerado = rs.getInt(1);
-                    System.out.println("idGerado: " + idGerado);
-                }
-                saveCartao(cliente.getCartao(), idGerado);
+            ResultSet rs = p.getGeneratedKeys();
+            if (rs.next()) {
+                idGerado = rs.getInt(1);
+                System.out.println("idGerado: " + idGerado);
             }
+
+            CartaoDAO cartaoDao = new CartaoDAO();
+            cartaoDao.saveCartao(cliente.getCartao(), idGerado);
+
             return (true);
 
         } catch (SQLException ex) {
@@ -236,93 +249,12 @@ public class ClienteDAO {
                 p.close();
             }
         }
-
-    }
-
-    public boolean saveCartao(Cartao cartao, int idCliente) throws SQLException {
-
-        String sql = "INSERT INTO cartao (idCliente, nomeTitular, tipoCartao, numCartao, codSeguranca, validade, enable) VALUES (?,?,?,?,?,?,?);";
-        Connection connection = null;
-        PreparedStatement p = null;
-
-        try {
-            connection = Conexao.getConnection();
-            p = connection.prepareStatement(sql);
-            p.setInt(1, cartao.getIdCliente());
-            p.setString(2, cartao.getNomeTitular());
-            p.setString(3, cartao.getTipoCartao());
-            p.setString(4, cartao.getNumCartao());
-            p.setString(5, cartao.getCodSeguranca());
-            p.setDate(6, cartao.getValidade());
-            p.setBoolean(7, true);
-            p.execute();
-            return (true);
-
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-            return (false);
-
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-            if (p != null) {
-                p.close();
-            }
-        }
-
-    }
-
-    public Cartao getCartaoByClienteId(int idCliente) throws SQLException {
-        String sql = "select * from cartao where idCliente = ?";
-
-        List<Cartao> lista = new ArrayList<>();
-
-        Connection connection = null;
-        PreparedStatement p = null;
-        ResultSet rs = null;
-        Cartao cartao = new Cartao();
-
-        try {
-            connection = Conexao.getConnection();
-            p = connection.prepareStatement(sql);
-            p.setInt(1, idCliente);
-            rs = p.executeQuery();
-
-            while (rs.next()) {
-
-                cartao.setIdCliente(rs.getInt("idCliente"));
-                cartao.setNomeTitular(rs.getString("nomeTitular"));
-                cartao.setTipoCartao(rs.getString("tipoCartao"));
-                cartao.setNumCartao(rs.getString("numCartao"));
-                cartao.setCodSeguranca(rs.getString("codSeguranca"));
-                cartao.setValidade(rs.getDate("validade"));
-                cartao.setEnable(rs.getBoolean("enable"));
-
-                lista.add(cartao);
-            }
-
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-
-        } finally {
-
-            if (connection != null) {
-                connection.close();
-            }
-            if (p != null) {
-                p.close();
-            }
-            if (rs != null) {
-                rs.close();
-            }
-        }
-        return cartao;
 
     }
 
     public boolean update(Cliente cliente) throws ClassNotFoundException, SQLException {
-        String sql = "update cliente set telefone = ?, senha = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, complemento = ?, token = ? where email = ?";
+        String sql = "update cliente set telefone = ?, senha = ?, cep = ?, logradouro = ?, numero = ?, "
+                + "bairro = ?, cidade = ?, uf = ?, complemento = ?, token = ? , nome = ?, cpf  = ?, dataNasc  = ?, genero  = ? where email = ?";
 
         Connection connection = null;
         ResultSet rs = null;
@@ -341,8 +273,12 @@ public class ClienteDAO {
             p.setString(8, cliente.getUf());
             p.setString(9, cliente.getComplemento());
             p.setString(10, cliente.getToken());
-            p.setString(11, cliente.getEmail());
-
+            p.setString(11, cliente.getNome());
+            p.setString(12, cliente.getCpf());
+            p.setDate(13, cliente.getDataNasc());
+            p.setString(14, cliente.getGenero());
+        
+            System.out.println(cliente.getEmail());
             p.execute();
             return true;
 

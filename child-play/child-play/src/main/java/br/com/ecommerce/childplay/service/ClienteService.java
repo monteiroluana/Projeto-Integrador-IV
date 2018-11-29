@@ -13,9 +13,9 @@ public class ClienteService {
         return new ArrayList<>(clienteDao.listClientes());
     }
 
-    public boolean authClienteByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
+    public Cliente authClienteByEmailSenha(String login, String senha) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
-        return clienteDao.authClienteByLoginSenha(login, senha);
+        return clienteDao.authClienteByEmailSenha(login, senha);
     }
 
     public String saveCliente(Cliente cliente) throws ClassNotFoundException, SQLException {
@@ -35,13 +35,13 @@ public class ClienteService {
         if (clienteDao.update(cliente)) {
             msg = "Dados atualizados com Sucesso!";
         } else {
-            msg = "Os dados não puderam ser atualizados!";
+            msg = "Os dados nï¿½o puderam ser atualizados!";
         }
         return msg;
     }
 
-    public List<Cliente> getCliente(String email) throws ClassNotFoundException, SQLException {
+    public Cliente getClientePorEmail(String email) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
-        return new ArrayList<>(clienteDao.getClientePorEmail(email));
+        return clienteDao.getClientePorEmail(email);
     }
 }

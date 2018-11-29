@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class Cartao {
     private int idCliente;
-    String nomeTitular;
+    private String nomeTitular;
     private String tipoCartao;
     private String numCartao;
     private String codSeguranca;

@@ -33,12 +33,12 @@ public class ClienteController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/auth", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity authClienteByLoginSenha(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
+    public ResponseEntity authClienteByEmailSenha(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.authClienteByLoginSenha(cliente.getLogin(), cliente.getSenha()));
+            re.setData(service.authClienteByEmailSenha(cliente.getLogin(), cliente.getSenha()));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
@@ -76,12 +76,12 @@ public class ClienteController {
     }
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/cliente/{email}", method = RequestMethod.GET, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity getCliente(@PathVariable("email") String email) throws ClassNotFoundException, SQLException {
+    public ResponseEntity getClientePorEmail(@PathVariable("email") String email) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.getCliente(email));
+            re.setData(service.getClientePorEmail(email));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
