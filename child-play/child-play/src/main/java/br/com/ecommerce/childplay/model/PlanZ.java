@@ -3,7 +3,6 @@ package br.com.ecommerce.childplay.model;
 import java.sql.Date;
 import java.util.List;
 import br.com.ecommerce.childPlay.model.Cliente;
-import br.com.ecommerce.childPlay.model.Endereco;
 
 public class PlanZ {
 

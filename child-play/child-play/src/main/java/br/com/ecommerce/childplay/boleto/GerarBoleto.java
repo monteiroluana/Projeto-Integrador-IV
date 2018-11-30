@@ -1,4 +1,4 @@
-package br.com.ecommerce.childplay.z;
+package br.com.ecommerce.childplay.boleto;
 
 import br.com.caelum.stella.boleto.Banco;
 import br.com.caelum.stella.boleto.Beneficiario;
@@ -8,9 +8,10 @@ import br.com.caelum.stella.boleto.Endereco;
 import br.com.caelum.stella.boleto.Pagador;
 import br.com.caelum.stella.boleto.bancos.BancoDoBrasil;
 import br.com.caelum.stella.boleto.transformer.GeradorDeBoleto;
-import br.com.ecommerce.childplay.model.Pedido;
 import br.com.ecommerce.childplay.model.PlanZ;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,18 +20,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/zday")
-public class zDay {
+@RequestMapping("/boleto")
+public class GerarBoleto {
 
-   @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public void generateReport(@RequestBody PlanZ pedido,HttpServletResponse response) throws IOException {
+    public void generateReport(@RequestBody PlanZ pedido, HttpServletResponse response) throws IOException {
+
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(pedido.getDataPedido());
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        cal.add(Calendar.MONTH, 1);
+        
+        Calendar cal2 = new GregorianCalendar();
+        cal2.setTime(cal.getTime());
+        cal2.add(Calendar.DAY_OF_MONTH,5);
 
         Datas datas = Datas.novasDatas()
-                .comDocumento(1, 5, 2008)
-//                .comProcessamento(1, 5, 2008)
-                .comProcessamento(1, 5, 2008)
-                .comVencimento(2, 5, 2008);
+                .comDocumento(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))
+                .comProcessamento(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))
+                .comVencimento(cal2.get(Calendar.DAY_OF_MONTH), cal2.get(Calendar.MONTH), cal2.get(Calendar.YEAR));
 
         Endereco enderecoBeneficiario = Endereco.novoEndereco()
                 .comLogradouro("Av das Empresas, 555")
@@ -60,7 +69,7 @@ public class zDay {
 
         Pagador pagador = Pagador.novoPagador()
                 .comNome(pedido.getCliente().getNome())
-                .comDocumento(pedido.getCliente().getCpf())
+                .comDocumento("cpf: "+pedido.getCliente().getCpf())
                 .comEndereco(enderecoPagador);
 
         Banco banco = new BancoDoBrasil();
