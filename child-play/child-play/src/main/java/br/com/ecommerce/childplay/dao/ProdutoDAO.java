@@ -267,4 +267,44 @@ public class ProdutoDAO {
 
         }
     }
+    
+    public boolean update (Produto produto) throws SQLException {
+
+        String sql = "UPDATE PRODUTO SET nome = ?, marca = ?, descricao = ?, caracteristicas = ?, idade = ?, "
+                + "categoria = ?, preco = ?, estoque = ?, desconto = ? WHERE idProduto = ?";
+        
+        Connection connection = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            
+            p.setString(1, produto.getNome());
+            p.setString(2, produto.getMarca());
+            p.setString(3, produto.getDescricao());
+            p.setString(4, produto.getCaracteristicas());
+            p.setInt(5, produto.getIdade());
+            p.setString(6, produto.getCategoria());
+            p.setDouble(7, produto.getPreco());
+            p.setInt(8, produto.getEstoque());
+            p.setInt(9, produto.getDesconto());
+            p.setInt(10, produto.getIdProduto());
+
+            return true;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.err.println(ex.getMessage());
+            return false;
+        
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+    }
+    
 }
