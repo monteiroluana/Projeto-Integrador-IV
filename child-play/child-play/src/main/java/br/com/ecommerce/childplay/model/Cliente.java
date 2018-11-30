@@ -12,7 +12,6 @@ public class Cliente {
     private String genero;
     private String telefone;
     private String email;
-    private String login;
     private String senha;
     private String token;
     private Cartao cartao;
@@ -78,14 +77,6 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getSenha() {
