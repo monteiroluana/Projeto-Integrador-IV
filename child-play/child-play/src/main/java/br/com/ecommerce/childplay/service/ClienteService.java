@@ -44,4 +44,16 @@ public class ClienteService {
         ClienteDAO clienteDao = new ClienteDAO();
         return clienteDao.getClientePorEmail(email);
     }
+    
+    
+    public String enable(Cliente cliente) throws ClassNotFoundException, SQLException {
+        ClienteDAO clienteDao = new ClienteDAO();
+        String msg = null;
+        if (clienteDao.enable(cliente)) {
+            msg = "Sua conta foi desativada com sucesso!";
+        } else {
+            msg = "Erro ao desativar conta!";
+        }
+        return msg;
+    }
 }

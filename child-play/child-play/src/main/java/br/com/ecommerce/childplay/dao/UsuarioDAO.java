@@ -157,12 +157,12 @@ public class UsuarioDAO {
             
             p.setString(1, usuario.getNome());
             p.setString(2, usuario.getSenha());
-            p.setString(3, usuario.getfuncao());
+            p.setString(3, usuario.getFuncao());
             p.setString(4, usuario.getLogin());
 
             return true;
 
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
             return false;
         

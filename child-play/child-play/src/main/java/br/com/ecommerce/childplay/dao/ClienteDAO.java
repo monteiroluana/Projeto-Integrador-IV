@@ -253,37 +253,41 @@ public class ClienteDAO {
     }
 
     public boolean update(Cliente cliente) throws ClassNotFoundException, SQLException {
-        String sql = "update cliente set telefone = ?, senha = ?, cep = ?, logradouro = ?, numero = ?, "
-                + "bairro = ?, cidade = ?, uf = ?, complemento = ?, token = ? , nome = ?, cpf  = ?, dataNasc  = ?, genero  = ? where email = ?";
+        String sql = "UPDATE cliente SET  senha = ? ,  nome = ?, cpf  = ?, dataNasc  = ?, telefone = ?, genero  = ? , token = ? ,"
+                + "cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, complemento = ? "
+                + "WHERE email = ? and enable = ?";
 
         Connection connection = null;
-        ResultSet rs = null;
         PreparedStatement p = null;
 
         try {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
-            p.setString(1, cliente.getTelefone());
-            p.setString(2, cliente.getSenha());
-            p.setString(3, cliente.getCep());
-            p.setString(4, cliente.getLogradouro());
-            p.setString(5, cliente.getNumero());
-            p.setString(6, cliente.getBairro());
-            p.setString(7, cliente.getCidade());
-            p.setString(8, cliente.getUf());
-            p.setString(9, cliente.getComplemento());
-            p.setString(10, cliente.getToken());
-            p.setString(11, cliente.getNome());
-            p.setString(12, cliente.getCpf());
-            p.setDate(13, cliente.getDataNasc());
-            p.setString(14, cliente.getGenero());
-        
-            System.out.println(cliente.getEmail());
+
+            p.setString(1, cliente.getSenha());
+            p.setString(2, cliente.getNome());
+            p.setString(3, cliente.getCpf());
+            p.setDate(4, cliente.getDataNasc());
+            p.setString(5, cliente.getTelefone());
+            p.setString(6, cliente.getGenero());
+            p.setString(7, cliente.getToken());
+            p.setString(8, cliente.getCep());
+            p.setString(9, cliente.getLogradouro());
+            p.setString(10, cliente.getNumero());
+            p.setString(11, cliente.getBairro());
+            p.setString(12, cliente.getCidade());
+            p.setString(13, cliente.getUf());
+            p.setString(14, cliente.getComplemento());
+            p.setString(15, cliente.getEmail());
+            p.setBoolean(16, true);
+
             p.execute();
+
             return true;
-
         } catch (SQLException e) {
-
+            System.err.println(e.getMessage());
+            return false;
+            
         } finally {
             //Fechando todas as conexões que foram abertas
             try {
@@ -293,13 +297,48 @@ public class ClienteDAO {
                 if (p != null) {
                     p.close();
                 }
-                if (rs != null) {
-                    rs.close();
+            } catch (SQLException e) {
+
+            }
+        }
+
+    }
+    
+    
+    public boolean enable(Cliente cliente) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE cliente SET  enable = ? "
+                + "WHERE (email = ?)";
+
+        Connection connection = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+
+            p.setBoolean(1,false);
+            p.setString(2, cliente.getEmail());
+
+            p.execute();
+
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+            
+        } finally {
+            //Fechando todas as conexões que foram abertas
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
                 }
             } catch (SQLException e) {
 
             }
         }
-        return false;
+
     }
 }

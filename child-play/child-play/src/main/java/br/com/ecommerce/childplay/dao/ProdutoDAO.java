@@ -293,7 +293,7 @@ public class ProdutoDAO {
 
             return true;
 
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
             return false;
         
