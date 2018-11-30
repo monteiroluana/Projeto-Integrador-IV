@@ -35,7 +35,7 @@ create table cliente(
     complemento		VARCHAR(255),
     enable		BOOLEAN,
     CONSTRAINT PK_CLIENTE PRIMARY KEY (idCliente),
-    CONSTRAINT UC_CLIENTE UNIQUE (idCliente,email)
+    CONSTRAINT UC_CLIENTE UNIQUE (email)
 );
 
 
