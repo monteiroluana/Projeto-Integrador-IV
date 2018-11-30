@@ -103,7 +103,32 @@ public class PedidoDAO {
             }
         }
     }
+        public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
+            
+        String sql = "UPDATE pedido SET status = 'Aprovado' where protocolo = ?";
 
+        Connection con = null;
+        PreparedStatement p = null;
+
+        try{
+            con = Conexao.getConnection();
+            p = con.prepareStatement(sql);
+            p.setString(1, protocolo);
+            p.execute();
+            
+        }catch(SQLException ex){
+            
+        System.out.print(ex);
+        con.close();
+        
+        return false;
+        
+        }
+        finally{
+        con.close();
+        }                           
+        return true;
+        }
     public Pedido getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
 
         String sql = "SELECT * FROM pedido \n"
@@ -303,6 +328,6 @@ public class PedidoDAO {
             }
         }
         return list;
-    }
+    }    
 
 }

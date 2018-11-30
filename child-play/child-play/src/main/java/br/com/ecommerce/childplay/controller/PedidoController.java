@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,16 @@ public class PedidoController {
         }
         return re;
     }
+    
+        @PostMapping("/AutorizaPedido/{protocolo}")
+    public ResponseEntity AutorizaPedido(@PathVariable("protocolo") String protocolo) throws SQLException, ClassNotFoundException {
+        PedidoService service = new PedidoService();
+        ResponseEntity re = null;
+        re = ResponseEntity.createSuccess();
+        boolean teste = service.AutorizaPedido(protocolo);
+        re.setData(service.AutorizaPedido(protocolo));
+        return re;
+    }
 
     @GetMapping("/{protocolo}")
     public ResponseEntity getPedidosByProtocolo(@PathVariable("protocolo") String protocolo) throws ClassNotFoundException, SQLException {
@@ -59,6 +70,8 @@ public class PedidoController {
         return re;
     }
     
+    
+    
     @GetMapping("/history/{email}")
     public ResponseEntity pedido(@PathVariable("email") String email) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();
@@ -71,4 +84,6 @@ public class PedidoController {
         }
         return re;
     }
+    
+
 }

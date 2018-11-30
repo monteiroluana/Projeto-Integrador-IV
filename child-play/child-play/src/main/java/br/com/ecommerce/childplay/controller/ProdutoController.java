@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-//https://www.youtube.com/watch?v=1wYNFfgrXTI
+
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
@@ -72,6 +72,8 @@ public class ProdutoController {
         }
       return re;
     }
+    
+    
       
 //     @GetMapping("/form")
 //     public ModelAndView abrirForm() {

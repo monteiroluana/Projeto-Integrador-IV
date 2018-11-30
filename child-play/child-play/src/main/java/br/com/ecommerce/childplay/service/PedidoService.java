@@ -33,10 +33,15 @@ public class PedidoService {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.listPedido();
     }
-    
+     
      public Pedido getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
+     PedidoDAO pedidoDao = new PedidoDAO();
+     return pedidoDao.getPedidosByProtocolo(protocolo);
+    }
+    
+     public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
-        return pedidoDao.getPedidosByProtocolo(protocolo);
+        return pedidoDao.AutorizaPedido(protocolo);
     }
     
     
