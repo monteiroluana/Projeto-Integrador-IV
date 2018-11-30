@@ -144,4 +144,37 @@ public class UsuarioDAO {
         }
     }
     
+     public boolean update (Usuario usuario) throws SQLException {
+
+        String sql = "UPDATE USUARIO SET nome = ?, senha = ?, funcao = ? WHERE login = ?";
+        
+        Connection connection = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            
+            p.setString(1, usuario.getNome());
+            p.setString(2, usuario.getSenha());
+            p.setString(3, usuario.getfuncao());
+            p.setString(4, usuario.getLogin());
+
+            return true;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.err.println(ex.getMessage());
+            return false;
+        
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+    }
+    
+    
 }
