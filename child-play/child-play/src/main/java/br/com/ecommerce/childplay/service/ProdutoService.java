@@ -23,10 +23,10 @@ public class ProdutoService {
         return produtoDao.getProdutoByNome(nome);
     }
 
-    public String saveProduto(Produto produto) throws ClassNotFoundException, SQLException {
+    public String save(Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoDAO produtoDao = new ProdutoDAO();
         String msg = null;
-        if (produtoDao.saveProduto(produto)) {
+        if (produtoDao.save(produto)) {
             msg = "Produto foi inserido com Sucesso!";
         } else {
             msg = "Falha ao inserir o produto!";

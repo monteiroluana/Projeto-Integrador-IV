@@ -195,7 +195,7 @@ public class ClienteDAO {
         return cliente;
     }
 
-    public boolean saveCliente(Cliente cliente) throws SQLException {
+    public boolean save(Cliente cliente) throws SQLException {
 
         String sql = "INSERT INTO cliente (nome, cpf, dataNasc, genero, telefone, email, senha, enable,"
                 + "logradouro, numero, cep, complemento, bairro, cidade, uf, token) VALUES (?,?,?,?,?,?,?,?,? , ?,?,?,?,?,?,?);";
@@ -233,7 +233,7 @@ public class ClienteDAO {
             }
 
             CartaoDAO cartaoDao = new CartaoDAO();
-            cartaoDao.saveCartao(cliente.getCartao(), idGerado);
+            cartaoDao.save(cliente.getCartao(), idGerado);
 
             return (true);
 

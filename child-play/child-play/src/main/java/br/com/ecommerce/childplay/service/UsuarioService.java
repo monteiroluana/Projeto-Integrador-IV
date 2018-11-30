@@ -19,10 +19,10 @@ public class UsuarioService {
        
     }
 
-    public String saveUsuario(Usuario usuario) throws ClassNotFoundException, SQLException {
+    public String save(Usuario usuario) throws ClassNotFoundException, SQLException {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         String msg = null;
-        if (usuarioDao.saveUsuario(usuario)) {
+        if (usuarioDao.save(usuario)) {
             msg = "Usuário foi inserido com Sucesso!";
         } else {
             msg = "Falha ao inserir o Usuário!";

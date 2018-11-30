@@ -1,4 +1,3 @@
-
 package br.com.ecommerce.childplay.dao;
 
 import br.com.ecommerce.childPlay.conexao.Conexao;
@@ -9,7 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CartaoDAO {
-    public boolean saveCartao(Cartao cartao, int idCliente) throws SQLException {
+
+    public boolean save(Cartao cartao, int idCliente) throws SQLException {
 
         String sql = "INSERT INTO cartao (idCliente, nomeTitular, tipoCartao, numCartao, codSeguranca, validade, enable) VALUES (?,?,?,?,?,?,?);";
         Connection connection = null;
@@ -83,6 +83,46 @@ public class CartaoDAO {
             }
         }
         return cartao;
+
+    }
+
+    public boolean update(Cartao cartao) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE cartao SET nomeTitular =?, tipoCartao =?, numCartao =?, codSeguranca =?, validade =? WHERE idCliente=?";
+
+        Connection connection = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+
+            p.setString(1, cartao.getNomeTitular());
+            p.setString(2, cartao.getTipoCartao());
+            p.setString(3, cartao.getNumCartao());
+            p.setString(4, cartao.getCodSeguranca());
+            p.setDate(5, cartao.getValidade());
+            p.setInt(5, cartao.getIdCliente());
+            
+            p.execute();
+
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+
+        } finally {
+            //Fechando todas as conexões que foram abertas
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
 
     }
 

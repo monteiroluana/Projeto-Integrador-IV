@@ -9,34 +9,26 @@ import br.com.ecommerce.childplay.model.PlanZ;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class PedidoService {
 
-    public String savePedido(Pedido pedido) throws SQLException {
+    public String save(Pedido pedido) throws SQLException {
         pedido.setProtocolo(gerarProtocolo());
         List<ItemPedido> itens = pedido.getItens();
 
         double total = 0; //Somando o valor total dos itens
         for (ItemPedido iten : itens) {
             total = total + (iten.getPreco() * iten.getQuantidade());
-//            System.out.println("item: "+iten.getProduto().getIdProduto());
         }
        
         
         pedido.setValorTotal(total+pedido.getValorFrete());
         PedidoDAO pedidoDao = new PedidoDAO();
         System.out.println(pedido);
-        return pedidoDao.savePedido(pedido);
-    }
-
-//    public List<Pedido> listPedidos() throws SQLException {
-//        PedidoDAO pedidoDao = new PedidoDAO();
-//        return pedidoDao.listPedidos();
-//    }
-        
+        return pedidoDao.save(pedido);
+    }        
      public List<PlanZ> listPedido() throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.listPedido();

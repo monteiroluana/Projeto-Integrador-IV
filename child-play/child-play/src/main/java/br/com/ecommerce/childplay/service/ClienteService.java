@@ -18,10 +18,10 @@ public class ClienteService {
         return clienteDao.authClienteByEmailSenha(login, senha);
     }
 
-    public String saveCliente(Cliente cliente) throws ClassNotFoundException, SQLException {
+    public String save(Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
-        if (clienteDao.saveCliente(cliente)) {
+        if (clienteDao.save(cliente)) {
             msg = "Cliente cadastrado com Sucesso!";
         } else {
             msg = "Falha ao cadastrar cliente!";

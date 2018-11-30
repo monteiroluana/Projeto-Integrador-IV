@@ -61,12 +61,12 @@ public class ProdutoController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity saveProduto(@RequestBody Produto produto) throws ClassNotFoundException, SQLException {
+    public ResponseEntity save(@RequestBody Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.saveProduto(produto));
+            re.setData(service.save(produto));
         } catch (ClassNotFoundException | SQLException e) {
             re = ResponseEntity.createUnknownError();
         }

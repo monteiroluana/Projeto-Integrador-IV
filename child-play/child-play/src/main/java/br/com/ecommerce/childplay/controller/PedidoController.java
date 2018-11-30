@@ -20,12 +20,12 @@ public class PedidoController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity pedido(@RequestBody Pedido pedido) throws SQLException, ClassNotFoundException {
+    public ResponseEntity save(@RequestBody Pedido pedido) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
-            re.setData(service.savePedido(pedido));
+            re.setData(service.save(pedido));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }

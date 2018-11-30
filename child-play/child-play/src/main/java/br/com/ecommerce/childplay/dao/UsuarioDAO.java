@@ -110,7 +110,7 @@ public class UsuarioDAO {
     }
     
     
-    public boolean saveUsuario (Usuario usuario) throws SQLException {
+    public boolean save (Usuario usuario) throws SQLException {
         String sql = "INSERT INTO USUARIO (nome, login, senha, funcao, enable) VALUES (?,?,?,?,?)";
 
         Connection connection = null;

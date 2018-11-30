@@ -227,7 +227,7 @@ public class ProdutoDAO {
 
     }
 
-    public boolean saveProduto(Produto produto) throws SQLException {
+    public boolean save(Produto produto) throws SQLException {
         String sql = "INSERT INTO PRODUTO (nome, marca, descricao, caracteristicas, idade, "
                 + "categoria, preco, estoque, desconto, enable) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";
