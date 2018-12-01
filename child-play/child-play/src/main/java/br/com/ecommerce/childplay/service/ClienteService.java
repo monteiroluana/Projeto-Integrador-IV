@@ -17,14 +17,19 @@ public class ClienteService {
         ClienteDAO clienteDao = new ClienteDAO();
         return clienteDao.authClienteByEmailSenha(login, senha);
     }
+    
+    public Cliente getClientePorEmail(String email) throws ClassNotFoundException, SQLException {
+        ClienteDAO clienteDao = new ClienteDAO();
+        return clienteDao.getClientePorEmail(email);
+    }
 
     public String save(Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
         if (clienteDao.save(cliente)) {
-            msg = "Cliente cadastrado com Sucesso!";
+            msg = "Conta cadastrada com Sucesso!";
         } else {
-            msg = "Falha ao cadastrar cliente!";
+            msg = "Erro ao cadastrar conta!";
         }
         return msg;
     }
@@ -33,24 +38,18 @@ public class ClienteService {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
         if (clienteDao.update(cliente)) {
-            msg = "Dados atualizados com Sucesso!";
+            msg = "Conta atualizada com Sucesso!";
         } else {
-            msg = "Os dados n�o puderam ser atualizados!";
+            msg = "Erro ao atualizar conta!";
         }
         return msg;
     }
 
-    public Cliente getClientePorEmail(String email) throws ClassNotFoundException, SQLException {
-        ClienteDAO clienteDao = new ClienteDAO();
-        return clienteDao.getClientePorEmail(email);
-    }
-    
-    
     public String enable(Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
         if (clienteDao.enable(cliente)) {
-            msg = "Sua conta foi desativada com sucesso!";
+           msg = "Conta desativada  com Sucesso!";
         } else {
             msg = "Erro ao desativar conta!";
         }

@@ -36,7 +36,8 @@ public class UsuarioDAO {
                 usuario.setLogin(rs.getString("login"));
                 usuario.setSenha(rs.getString("senha"));
                 usuario.setFuncao(rs.getString("funcao"));
-                
+                usuario.setEnable(rs.getBoolean("enable"));
+
                 lista.add(usuario);
             }
         } catch (SQLException e) {
@@ -59,12 +60,11 @@ public class UsuarioDAO {
         }
         return lista;
     }
-    
-    
-    public boolean authUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
+
+    public Usuario authUsuarioByLoginSenha(String login, String senha) throws ClassNotFoundException, SQLException {
 
         String sql = "SELECT * FROM usuario WHERE enable = ?  and login = ? and senha = ?";
-        
+
         Usuario usuario = new Usuario();
         Connection connection = null;
         ResultSet rs = null;
@@ -86,7 +86,8 @@ public class UsuarioDAO {
                 usuario.setLogin(rs.getString("login"));
                 usuario.setSenha(rs.getString("senha"));
                 usuario.setFuncao(rs.getString("funcao"));
-                return true;
+                usuario.setEnable(rs.getBoolean("enable"));
+
             }
         } catch (SQLException e) {
 
@@ -106,11 +107,57 @@ public class UsuarioDAO {
 
             }
         }
-        return false;
+        return usuario;
     }
-    
-    
-    public boolean save (Usuario usuario) throws SQLException {
+
+    public Usuario getUsuario(String login) throws ClassNotFoundException, SQLException {
+
+        String sql = "SELECT * FROM usuario WHERE login = ?";
+
+        Usuario usuario = new Usuario();
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setString(1, login);
+
+            //Armazenando os resultados
+            rs = p.executeQuery();
+
+            //Enquanto tiver linha de resultado execute esse trecho
+            if (rs.next()) {
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setLogin(rs.getString("login"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setFuncao(rs.getString("funcao"));
+                usuario.setEnable(rs.getBoolean("enable"));
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            //Fechando todas as conexões que foram abertas
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return usuario;
+    }
+
+    public boolean save(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO USUARIO (nome, login, senha, funcao, enable) VALUES (?,?,?,?,?)";
 
         Connection connection = null;
@@ -143,29 +190,30 @@ public class UsuarioDAO {
 
         }
     }
-    
-     public boolean update (Usuario usuario) throws SQLException {
+
+    public boolean update(Usuario usuario) throws SQLException {
 
         String sql = "UPDATE USUARIO SET nome = ?, senha = ?, funcao = ? WHERE login = ?";
-        
+
         Connection connection = null;
         PreparedStatement p = null;
 
         try {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
-            
+
             p.setString(1, usuario.getNome());
             p.setString(2, usuario.getSenha());
             p.setString(3, usuario.getFuncao());
             p.setString(4, usuario.getLogin());
 
+            p.execute();
             return true;
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
             return false;
-        
+
         } finally {
             if (connection != null) {
                 connection.close();
@@ -175,6 +223,36 @@ public class UsuarioDAO {
             }
         }
     }
-    
-    
+
+    public boolean enable(Usuario usuario) throws SQLException {
+
+        String sql = "UPDATE USUARIO SET enable = ? WHERE login = ?";
+
+        Connection connection = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+
+            p.setBoolean(1, false);
+            p.setString(2, usuario.getLogin());
+
+            p.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return false;
+
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+    }
+
 }

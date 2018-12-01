@@ -46,7 +46,7 @@ public class PedidoController {
         return re;
     }
 
-    @PostMapping("/AutorizaPedido/{protocolo}")
+    @PostMapping("/autorizaPedido/{protocolo}")
     public ResponseEntity AutorizaPedido(@PathVariable("protocolo") String protocolo) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
