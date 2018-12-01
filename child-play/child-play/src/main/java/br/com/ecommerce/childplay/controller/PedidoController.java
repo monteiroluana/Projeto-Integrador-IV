@@ -33,7 +33,6 @@ public class PedidoController {
         return re;
     }
 
-
     @GetMapping("/list-pedido")
     public ResponseEntity listPedido() throws ClassNotFoundException, SQLException {
         PedidoService service = new PedidoService();
@@ -46,8 +45,8 @@ public class PedidoController {
         }
         return re;
     }
-    
-        @PostMapping("/AutorizaPedido/{protocolo}")
+
+    @PostMapping("/AutorizaPedido/{protocolo}")
     public ResponseEntity AutorizaPedido(@PathVariable("protocolo") String protocolo) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
@@ -57,7 +56,7 @@ public class PedidoController {
         return re;
     }
 
-    @GetMapping("/{protocolo}")
+    @PostMapping("/{protocolo}")
     public ResponseEntity getPedidosByProtocolo(@PathVariable("protocolo") String protocolo) throws ClassNotFoundException, SQLException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
@@ -69,10 +68,8 @@ public class PedidoController {
         }
         return re;
     }
-    
-    
-    
-    @GetMapping("/history/{email}")
+
+    @PostMapping("/history/{email}")
     public ResponseEntity pedido(@PathVariable("email") String email) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
@@ -84,6 +81,5 @@ public class PedidoController {
         }
         return re;
     }
-    
 
 }

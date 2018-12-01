@@ -34,7 +34,7 @@ public class PedidoService {
         return pedidoDao.listPedido();
     }
      
-     public Pedido getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
+     public PlanZ getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
      PedidoDAO pedidoDao = new PedidoDAO();
      return pedidoDao.getPedidosByProtocolo(protocolo);
     }
@@ -45,7 +45,7 @@ public class PedidoService {
     }
     
     
-    public List<Pedido> listPedidosByCliente(String email) throws SQLException, ClassNotFoundException {
+    public List<PlanZ> listPedidosByCliente(String email) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.listPedidosByCliente(email);
     }

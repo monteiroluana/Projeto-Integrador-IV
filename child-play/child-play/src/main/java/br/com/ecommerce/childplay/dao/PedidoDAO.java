@@ -103,43 +103,40 @@ public class PedidoDAO {
             }
         }
     }
-        public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
-            
+
+    public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
+
         String sql = "UPDATE pedido SET status = 'Aprovado' where protocolo = ?";
 
         Connection con = null;
         PreparedStatement p = null;
 
-        try{
+        try {
             con = Conexao.getConnection();
             p = con.prepareStatement(sql);
             p.setString(1, protocolo);
             p.execute();
-            
-        }catch(SQLException ex){
-            
-        System.out.print(ex);
-        con.close();
-        
-        return false;
-        
-        }
-        finally{
-        con.close();
-        }                           
-        return true;
-        }
-    public Pedido getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM pedido \n"
-                + "INNER JOIN itemPedido ON itemPedido.idPedido = pedido.idPedido \n"
-                + "INNER JOIN produto ON produto.idProduto = itemPedido.idProduto\n"
-                + "INNER JOIN cliente ON cliente.idCliente = pedido.idCliente \n"
-                + "WHERE pedido.protocolo = ?";
+        } catch (SQLException ex) {
+
+            System.out.print(ex);
+            con.close();
+
+            return false;
+
+        } finally {
+            con.close();
+        }
+        return true;
+    }
+
+    public PlanZ getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
+
+        String sql = "SELECT * FROM pedido WHERE pedido.protocolo = ?";
         Connection con = null;
         PreparedStatement p = null;
         ResultSet rs = null;
-        Pedido pedido = new Pedido();
+        PlanZ pedido = new PlanZ();
 
         try {
             con = Conexao.getConnection();
@@ -150,9 +147,7 @@ public class PedidoDAO {
             if (rs.next()) {
 
                 pedido.setIdPedido(rs.getInt("idPedido"));
-                pedido.setIdCliente(rs.getInt("idCliente"));
                 pedido.setDataPedido(rs.getDate("dataPedido"));
-                // pedido.setEnderecoEntrega(rs.getString("enderecoEntrega"));
                 pedido.setValorTotal(rs.getDouble("valorTotal"));
                 pedido.setTipoPagamento(rs.getString("tipoPagamento"));
                 pedido.setStatus(rs.getString("status"));
@@ -161,6 +156,12 @@ public class PedidoDAO {
 
                 List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
                 pedido.setItens(itens);
+
+                int idCliente = rs.getInt("idCliente");
+                ClienteDAO clienteDao = new ClienteDAO();
+                Cliente cliente = clienteDao.getClienteById(idCliente);
+                pedido.setCliente(cliente);
+
             }
 
         } catch (SQLException e) {
@@ -226,10 +227,7 @@ public class PedidoDAO {
     }
 
     public List<PlanZ> listPedido() throws SQLException, ClassNotFoundException {
-        String sql = "select p.idPedido, p.dataPedido, p.protocolo, p.status, p.tipoPagamento, p.valorTotal, p.valorFrete, "
-                + "c.idCliente, c.nome, c.cpf, c.dataNasc, c.email, c.genero, c.senha, c.telefone "
-                + "from pedido as p "
-                + "inner join cliente as c on p.idCliente = c.idCliente";
+        String sql = "SELECT * FROM pedido";
 
         Connection con = null;
         PreparedStatement p = null;
@@ -244,20 +242,7 @@ public class PedidoDAO {
             while (rs.next()) {
                 PlanZ pedido = new PlanZ();
                 pedido.setIdPedido(rs.getInt("idPedido"));
-
-                Cliente cliente = new Cliente();
-                cliente.setIdCliente(rs.getInt("idCliente"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setDataNasc(rs.getDate("dataNasc"));
-                cliente.setGenero(rs.getString("genero"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setEmail(rs.getString("email"));
-                // cliente.setLogin(rs.getString("login"));
-                cliente.setSenha(rs.getString("senha"));
-                pedido.setCliente(cliente);
                 pedido.setDataPedido(rs.getDate("dataPedido"));
-
                 pedido.setValorTotal(rs.getDouble("valorTotal"));
                 pedido.setTipoPagamento(rs.getString("tipoPagamento"));
                 pedido.setStatus(rs.getString("status"));
@@ -266,6 +251,11 @@ public class PedidoDAO {
 
                 List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
                 pedido.setItens(itens);
+
+                int idCliente = rs.getInt("idCliente");
+                ClienteDAO clienteDao = new ClienteDAO();
+                Cliente cliente = clienteDao.getClienteById(idCliente);
+                pedido.setCliente(cliente);
 
                 list.add(pedido);
             }
@@ -283,7 +273,7 @@ public class PedidoDAO {
         return list;
     }
 
-    public List<Pedido> listPedidosByCliente(String email) throws SQLException, ClassNotFoundException {
+    public List<PlanZ> listPedidosByCliente(String email) throws SQLException, ClassNotFoundException {
 
         String sql = "SELECT * FROM pedido "
                 + "INNER JOIN cliente ON cliente.idCliente = pedido.idCliente "
@@ -291,7 +281,7 @@ public class PedidoDAO {
         Connection con = null;
         PreparedStatement p = null;
         ResultSet rs = null;
-        List<Pedido> list = new ArrayList<>();
+        List<PlanZ> list = new ArrayList<>();
 
         try {
             con = Conexao.getConnection();
@@ -300,11 +290,9 @@ public class PedidoDAO {
             rs = p.executeQuery();
 
             while (rs.next()) {
-                Pedido pedido = new Pedido();
+                PlanZ pedido = new PlanZ();
                 pedido.setIdPedido(rs.getInt("idPedido"));
-                pedido.setIdCliente(rs.getInt("idCliente"));
                 pedido.setDataPedido(rs.getDate("dataPedido"));
-                // pedido.setEnderecoEntrega(rs.getString("enderecoEntrega"));
                 pedido.setValorTotal(rs.getDouble("valorTotal"));
                 pedido.setTipoPagamento(rs.getString("tipoPagamento"));
                 pedido.setStatus(rs.getString("status"));
@@ -313,6 +301,11 @@ public class PedidoDAO {
 
                 List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
                 pedido.setItens(itens);
+
+                int idCliente = rs.getInt("idCliente");
+                ClienteDAO clienteDao = new ClienteDAO();
+                Cliente cliente = clienteDao.getClienteById(idCliente);
+                pedido.setCliente(cliente);
 
                 list.add(pedido);
             }
@@ -328,6 +321,6 @@ public class PedidoDAO {
             }
         }
         return list;
-    }    
+    }
 
 }

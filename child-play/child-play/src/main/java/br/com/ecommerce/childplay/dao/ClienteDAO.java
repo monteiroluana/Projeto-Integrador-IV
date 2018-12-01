@@ -71,6 +71,66 @@ public class ClienteDAO {
         }
         return cliente;
     }
+    
+    public Cliente getClienteById(int id) throws ClassNotFoundException, SQLException {
+        String sql = "select * from cliente where idCliente = ?";
+
+        Cliente cliente = new Cliente();
+
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setInt(1, id);
+            //Armazenando os resultados
+            rs = p.executeQuery();
+
+            //Enquanto tiver linha de resultado execute esse trecho
+            while (rs.next()) {
+
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setDataNasc(rs.getDate("dataNasc"));
+                cliente.setGenero(rs.getString("genero"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setLogradouro(rs.getString("logradouro"));
+                cliente.setNumero(rs.getString("numero"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
+
+                CartaoDAO cartaoDao = new CartaoDAO();
+                Cartao cartao = cartaoDao.getCartaoByClienteId(cliente.getIdCliente());
+                cliente.setCartao(cartao);
+
+            }
+        } catch (SQLException e) {
+
+        } finally {
+            //Fechando todas as conexões que foram abertas
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return cliente;
+    }
 
     public List<Cliente> listClientes() throws ClassNotFoundException, SQLException {
         String sql = "select * from cliente where enable = ?";
