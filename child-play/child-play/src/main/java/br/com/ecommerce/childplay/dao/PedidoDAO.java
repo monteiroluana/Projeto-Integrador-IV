@@ -18,13 +18,12 @@ import java.util.List;
 
 public class PedidoDAO {
 
-    public static int idGerado;
-
     public String save(Pedido pedido) throws SQLException {
         String sql = "INSERT INTO PEDIDO (idCliente, tipoPagamento, status, protocolo, dataPedido, valorTotal, valorFrete,"
                 + "logradouro, numero, cep, complemento, bairro, cidade, uf) "
                 + "VALUES (?,?,?,?,?,?,?, ?,?,?,?,?,?,?)";
 
+        int idGerado=-1;
         Timestamp times = new Timestamp(System.currentTimeMillis());
         Date date = new Date(times.getTime());
         Connection con = null;

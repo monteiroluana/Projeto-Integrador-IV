@@ -3,6 +3,7 @@ package br.com.ecommerce.childPlay.dao;
 import br.com.ecommerce.childPlay.conexao.Conexao;
 import br.com.ecommerce.childPlay.model.Produto;
 import br.com.ecommerce.childplay.model.Imagem;
+import br.com.ecommerce.childplay.dao.ImagemDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,7 +47,8 @@ public class ProdutoDAO {
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
 
-                List<Imagem> imgList = getImagemByProdutoId(produto.getIdProduto());
+                ImagemDAO imagemDao = new ImagemDAO();
+                List<Imagem> imgList = imagemDao.getImagemByProdutoId(produto.getIdProduto());
                 produto.setImagem(imgList);
 
                 lista.add(produto);
@@ -103,7 +105,8 @@ public class ProdutoDAO {
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
 
-                List<Imagem> imgList = getImagemByProdutoId(produto.getIdProduto());
+                ImagemDAO imagemDao = new ImagemDAO();
+                List<Imagem> imgList = imagemDao.getImagemByProdutoId(produto.getIdProduto());
                 produto.setImagem(imgList);
             }
         } catch (SQLException e) {
@@ -141,7 +144,7 @@ public class ProdutoDAO {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
             p.setBoolean(1, true);
-            p.setString(2, "%"+nome+"%");
+            p.setString(2, "%" + nome + "%");
             //Armazenando os resultados
             rs = p.executeQuery();
 
@@ -158,7 +161,8 @@ public class ProdutoDAO {
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
 
-                List<Imagem> imgList = getImagemByProdutoId(produto.getIdProduto());
+                ImagemDAO imagemDao = new ImagemDAO();
+                List<Imagem> imgList = imagemDao.getImagemByProdutoId(produto.getIdProduto());
                 produto.setImagem(imgList);
                 lista.add(produto);
             }
@@ -179,52 +183,6 @@ public class ProdutoDAO {
 
         }
         return lista;
-    }    
-    
-    public List<Imagem> getImagemByProdutoId(int idProduto) throws SQLException {
-        String sql = "select i.idImagem, i.idProduto, i.imagem, i.alt from "
-                + "imagem as i inner join produto on i.idProduto = produto.idProduto "
-                + "Where produto.idProduto = ?;";
-
-        List<Imagem> lista = new ArrayList<>();
-
-        Connection connection = null;
-        PreparedStatement p = null;
-        ResultSet rs = null;
-
-        try {
-            connection = Conexao.getConnection();
-            p = connection.prepareStatement(sql);
-            p.setInt(1, idProduto);
-            rs = p.executeQuery();
-
-            while (rs.next()) {
-                Imagem img = new Imagem();
-                img.setIdIMagem(rs.getInt("idImagem"));
-                img.setIdProduto(rs.getInt("idProduto"));
-                img.setImagem(rs.getString("imagem"));
-                img.setAlt(rs.getString("alt"));
-
-                lista.add(img);
-            }
-
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-
-        } finally {
-
-            if (connection != null) {
-                connection.close();
-            }
-            if (p != null) {
-                p.close();
-            }
-            if (rs != null) {
-                rs.close();
-            }
-        }
-        return lista;
-
     }
 
     public boolean save(Produto produto) throws SQLException {
@@ -234,10 +192,12 @@ public class ProdutoDAO {
 
         Connection connection = null;
         PreparedStatement p = null;
+        int idGerado = -1;
 
         try {
             connection = Conexao.getConnection();
-            p = connection.prepareStatement(sql);
+            p = connection.prepareStatement(sql, p.RETURN_GENERATED_KEYS);
+
             p.setString(1, produto.getNome());
             p.setString(2, produto.getMarca());
             p.setString(3, produto.getDescricao());
@@ -250,6 +210,24 @@ public class ProdutoDAO {
             p.setBoolean(10, true);
 
             p.execute();
+
+            ResultSet rs = p.getGeneratedKeys();
+            if (rs.next()) {
+                idGerado = rs.getInt(1);
+                System.out.println("idGerado: " + idGerado);
+            }
+
+            List<Imagem> listImagens = new ArrayList<>();
+            listImagens = produto.getImagem();
+
+            if (!listImagens.isEmpty()) {
+                for (Imagem img : listImagens) {
+                    img.setIdProduto(idGerado);
+                    ImagemDAO imagemDao = new ImagemDAO();
+                    imagemDao.save(img);
+                }
+            }
+
             return (true);
 
         } catch (SQLException ex) {
@@ -267,19 +245,19 @@ public class ProdutoDAO {
 
         }
     }
-    
-    public boolean update (Produto produto) throws SQLException {
+
+    public boolean update(Produto produto) throws SQLException {
 
         String sql = "UPDATE PRODUTO SET nome = ?, marca = ?, descricao = ?, caracteristicas = ?, idade = ?, "
                 + "categoria = ?, preco = ?, estoque = ?, desconto = ? WHERE idProduto = ?";
-        
+
         Connection connection = null;
         PreparedStatement p = null;
 
         try {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
-            
+
             p.setString(1, produto.getNome());
             p.setString(2, produto.getMarca());
             p.setString(3, produto.getDescricao());
@@ -296,7 +274,7 @@ public class ProdutoDAO {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
             return false;
-        
+
         } finally {
             if (connection != null) {
                 connection.close();
@@ -306,5 +284,5 @@ public class ProdutoDAO {
             }
         }
     }
-    
+
 }

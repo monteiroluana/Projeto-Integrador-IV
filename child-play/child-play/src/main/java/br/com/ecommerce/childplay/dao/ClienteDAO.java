@@ -71,7 +71,7 @@ public class ClienteDAO {
         }
         return cliente;
     }
-    
+
     public Cliente getClienteById(int id) throws ClassNotFoundException, SQLException {
         String sql = "select * from cliente where idCliente = ?";
 
@@ -292,9 +292,12 @@ public class ClienteDAO {
                 System.out.println("idGerado: " + idGerado);
             }
 
-            CartaoDAO cartaoDao = new CartaoDAO();
-            cartaoDao.save(cliente.getCartao(), idGerado);
-
+            Cartao cartao = new Cartao();
+            cartao = cliente.getCartao();
+            if (!cartao.getCodSeguranca().isEmpty()) {
+                CartaoDAO cartaoDao = new CartaoDAO();
+                cartaoDao.save(cliente.getCartao(), idGerado);
+            }
             return (true);
 
         } catch (SQLException ex) {
@@ -347,7 +350,7 @@ public class ClienteDAO {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
-            
+
         } finally {
             //Fechando todas as conexões que foram abertas
             try {
@@ -363,8 +366,7 @@ public class ClienteDAO {
         }
 
     }
-    
-    
+
     public boolean enable(Cliente cliente) throws ClassNotFoundException, SQLException {
         String sql = "UPDATE cliente SET  enable = ? "
                 + "WHERE (email = ?)";
@@ -376,7 +378,7 @@ public class ClienteDAO {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
 
-            p.setBoolean(1,false);
+            p.setBoolean(1, false);
             p.setString(2, cliente.getEmail());
 
             p.execute();
@@ -385,7 +387,7 @@ public class ClienteDAO {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
-            
+
         } finally {
             //Fechando todas as conexões que foram abertas
             try {
