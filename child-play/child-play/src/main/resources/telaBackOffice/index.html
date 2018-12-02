@@ -45,8 +45,8 @@
                                 <td><span th:text="${usuario.nome}"></span></td>
                                 <td><span th:text="${usuario.login}"></span></td>
                                 <td><span th:text="${usuario.funcao}"></span></td>
-                                <td> <button type="submit" class="btn btn-outline-info">Editar</button>
-                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                <td><button type="submit" aria-label="editar ${usuario.nome}" class="btn btn-outline-info">Editar</button>
+                                    <button type="button" aria-label="remover ${usuario.nome}" class="btn btn-outline-danger" data-toggle="modal"
                                         data-target="#modalConfirmExcluir">Remover</button></td>
 
                         </tbody>
@@ -54,14 +54,14 @@
                 </div>
             </form>
             <div class="col-12">
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalCadastroUsuario">Cadastrar
+                <button type="button" aria-label="Cadastrar novo usuário" class="btn btn-dark" data-toggle="modal" data-target="#modalCadastroUsuario">Cadastrar
                     Usuário</button>
             </div>
         </div>
     </div>
 
     <!--Modal p/ inserir novo usuario-->
-    <div class="modal" id="modalCadastroUsuario">
+    <div class="modal" id="modalCadastroUsuario" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="container">
@@ -73,41 +73,26 @@
 
                     <div class="modal-body">
                         <div class="form-group row">
-                            <form class="needs-validation" novalidate id="CadastroUsuario" th:object="${usuario}"
+                            <form id="CadastroUsuario" th:object="${usuario}"
                                 th:action="@{/usuario/cadastrar}" method="post">
                                 <div class="form-group">
                                     <label for="nome">Nome*</label>
-                                    <input type="text" class="form-control" id="nome" placeholder="Nome completo"
-                                        required>
-                                    <div class="invalid-tooltip">
-                                        Campo obrigatório.
-                                    </div>
+                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo"> 
                                 </div>
                                 <div class="form-group">
                                     <label for="login">Login*</label>
-                                    <input type="text" class="form-control" id="login" placeholder="Login" required>
-                                    <div class="invalid-tooltip">
-                                        Campo obrigatório.
-                                    </div>
+                                    <input type="text" aria-labelledby="login" class="form-control" id="login" placeholder="Login" required>                                    
                                 </div>
                                 <div class="form-group">
                                     <label for="senha">Senha*</label>
-                                    <input type="password" class="form-control" id="senha" placeholder="Mínimo 8 caracteres"
-                                        required>
-                                    <div class="invalid-tooltip">
-                                        Campo obrigatório.
-                                    </div>
+                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" placeholder="Mínimo 8 caracteres">                                    
                                 </div>
                                 <div class="form-group">
                                     <label for="funcao">Função*</label>
-                                    <input type="text" class="form-control" id="funcao" placeholder="Insira a função"
-                                        required>
-                                    <div class="invalid-tooltip">
-                                        Campo obrigatório.
-                                    </div>
+                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função">                                    
                                 </div>
-                                <button type="submit" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-dark">Cadastrar</button>
+                                <button type="submit" aria-label="Cancelar cadastro" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                                <button type="button" aria-label="Cadastrar usuário" class="btn btn-dark">Cadastrar</button>
                             </form>
                         </div>
                     </div>
@@ -117,7 +102,7 @@
     </div>
 
     <!--Modal p/ editar usuario-->
-    <div class="modal" id="modalEditarUsuario">
+    <div class="modal" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="container">
@@ -131,21 +116,21 @@
                         <div class="form-group row">
                             <form id="CadastroUsuario" th:object="${usuario}" th:action="@{/produto/update}" method="post">
                                 <div class="form-group">
-                                    <label for="nome">Nome</label>
-                                    <input type="text" class="form-control" id="nome" placeholder="Nome completo"
+                                    <label for="nome">Nome*</label>
+                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo"
                                         th:field="${usuario.nome}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="login">Login</label>
-                                    <input type="text" class="form-control" id="login" placeholder="Login" th:field="${usuario.login}">
+                                    <label for="login">Login*</label>
+                                    <input type="text" aria-labelledby="login" class="form-control" id="login" placeholder="Login" th:field="${usuario.login}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="senha">Senha</label>
-                                    <input type="password" class="form-control" id="senha" placeholder="Mínimo 8 caracteres">
+                                    <label for="senha">Senha*</label>
+                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" placeholder="Mínimo 8 caracteres">
                                 </div>
                                 <div class="form-group">
-                                    <label for="funcao">Função</label>
-                                    <input type="text" class="form-control" id="funcao" placeholder="Insira a função"
+                                    <label for="funcao">Função*</label>
+                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função"
                                         th:field="${usuario.funcao}">
                                 </div>
                                 <button type="submit" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
@@ -159,7 +144,7 @@
     </div>
 
     <!--modal confirmação exclusão-->
-    <div class="modal" tabindex="-1" role="dialog" id="modalConfirmExcluir">
+    <div class="modal" tabindex="-1" role="dialog" id="modalConfirmExcluir" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -172,8 +157,8 @@
                     <p>Deseja mesmo excluir este usuário?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Excluir</button>
+                    <button type="button" aria-label="Cancelar exclusão" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                    <button type="button" aria-label="Confirmar exclusão" class="btn btn-danger">Excluir</button>
                 </div>
             </div>
         </div>
