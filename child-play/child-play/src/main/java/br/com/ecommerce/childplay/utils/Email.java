@@ -31,7 +31,7 @@ public class Email {
         generateMailMessage.setContent(emailText, "text/html");
         Transport transport = getMailSession.getTransport("smtp");
 
-        transport.connect("smtp.gmail.com","devolution.tads@gmail.com", "d3volution");
+        transport.connect("smtp.gmail.com","devolution.tads@gmail.com", "dvolution");
         transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
         transport.close();
     }
