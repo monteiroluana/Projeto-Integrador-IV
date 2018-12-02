@@ -2,9 +2,11 @@ package br.com.ecommerce.childplay.service;
 
 import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childplay.dao.ClienteDAO;
+import br.com.ecommerce.childplay.utils.Email;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.mail.MessagingException;
 
 public class ClienteService {
 
@@ -23,11 +25,18 @@ public class ClienteService {
         return clienteDao.getClientePorEmail(email);
     }
 
-    public String save(Cliente cliente) throws ClassNotFoundException, SQLException {
+    public String save(Cliente cliente) throws ClassNotFoundException, SQLException, MessagingException {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
         if (clienteDao.save(cliente)) {
             msg = "Conta cadastrada com Sucesso!";
+            Email email = new Email();
+            String subject = "D.Evolution! ";
+            String emailBody = "Parabéns por se cadastrar em nosso site! " +
+                    "<br><br> Login: "+cliente.getEmail()+"<br> Senha: "+cliente.getSenha()+
+                    "<br><br>Atenciosamente,<br> D.Evolution.Admin";
+    
+            email.generateAndSendEmail(cliente.getEmail(), emailBody, subject);
         } else {
             msg = "Erro ao cadastrar conta!";
         }

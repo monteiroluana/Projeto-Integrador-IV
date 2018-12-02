@@ -1,4 +1,4 @@
-package br.com.ecommerce.childplay.boleto;
+package br.com.ecommerce.childplay.utils;
 
 import br.com.caelum.stella.boleto.Banco;
 import br.com.caelum.stella.boleto.Beneficiario;

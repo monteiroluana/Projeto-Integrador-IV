@@ -9,6 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ChildPlayApplication {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		SpringApplication.run(ChildPlayApplication.class, args);  
+		SpringApplication.run(ChildPlayApplication.class, args);                
 	}
 }
