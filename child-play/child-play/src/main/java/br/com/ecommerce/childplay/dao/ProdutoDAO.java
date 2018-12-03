@@ -15,9 +15,9 @@ public class ProdutoDAO {
 
     public List<Produto> listProduto() throws ClassNotFoundException, SQLException {
 
-        String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
-                + "p.categoria ,p.preco ,p.estoque ,p.desconto "
-                + "FROM produto as p WHERE enable = ?;";
+        String sql = "SELECT idProduto, nome, marca, descricao, caracteristicas, idade,"
+                + "categoria, preco, estoque, desconto, enable "
+                + "FROM produto WHERE enable = ?;";
 
         List<Produto> lista = new ArrayList<>();
 
@@ -46,6 +46,7 @@ public class ProdutoDAO {
                 produto.setPreco(rs.getDouble("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
+                produto.setEnable(rs.getBoolean("enable"));
 
                 ImagemDAO imagemDao = new ImagemDAO();
                 List<Imagem> imgList = imagemDao.getImagemByProdutoId(produto.getIdProduto());
@@ -76,9 +77,9 @@ public class ProdutoDAO {
 
     public Produto getProdutoById(int id) throws ClassNotFoundException, SQLException {
 
-        String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
-                + "p.categoria ,p.preco ,p.estoque ,p.desconto "
-                + "FROM produto as p WHERE p.enable = ? AND p.idProduto = ? ;";
+        String sql = "SELECT idProduto, nome, marca ,descricao ,caracteristicas ,idade ,"
+                + "categoria ,preco ,estoque ,desconto, enable "
+                + "FROM produto WHERE enable = ? AND idProduto = ? ;";
 
         Produto produto = new Produto();
         Connection connection = null;
@@ -104,6 +105,7 @@ public class ProdutoDAO {
                 produto.setPreco(rs.getDouble("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
+                produto.setEnable(rs.getBoolean("enable"));
 
                 ImagemDAO imagemDao = new ImagemDAO();
                 List<Imagem> imgList = imagemDao.getImagemByProdutoId(produto.getIdProduto());
@@ -130,9 +132,9 @@ public class ProdutoDAO {
 
     public List<Produto> getProdutoByNome(String nome) throws ClassNotFoundException, SQLException {
 
-        String sql = "SELECT p.idProduto, p.nome, p.marca ,p.descricao ,p.caracteristicas ,p.idade ,"
-                + "p.categoria ,p.preco ,p.estoque ,p.desconto "
-                + "FROM produto as p WHERE p.enable = ? AND p.nome LIKE ? ;";
+        String sql = "SELECT idProduto, nome, marca, descricao, caracteristicas, idade,"
+                + "categoria, preco, estoque, desconto, enable "
+                + "FROM produto WHERE enable = ? AND nome LIKE ? ;";
 
         List<Produto> lista = new ArrayList<>();
         Connection connection = null;
@@ -160,6 +162,7 @@ public class ProdutoDAO {
                 produto.setPreco(rs.getDouble("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setDesconto(rs.getInt("desconto"));
+                produto.setEnable(rs.getBoolean("enable"));
 
                 ImagemDAO imagemDao = new ImagemDAO();
                 List<Imagem> imgList = imagemDao.getImagemByProdutoId(produto.getIdProduto());
@@ -270,7 +273,7 @@ public class ProdutoDAO {
             p.setInt(10, produto.getIdProduto());
 
             p.execute();
-            
+
             return true;
 
         } catch (SQLException ex) {
@@ -286,28 +289,59 @@ public class ProdutoDAO {
             }
         }
     }
-    
-    public boolean setEstoqueProduto(int idProduto, int qtdProduto) throws SQLException{
-        
+
+    public boolean enable(Produto produto) throws SQLException {
+
+        String sql = "UPDATE PRODUTO SET enable = ? WHERE idProduto = ?";
+
+        System.out.println("idProduto: "+produto.getIdProduto());
+        Connection connection = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setBoolean(1, false);
+            p.setInt(2, produto.getIdProduto());
+            p.execute();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return false;
+
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+    }
+
+    public boolean setEstoqueProduto(int idProduto, int qtdProduto) throws SQLException {
+
         String sql = "UPDATE produto SET estoque = ?  where idProduto = ?";
 
         Connection connection = null;
         PreparedStatement p = null;
-        
-         try {
+
+        try {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
 
             p.setInt(1, qtdProduto);
-            p.setInt(2, idProduto);            
+            p.setInt(2, idProduto);
             p.execute();
-        
-        return true;
-    }catch(SQLException ex){        
-             System.out.println(ex);
-             return false;
-    }
-         
+
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+
     }
 
 }
