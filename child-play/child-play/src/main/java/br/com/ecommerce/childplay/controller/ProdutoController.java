@@ -71,6 +71,20 @@ public class ProdutoController {
             re = ResponseEntity.createUnknownError();
         }
       return re;
+    }
+    
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/update", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity update(@RequestBody Produto produto) throws ClassNotFoundException, SQLException {
+        ProdutoService service = new ProdutoService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.update(produto));
+        } catch (ClassNotFoundException | SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+      return re;
     }  
     
 }

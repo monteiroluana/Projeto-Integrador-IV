@@ -33,4 +33,15 @@ public class ProdutoService {
         }
         return msg;
     }
+    
+     public String update(Produto produto) throws ClassNotFoundException, SQLException {
+        ProdutoDAO produtoDao = new ProdutoDAO();
+        String msg = null;
+        if (produtoDao.update(produto)) {
+            msg = "Produto atualizado com Sucesso!";
+        } else {
+            msg = "Falha ao atualizar produto!";
+        }
+        return msg;
+    }
 }

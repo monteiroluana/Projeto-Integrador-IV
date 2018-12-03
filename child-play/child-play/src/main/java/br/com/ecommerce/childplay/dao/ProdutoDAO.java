@@ -269,6 +269,8 @@ public class ProdutoDAO {
             p.setInt(9, produto.getDesconto());
             p.setInt(10, produto.getIdProduto());
 
+            p.execute();
+            
             return true;
 
         } catch (SQLException ex) {
