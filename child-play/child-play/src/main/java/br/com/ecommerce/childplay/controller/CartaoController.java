@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/cartao")
 public class CartaoController {
-   @CrossOrigin(origins = "*")
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity save(@RequestBody Cartao cartao) throws ClassNotFoundException, SQLException, MessagingException {
-       CartaoService service = new CartaoService();
+    public ResponseEntity save(@RequestBody Cartao cartao) throws ClassNotFoundException, SQLException {
+        CartaoService service = new CartaoService();
         ResponseEntity re = null;
         try {
             re = ResponseEntity.createSuccess();
@@ -27,5 +28,20 @@ public class CartaoController {
         }
         return re;
 
-    }  
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity update(@RequestBody Cartao cartao) throws ClassNotFoundException, SQLException {
+        CartaoService service = new CartaoService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.update(cartao));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+
+    }
 }

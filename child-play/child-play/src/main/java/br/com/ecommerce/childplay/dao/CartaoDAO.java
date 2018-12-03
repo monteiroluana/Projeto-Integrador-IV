@@ -101,7 +101,7 @@ public class CartaoDAO {
             p.setString(3, cartao.getNumCartao());
             p.setString(4, cartao.getCodSeguranca());
             p.setDate(5, cartao.getValidade());
-            p.setInt(5, cartao.getIdCliente());
+            p.setInt(6, cartao.getIdCliente());
 
             p.execute();
 
