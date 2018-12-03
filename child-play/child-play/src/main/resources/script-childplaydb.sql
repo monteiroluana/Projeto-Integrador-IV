@@ -40,13 +40,15 @@ create table cliente(
 
 
 create table cartao(
-    idCliente           INTEGER NOT NULL AUTO_INCREMENT,
+    idCartao            INTEGER NOT NULL AUTO_INCREMENT,
+    idCliente           INT,
     nomeTitular		VARCHAR(255),
     tipoCartao		VARCHAR(20),
     numCartao		VARCHAR(30),
     codSeguranca	VARCHAR(30),
     validade		DATE,
     enable		BOOLEAN,
+    CONSTRAINT PK_CARTAO PRIMARY KEY (idCartao),
     FOREIGN KEY(idCliente) REFERENCES cliente(idCliente)
 );
 
