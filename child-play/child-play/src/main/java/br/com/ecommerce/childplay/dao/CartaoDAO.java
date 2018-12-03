@@ -57,7 +57,7 @@ public class CartaoDAO {
             rs = p.executeQuery();
 
             if (rs.next()) {
-
+                cartao.setIdCartao(rs.getInt("idCartao"));
                 cartao.setIdCliente(rs.getInt("idCliente"));
                 cartao.setNomeTitular(rs.getString("nomeTitular"));
                 cartao.setTipoCartao(rs.getString("tipoCartao"));
@@ -102,7 +102,7 @@ public class CartaoDAO {
             p.setString(4, cartao.getCodSeguranca());
             p.setDate(5, cartao.getValidade());
             p.setInt(5, cartao.getIdCliente());
-            
+
             p.execute();
 
             return true;

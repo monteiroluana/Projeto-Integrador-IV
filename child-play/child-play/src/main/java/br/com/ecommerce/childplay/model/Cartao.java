@@ -4,6 +4,7 @@ package br.com.ecommerce.childPlay.model;
 import java.sql.Date;
 
 public class Cartao {
+    private int idCartao;
     private int idCliente;
     private String nomeTitular;
     private String tipoCartao;
@@ -11,6 +12,14 @@ public class Cartao {
     private String codSeguranca;
     private Date validade;
     private boolean enable;
+
+    public int getIdCartao() {
+        return idCartao;
+    }
+
+    public void setIdCartao(int idCartao) {
+        this.idCartao = idCartao;
+    }
 
     public int getIdCliente() {
         return idCliente;
