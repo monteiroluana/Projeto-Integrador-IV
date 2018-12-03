@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProdutoController {
 
     @GetMapping("/list-produto")
-    public ResponseEntity list() throws ClassNotFoundException, SQLException {
+    public ResponseEntity listProdutos() throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
         try {
@@ -47,7 +47,7 @@ public class ProdutoController {
     }
     
     @GetMapping("/nome/{produto_nome}")
-    public ResponseEntity produtoById(@PathVariable("produto_nome") String produtoNome) throws ClassNotFoundException, SQLException {
+    public ResponseEntity produtoByName(@PathVariable("produto_nome") String produtoNome) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
         try {
@@ -71,16 +71,6 @@ public class ProdutoController {
             re = ResponseEntity.createUnknownError();
         }
       return re;
-    }
-    
-    
-      
-//     @GetMapping("/form")
-//     public ModelAndView abrirForm() {
-//         ModelAndView retorno = new ModelAndView("telaTesteProduto")
-//                 .addObject("produto", new Produto());
-//         return retorno;
-//     }
-    
+    }  
     
 }

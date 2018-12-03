@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UsuarioController {
 
     @GetMapping("/list-usuario")
-    public ResponseEntity litar() throws ClassNotFoundException, SQLException {
+    public ResponseEntity listUsuarios() throws ClassNotFoundException, SQLException {
         UsuarioService service = new UsuarioService();
         ResponseEntity re = null;
         try {

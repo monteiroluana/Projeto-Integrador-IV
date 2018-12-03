@@ -34,7 +34,7 @@ public class PedidoController {
     }
 
     @GetMapping("/list-pedido")
-    public ResponseEntity listPedido() throws ClassNotFoundException, SQLException {
+    public ResponseEntity listPedidos() throws ClassNotFoundException, SQLException {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
         try {
