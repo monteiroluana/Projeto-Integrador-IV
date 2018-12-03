@@ -4,6 +4,7 @@ import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childplay.model.ResponseEntity;
 import br.com.ecommerce.childplay.service.ClienteService;
 import java.sql.SQLException;
+import javax.mail.MessagingException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,11 +48,15 @@ public class ClienteController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity save(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
+    public ResponseEntity save(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException, MessagingException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
-        re = ResponseEntity.createSuccess();
-        //re.setData(service.save(cliente));
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.save(cliente));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
         return re;
 
     }
@@ -69,7 +74,7 @@ public class ClienteController {
         }
         return re;
     }
-    
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/cliente/{email}", method = RequestMethod.GET, consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity getClientePorEmail(@PathVariable("email") String email) throws ClassNotFoundException, SQLException {
@@ -84,7 +89,7 @@ public class ClienteController {
         return re;
 
     }
-    
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/enable", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity enable(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {

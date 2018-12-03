@@ -294,7 +294,7 @@ public class ClienteDAO {
 
             Cartao cartao = new Cartao();
             cartao = cliente.getCartao();
-            if (!cartao.getCodSeguranca().isEmpty()) {
+            if (cartao!=null) {
                 CartaoDAO cartaoDao = new CartaoDAO();
                 cartaoDao.save(cliente.getCartao(), idGerado);
             }
