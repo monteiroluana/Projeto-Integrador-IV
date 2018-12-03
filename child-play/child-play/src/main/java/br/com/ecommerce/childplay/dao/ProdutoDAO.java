@@ -284,5 +284,28 @@ public class ProdutoDAO {
             }
         }
     }
+    
+    public boolean setEstoqueProduto(int idProduto, int qtdProduto) throws SQLException{
+        
+        String sql = "UPDATE produto SET estoque = ?  where idProduto = ?";
+
+        Connection connection = null;
+        PreparedStatement p = null;
+        
+         try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+
+            p.setInt(1, qtdProduto);
+            p.setInt(2, idProduto);            
+            p.execute();
+        
+        return true;
+    }catch(SQLException ex){        
+             System.out.println(ex);
+             return false;
+    }
+         
+    }
 
 }

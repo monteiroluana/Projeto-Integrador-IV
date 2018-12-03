@@ -8,6 +8,17 @@ public class ItemPedido {
     private int quantidade;
     private double preco;
     private Produto produto;
+    
+//test jonas
+    private int idProduto;
+
+    public int getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
+    }
 
     public int getIdItem() {
         return idItem;

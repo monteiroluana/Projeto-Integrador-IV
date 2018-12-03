@@ -1,6 +1,8 @@
 package br.com.ecommerce.childplay.service;
 
+import br.com.ecommerce.childPlay.dao.ProdutoDAO;
 import br.com.ecommerce.childPlay.model.Cliente;
+import br.com.ecommerce.childPlay.model.Produto;
 import br.com.ecommerce.childPlay.model.Usuario;
 import br.com.ecommerce.childplay.dao.PedidoDAO;
 import br.com.ecommerce.childplay.model.ItemPedido;
@@ -14,7 +16,7 @@ import java.util.List;
 
 public class PedidoService {
 
-    public String save(Pedido pedido) throws SQLException {
+    public String save(Pedido pedido) throws SQLException, ClassNotFoundException {
         pedido.setProtocolo(gerarProtocolo());
         List<ItemPedido> itens = pedido.getItens();
 
@@ -22,29 +24,30 @@ public class PedidoService {
         for (ItemPedido iten : itens) {
             total = total + (iten.getPreco() * iten.getQuantidade());
         }
-       
-        
-        pedido.setValorTotal(total+pedido.getValorFrete());
+
+        pedido.setValorTotal(total + pedido.getValorFrete());
         PedidoDAO pedidoDao = new PedidoDAO();
         System.out.println(pedido);
+        
+        boolean qtdsValida = RetiraEstoqueItemPedido(itens);
         return pedidoDao.save(pedido);
-    }        
-     public List<PlanZ> listPedido() throws SQLException, ClassNotFoundException {
+    }
+
+    public List<PlanZ> listPedido() throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.listPedido();
     }
-     
-     public PlanZ getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
-     PedidoDAO pedidoDao = new PedidoDAO();
-     return pedidoDao.getPedidosByProtocolo(protocolo);
+
+    public PlanZ getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
+        PedidoDAO pedidoDao = new PedidoDAO();
+        return pedidoDao.getPedidosByProtocolo(protocolo);
     }
-    
-     public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
+
+    public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.AutorizaPedido(protocolo);
     }
-    
-    
+
     public List<PlanZ> listPedidosByCliente(String email) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.listPedidosByCliente(email);
@@ -58,5 +61,29 @@ public class PedidoService {
         nDt = nDt + (Integer.toString(random)); //concatenando data com o valor gerado pelo randomm
 
         return nDt;
+    }
+    
+    public boolean RetiraEstoqueItemPedido(List<ItemPedido> itens) throws ClassNotFoundException, SQLException {
+        
+        
+        for (ItemPedido item : itens) {
+            Produto produto = new Produto();
+            produto.setIdProduto(item.getIdProduto());
+            
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            produto = produtoDAO.getProdutoById(produto.getIdProduto());
+            
+            int qtdProduto = produto.getEstoque();
+            int qtdItemPedido = item.getQuantidade();
+            int novoEstoqueProduto = qtdProduto - qtdItemPedido;
+            
+            if(novoEstoqueProduto > 0){
+            produtoDAO.setEstoqueProduto(produto.getIdProduto(), novoEstoqueProduto);
+            } 
+            else{return false;}
+            
+        }
+
+        return true;
     }
 }

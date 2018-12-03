@@ -50,12 +50,8 @@ public class ClienteController {
     public ResponseEntity save(@RequestBody Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteService service = new ClienteService();
         ResponseEntity re = null;
-        try {
-            re = ResponseEntity.createSuccess();
-            re.setData(service.save(cliente));
-        } catch (SQLException e) {
-            re = ResponseEntity.createUnknownError();
-        }
+        re = ResponseEntity.createSuccess();
+        //re.setData(service.save(cliente));
         return re;
 
     }
