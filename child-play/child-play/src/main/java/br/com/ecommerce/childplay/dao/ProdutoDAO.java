@@ -4,6 +4,7 @@ import br.com.ecommerce.childPlay.conexao.Conexao;
 import br.com.ecommerce.childPlay.model.Produto;
 import br.com.ecommerce.childplay.model.Imagem;
 import br.com.ecommerce.childplay.dao.ImagemDAO;
+import br.com.ecommerce.childplay.model.ItemPedido;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -294,7 +295,7 @@ public class ProdutoDAO {
 
         String sql = "UPDATE PRODUTO SET enable = ? WHERE idProduto = ?";
 
-        System.out.println("idProduto: "+produto.getIdProduto());
+        System.out.println("idProduto: " + produto.getIdProduto());
         Connection connection = null;
         PreparedStatement p = null;
 
@@ -340,6 +341,22 @@ public class ProdutoDAO {
         } catch (SQLException ex) {
             System.out.println(ex);
             return false;
+        }
+
+    }
+
+    public void RetornaEstoqueProduto(List<ItemPedido> itens) throws ClassNotFoundException, SQLException {
+
+        Produto produto = new Produto();
+
+        for (ItemPedido item : itens) {
+            int qtdComprada = item.getQuantidade();
+            int idProduto = item.getProduto().getIdProduto();
+
+            produto = getProdutoById(idProduto);
+            int novoQtdEstoque = qtdComprada + produto.getEstoque();
+
+            setEstoqueProduto(idProduto, novoQtdEstoque);
         }
 
     }

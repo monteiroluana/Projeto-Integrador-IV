@@ -51,8 +51,18 @@ public class PedidoController {
         PedidoService service = new PedidoService();
         ResponseEntity re = null;
         re = ResponseEntity.createSuccess();
-        boolean teste = service.AutorizaPedido(protocolo);
+        boolean respostaAutorizaPedido = service.AutorizaPedido(protocolo);
         re.setData(service.AutorizaPedido(protocolo));
+        return re;
+    }
+    
+    @GetMapping("/cancelaPedido/{protocolo}")
+    public ResponseEntity CancelaPedido(@PathVariable("protocolo") String protocolo) throws SQLException, ClassNotFoundException {
+        PedidoService service = new PedidoService();
+        ResponseEntity re = null;
+        re = ResponseEntity.createSuccess();
+        boolean respostaCancelaPedido = service.CancelaPedido(protocolo);
+        re.setData(respostaCancelaPedido);
         return re;
     }
 
