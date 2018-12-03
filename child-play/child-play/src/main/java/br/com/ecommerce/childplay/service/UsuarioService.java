@@ -23,6 +23,12 @@ public class UsuarioService {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         return usuarioDao.getUsuario(login);
     }
+    
+    //método pro thymeleaf
+    public Usuario getUsuarioId(int id) throws ClassNotFoundException, SQLException {
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        return usuarioDao.getUsuarioId(id);
+    }
 
     public String save(Usuario usuario) throws ClassNotFoundException, SQLException {
         UsuarioDAO usuarioDao = new UsuarioDAO();

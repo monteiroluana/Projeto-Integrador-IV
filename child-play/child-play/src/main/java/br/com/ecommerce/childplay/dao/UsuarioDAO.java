@@ -157,6 +157,54 @@ public class UsuarioDAO {
         return usuario;
     }
 
+    //método prp thymeleaf
+    public Usuario getUsuarioId(int id) throws ClassNotFoundException, SQLException {
+
+        String sql = "SELECT * FROM usuario WHERE login = ?";
+
+        Usuario usuario = new Usuario();
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement p = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setInt(1, id);
+
+            //Armazenando os resultados
+            rs = p.executeQuery();
+
+            //Enquanto tiver linha de resultado execute esse trecho
+            if (rs.next()) {
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setLogin(rs.getString("login"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setFuncao(rs.getString("funcao"));
+                usuario.setEnable(rs.getBoolean("enable"));
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            //Fechando todas as conexões que foram abertas
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (p != null) {
+                    p.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return usuario;
+    }
+
     public boolean save(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO USUARIO (nome, login, senha, funcao, enable) VALUES (?,?,?,?,?)";
 

@@ -27,12 +27,12 @@
             </div>
         </div>
         <div class="row">
-            <form class="form" th:action="@{/usuario/getUsuario}" th:object="${usuario}" method="post">
+            <form class="form" th:action="@{/usuario/listarUsuarios}" th:object="${usuario}" method="post">
                 <div class="col-12">
                     <table class="table table-responsive">
                         <thead>
                             <tr>
-                                <th data-class="hidden" data-field="aaa"></th></th>
+                                <th data-class="hidden" data-field="aaa"></th>
                                 <th>Nome</th>
                                 <th>Login</th>
                                 <th>Função</th>
@@ -42,12 +42,12 @@
                         <tbody id="bodyTable">
                             <tr th:each="usuario : ${usuarios}">
                                 <td><span th:text="${usuario.idUsuario}"></span></td>
-                                <td><span th:text="${usuario.nome}"></span></td>
+<!--                                <td><span th:text="${usuario.nome}"></span></td>-->
                                 <td><span th:text="${usuario.login}"></span></td>
                                 <td><span th:text="${usuario.funcao}"></span></td>
-                                <td><button type="submit" aria-label="editar ${usuario.nome}" class="btn btn-outline-info">Editar</button>
+<!--                                <td><button type="submit" aria-label="editar ${usuario.nome}" class="btn btn-outline-info">Editar</button>
                                     <button type="button" aria-label="remover ${usuario.nome}" class="btn btn-outline-danger" data-toggle="modal"
-                                        data-target="#modalConfirmExcluir">Remover</button></td>
+                                        data-target="#modalConfirmExcluir">Remover</button></td>-->
 
                         </tbody>
                     </table>
