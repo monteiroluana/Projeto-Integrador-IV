@@ -45,8 +45,22 @@ public class PedidoService {
 
     public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
-        return pedidoDao.AutorizaPedido(protocolo);
+        return pedidoDao.AutorizaPedido(protocolo, "Aprovado");
     }
+    
+    public boolean CancelaPedido(String protocolo) throws SQLException, ClassNotFoundException {
+        PedidoDAO pedidoDAO = new PedidoDAO();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        
+        PlanZ pedido = pedidoDAO.getPedidosByProtocolo(protocolo);
+        
+        List<ItemPedido> itens = pedidoDAO.getItensPedido(pedido.getIdPedido());                
+        produtoDAO.RetornaEstoqueProduto(itens);
+        
+        
+        return pedidoDAO.AutorizaPedido(protocolo, "Cancelado");
+    }
+    
 
     public List<PlanZ> listPedidosByCliente(String email) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
@@ -68,7 +82,7 @@ public class PedidoService {
         
         for (ItemPedido item : itens) {
             Produto produto = new Produto();
-            produto.setIdProduto(item.getIdProduto());
+            produto.setIdProduto(item.getProduto().getIdProduto());            
             
             ProdutoDAO produtoDAO = new ProdutoDAO();
             produto = produtoDAO.getProdutoById(produto.getIdProduto());
@@ -86,4 +100,6 @@ public class PedidoService {
 
         return true;
     }
+
+    
 }

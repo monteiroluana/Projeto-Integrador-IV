@@ -103,9 +103,9 @@ public class PedidoDAO {
         }
     }
 
-    public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
+    public boolean AutorizaPedido(String protocolo, String status) throws SQLException, ClassNotFoundException {
 
-        String sql = "UPDATE pedido SET status = 'Aprovado' where protocolo = ?";
+        String sql = "UPDATE pedido SET status = ? where protocolo = ?";
 
         Connection con = null;
         PreparedStatement p = null;
@@ -113,7 +113,8 @@ public class PedidoDAO {
         try {
             con = Conexao.getConnection();
             p = con.prepareStatement(sql);
-            p.setString(1, protocolo);
+            p.setString(1, status);
+            p.setString(2, protocolo);
             p.execute();
 
         } catch (SQLException ex) {
@@ -128,6 +129,9 @@ public class PedidoDAO {
         }
         return true;
     }
+    
+
+    
 
     public PlanZ getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
 
@@ -189,6 +193,55 @@ public class PedidoDAO {
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
             p.setInt(1, idPedido);
+            rs = p.executeQuery();
+
+            while (rs.next()) {
+                ItemPedido item = new ItemPedido();
+                item.setIdPedido(rs.getInt("idPedido"));
+                item.setIdItem(rs.getInt("idItem"));
+                Produto produto = new Produto();
+                produto.setIdProduto(rs.getInt("idProduto"));
+                ProdutoDAO produtoDAO = new ProdutoDAO();
+                produto = produtoDAO.getProdutoById(produto.getIdProduto());
+                item.setProduto(produto);
+
+                item.setPreco(rs.getDouble("preco"));
+                item.setQuantidade(rs.getInt("quantidade"));
+                lista.add(item);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+
+        } finally {
+
+            if (connection != null) {
+                connection.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return lista;
+
+    }
+    
+    public List<ItemPedido> getItensPedido(String protocolo) throws SQLException, ClassNotFoundException {
+        String sql = "select idItem, idPedido, idProduto, quantidade, preco from itemPedido where protocolo = ?;";
+
+        List<ItemPedido> lista = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+
+        try {
+            connection = Conexao.getConnection();
+            p = connection.prepareStatement(sql);
+            p.setString(1, protocolo);
             rs = p.executeQuery();
 
             while (rs.next()) {
@@ -320,6 +373,9 @@ public class PedidoDAO {
             }
         }
         return list;
-    }
+    }    
+
+
+    
 
 }
