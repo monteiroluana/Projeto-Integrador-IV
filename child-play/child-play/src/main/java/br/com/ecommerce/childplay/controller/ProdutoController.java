@@ -4,6 +4,7 @@ import br.com.ecommerce.childPlay.model.Produto;
 import br.com.ecommerce.childplay.model.ResponseEntity;
 import br.com.ecommerce.childplay.service.ProdutoService;
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/produto")
@@ -45,7 +45,7 @@ public class ProdutoController {
         }
         return re;
     }
-    
+
     @GetMapping("/nome/{produto_nome}")
     public ResponseEntity produtoByName(@PathVariable("produto_nome") String produtoNome) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
@@ -60,7 +60,7 @@ public class ProdutoController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity save(@RequestBody Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
@@ -70,11 +70,11 @@ public class ProdutoController {
         } catch (ClassNotFoundException | SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
-      return re;
+        return re;
     }
-    
+
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/update", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity update(@RequestBody Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
@@ -84,11 +84,11 @@ public class ProdutoController {
         } catch (ClassNotFoundException | SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
-      return re;
+        return re;
     }
-    
+
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/enable", method = RequestMethod.POST,consumes = {"text/plain;charset=UTF-8", "application/*"})
+    @RequestMapping(value = "/enable", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
     public ResponseEntity enable(@RequestBody Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
@@ -98,7 +98,18 @@ public class ProdutoController {
         } catch (ClassNotFoundException | SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
-      return re;
+        return re;
     }
-    
+
+    @GetMapping("/listar-produtos")
+    public ModelAndView exemplo() throws ClassNotFoundException, SQLException {
+        ProdutoService service = new ProdutoService();
+        List<Produto> lista = service.list();
+        
+        ModelAndView resposta = new ModelAndView("produtos");
+        resposta.addObject("produtos", lista);
+        
+        return resposta;
+    }
+
 }

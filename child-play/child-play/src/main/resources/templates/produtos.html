@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>CHILDPLAY - PRODUTOS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        <style>
+            body {
+                font-family: "Lato", sans-serif;
+            }
+
+            .sidenav {
+                height: 100%;
+                width: 15%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                /*background-color: #111;*/
+                background-color:#d6d7d8;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+            }
+
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 20px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
+            }
+
+            .sidenav a:hover {
+                color: #f1f1f1;
+            }
+
+            .body{
+                margin-left:15%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div  class="sidenav">
+            <a href="#">Usuários</a>
+            <a href="#">Produtos</a>
+            <a href="#">Pedidos</a>
+            <a href="#">Relatório</a>
+            <a href="#">Descontos</a>
+        </div> <!--sidenav-->
+
+        <div class="body">
+            <div class="container">
+                <h2>Animated Sidenav Example</h2>
+                <p>Click on the element below to open the side navigation menu.</p>
+
+                <div>
+                    <table id="datatable" class="table">
+                        <thead class="thead-dark"> 
+                            <tr>
+                                <th>Cód</th>
+                                <th>Name</th>
+                                <th>Preço</th>
+                                <th>Marca</th>
+                                <th>Estoque</th>
+                                <th>Enabled</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="prod : ${produtos}">
+                                <th scope="row" th:text="${prod.idProduto}" name="id"></th>
+                                <td>
+                                    <h6 th:text="${prod.nome}"></h6>
+                                </td>
+                                <td>
+                                    <h6 th:text="${prod.preco}"></h6>
+                                </td>
+                                <td>
+                                    <h6 th:text="${prod.marca}"></h6>
+                                </td>
+                                <td>
+                                    <h6 th:text="${prod.estoque}"></h6>
+                                </td>
+                                <td>
+                                    <h6 th:text="${prod.enable}"></h6>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">Ver</button>
+                                    <button type="button" class="btn btn-warning">Editar</button>
+                                    <button type="button" class="btn btn-danger">Excluir</button>                                   
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div> <!--container-->
+        </div><!--body-->
+
+    </body>
+</html>
