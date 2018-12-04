@@ -9,9 +9,9 @@
         crossorigin="anonymous">
 
     <style>
-        .hidden{
-                display:none;
-                visibility:hidden;
+        .hidden {
+            display: none;
+            visibility: hidden;
         }
     </style>
 
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="row">
-            <form class="form" th:action="@{/usuario/listarUsuarios}" th:object="${usuario}" method="post">
+            <!--<form class="form" th:action="@{/usuario/listarUsuarios}" th:object="${usuario}" method="post">-->
                 <div class="col-12">
                     <table class="table table-responsive">
                         <thead>
@@ -41,21 +41,29 @@
                         </thead>
                         <tbody id="bodyTable">
                             <tr th:each="usuario : ${usuarios}">
-                                <td><span th:text="${usuario.idUsuario}"></span></td>
-<!--                                <td><span th:text="${usuario.nome}"></span></td>-->
-                                <td><span th:text="${usuario.login}"></span></td>
-                                <td><span th:text="${usuario.funcao}"></span></td>
-<!--                                <td><button type="submit" aria-label="editar ${usuario.nome}" class="btn btn-outline-info">Editar</button>
-                                    <button type="button" aria-label="remover ${usuario.nome}" class="btn btn-outline-danger" data-toggle="modal"
-                                        data-target="#modalConfirmExcluir">Remover</button></td>-->
-
+                                <td>
+                                    <span th:text="${usuario.idUsuario}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${usuario.nome}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${usuario.login}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${usuario.funcao}"></span>
+                                </td>
+                                <td>
+                                    <button type="submit" aria-label="editar ${usuario.nome}" class="btn btn-outline-info">Editar</button>
+                                    <button type="button" aria-label="remover ${usuario.nome}" class="btn btn-outline-danger" data-toggle="modal" data-target="#modalConfirmExcluir">Remover</button>
+                                </td>
                         </tbody>
                     </table>
                 </div>
-            </form>
+           <!-- </form> -->
             <div class="col-12">
-                <button type="button" aria-label="Cadastrar novo usuário" class="btn btn-dark" data-toggle="modal" data-target="#modalCadastroUsuario">Cadastrar
-                    Usuário</button>
+                <button type="button" aria-label="Cadastrar novo usuário" class="btn btn-dark" data-toggle="modal" data-target="#modalCadastroUsuario">Cadastrar Usuário
+                </button>
             </div>
         </div>
     </div>
@@ -73,23 +81,22 @@
 
                     <div class="modal-body">
                         <div class="form-group row">
-                            <form id="CadastroUsuario" th:object="${usuario}"
-                                th:action="@{/usuario/cadastrar}" method="post">
+                            <form id="CadastroUsuario" th:object="${usuario}" th:action="@{/usuario/cadastrar}" method="post">
                                 <div class="form-group">
                                     <label for="nome">Nome*</label>
-                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo"> 
+                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo">
                                 </div>
                                 <div class="form-group">
                                     <label for="login">Login*</label>
-                                    <input type="text" aria-labelledby="login" class="form-control" id="login" placeholder="Login" required>                                    
+                                    <input type="text" aria-labelledby="login" class="form-control" id="login" placeholder="Login" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="senha">Senha*</label>
-                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" placeholder="Mínimo 8 caracteres">                                    
+                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" placeholder="Mínimo 8 caracteres">
                                 </div>
                                 <div class="form-group">
                                     <label for="funcao">Função*</label>
-                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função">                                    
+                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função">
                                 </div>
                                 <button type="submit" aria-label="Cancelar cadastro" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
                                 <button type="button" aria-label="Cadastrar usuário" class="btn btn-dark">Cadastrar</button>
@@ -114,11 +121,10 @@
 
                     <div class="modal-body">
                         <div class="form-group row">
-                            <form id="CadastroUsuario" th:object="${usuario}" th:action="@{/produto/update}" method="post">
+                            <form id="EditarUsuario" th:object="${usuario}" th:action="@{/produto/update}" method="post">
                                 <div class="form-group">
                                     <label for="nome">Nome*</label>
-                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo"
-                                        th:field="${usuario.nome}">
+                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo" th:field="${usuario.nome}">
                                 </div>
                                 <div class="form-group">
                                     <label for="login">Login*</label>
@@ -130,8 +136,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="funcao">Função*</label>
-                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função"
-                                        th:field="${usuario.funcao}">
+                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função" th:field="${usuario.funcao}">
                                 </div>
                                 <button type="submit" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
                                 <button type="button" class="btn btn-dark">Editar</button>
