@@ -118,7 +118,7 @@ public class UsuarioController {
     public ModelAndView exemplo() throws ClassNotFoundException, SQLException {
         UsuarioService service = new UsuarioService();
         List<Usuario> lista = service.listar();
-        ModelAndView resposta = new ModelAndView("telaUsuario");
+        ModelAndView resposta = new ModelAndView("ListarUsuarios");
         resposta.addObject("usuarios", lista);
         return resposta;
     }
