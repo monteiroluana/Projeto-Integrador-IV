@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Editar Usuários</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+              crossorigin="anonymous">
+    </head>
+    
+    <body>
+        <div class="container" id="topo">
+            <br>
+            <br>
+
+            <div class="row">
+                <div class="col-6">
+                    <h1>Cadastrar Usuário</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group row">
+                    <form id="Usuario" th:object="${usuario}" th:action="@{/produto/update}" method="post">
+                        <div class="form-group">
+                            <label for="nome">Nome*</label>
+                            <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo" th:field="${usuario.nome}">
+                        </div>
+                        <div class="form-group">
+                            <label for="login">Login*</label>
+                            <input type="text" aria-labelledby="login" class="form-control" id="login" placeholder="Login" th:field="${usuario.login}">
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha*</label>
+                            <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" placeholder="Mínimo 8 caracteres">
+                        </div>
+                        <div class="form-group">
+                            <label for="funcao">Função*</label>
+                            <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função" th:field="${usuario.funcao}">
+                        </div>
+                        <button type="submit" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-dark">Editar</button>
+                    </form>
+                </div>
+            </div>
+    </body>
+</html>

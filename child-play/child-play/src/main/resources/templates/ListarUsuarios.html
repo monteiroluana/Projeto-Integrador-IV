@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="row">
-            <!--<form class="form" th:action="@{/usuario/listarUsuarios}" th:object="${usuario}" method="post">-->
+        
                 <div class="col-12">
                     <table class="table table-responsive">
                         <thead>
@@ -60,8 +60,7 @@
                         </tbody>
                     </table>
                 </div>
-           <!-- </form> -->
-            <div class="col-12">
+                    <div class="col-12">
                 <button type="button" aria-label="Cadastrar novo usuário" class="btn btn-dark" data-toggle="modal" data-target="#modalCadastroUsuario">Cadastrar Usuário
                 </button>
             </div>
@@ -81,7 +80,7 @@
 
                     <div class="modal-body">
                         <div class="form-group row">
-                            <form id="CadastroUsuario" th:object="${usuario}" th:action="@{/usuario/cadastrar}" method="post">
+                            <form id="CadastroUsuario" th:action="@{/usuario/cadastrar}" method="post">
                                 <div class="form-group">
                                     <label for="nome">Nome*</label>
                                     <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo">
@@ -107,47 +106,7 @@
             </div>
         </div>
     </div>
-
-    <!--Modal p/ editar usuario-->
-    <div class="modal" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="container">
-
-                    <div class="modal-header">
-                        <h4 class="modal-title">Editar Usuário</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <form id="EditarUsuario" th:object="${usuario}" th:action="@{/produto/update}" method="post">
-                                <div class="form-group">
-                                    <label for="nome">Nome*</label>
-                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo" th:field="${usuario.nome}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="login">Login*</label>
-                                    <input type="text" aria-labelledby="login" class="form-control" id="login" placeholder="Login" th:field="${usuario.login}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="senha">Senha*</label>
-                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" placeholder="Mínimo 8 caracteres">
-                                </div>
-                                <div class="form-group">
-                                    <label for="funcao">Função*</label>
-                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função" th:field="${usuario.funcao}">
-                                </div>
-                                <button type="submit" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-dark">Editar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+     
     <!--modal confirmação exclusão-->
     <div class="modal" tabindex="-1" role="dialog" id="modalConfirmExcluir" aria-hidden="true">
         <div class="modal-dialog" role="document">
