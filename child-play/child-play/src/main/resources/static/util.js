@@ -7,3 +7,12 @@ $('.sidenav').append(
     '<a href="#">Descontos</a>'
 
 );
+var message = [[${produtos}]];
+console.log(message);
+
+
+/*$("#verModal").click(function(){
+    $("#ver").modal();
+
+    console.log(document.getElementById("#verModal").value);
+});*/

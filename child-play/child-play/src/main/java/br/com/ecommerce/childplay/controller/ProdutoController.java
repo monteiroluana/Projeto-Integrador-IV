@@ -101,7 +101,7 @@ public class ProdutoController {
         return re;
     }
 
-    @GetMapping("/listar-produtos")
+    @GetMapping("/listarProdutos")
     public ModelAndView exemplo() throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         List<Produto> lista = service.list();
