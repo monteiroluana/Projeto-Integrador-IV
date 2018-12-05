@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Editar Usuários</title>
+        <title>Cadastrar Usuário</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
               crossorigin="anonymous">
@@ -38,8 +38,8 @@
                             <label for="funcao">Função*</label>
                             <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função" th:field="${usuario.funcao}">
                         </div>
-                        <button type="submit" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-dark">Editar</button>
+                        <button type="submit" aria-label="Cancelar cadastro" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                        <button type="button" aria-label="Cadastrar usuário" class="btn btn-dark">Cadastrar</button>
                     </form>
                 </div>
             </div>
