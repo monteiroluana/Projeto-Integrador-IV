@@ -24,19 +24,19 @@
                     <form id="EditarUsuario" th:object="${usuario}" th:action="@{/produto/update}" method="post">
                         <div class="form-group">
                             <label for="nome">Nome*</label>
-                            <input type="text" aria-labelledby="nome" class="form-control" id="nome" placeholder="Nome completo" th:field="${usuario.nome}">
+                            <input type="text" aria-labelledby="nome" class="form-control" name="nome" id="nome" placeholder="Nome completo" th:field="${usuario.nome}">
                         </div>
                         <div class="form-group">
                             <label for="login">Login*</label>
-                            <input type="text" aria-labelledby="login" class="form-control" id="login" placeholder="Login" th:field="${usuario.login}">
+                            <input type="text" aria-labelledby="login" class="form-control" name="login" id="login" placeholder="Login" th:field="${usuario.login}">
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha*</label>
-                            <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" placeholder="Mínimo 8 caracteres">
+                            <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" name="senha" id="senha" placeholder="Mínimo 8 caracteres">
                         </div>
                         <div class="form-group">
                             <label for="funcao">Função*</label>
-                            <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" placeholder="Insira a função" th:field="${usuario.funcao}">
+                            <input type="text" aria-labelledby="funcao" class="form-control" name="funcao" id="funcao" placeholder="Insira a função" th:field="${usuario.funcao}">
                         </div>
                         <button type="submit" aria-label="Cancelar operação" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
                         <button type="button" aria-label="Confirmar alterações" class="btn btn-dark">Editar</button>

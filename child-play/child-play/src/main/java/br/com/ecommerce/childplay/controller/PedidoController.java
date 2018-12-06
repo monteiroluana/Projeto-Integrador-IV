@@ -2,6 +2,7 @@ package br.com.ecommerce.childplay.controller;
 
 import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childplay.model.Pedido;
+import br.com.ecommerce.childplay.model.PlanZ;
 import br.com.ecommerce.childplay.model.ResponseEntity;
 import br.com.ecommerce.childplay.service.PedidoService;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/pedido")
@@ -55,7 +57,7 @@ public class PedidoController {
         re.setData(service.AutorizaPedido(protocolo));
         return re;
     }
-    
+
     @GetMapping("/cancelaPedido/{protocolo}")
     public ResponseEntity CancelaPedido(@PathVariable("protocolo") String protocolo) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();
@@ -92,4 +94,25 @@ public class PedidoController {
         return re;
     }
 
+    @GetMapping("/listarPedidos")
+    public ModelAndView listarPedidos() throws ClassNotFoundException, SQLException {
+        PedidoService service = new PedidoService();
+        List<PlanZ> lista = service.listPedido();
+
+        ModelAndView resposta = new ModelAndView("ListarPedidos");
+        resposta.addObject("pedidos", lista);
+
+        return resposta;
+    }
+
+    @GetMapping("/relatorio")
+    public ModelAndView relatorio() throws ClassNotFoundException, SQLException {
+        PedidoService service = new PedidoService();
+        List<PlanZ> lista = service.listPedido();
+
+        ModelAndView resposta = new ModelAndView("Relatorio");
+        resposta.addObject("pedidos", lista);
+
+        return resposta;
+    }
 }

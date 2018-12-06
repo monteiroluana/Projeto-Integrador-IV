@@ -115,7 +115,7 @@ public class UsuarioController {
 //    }
 
     @GetMapping("/listarUsuarios")
-    public ModelAndView exemplo() throws ClassNotFoundException, SQLException {
+    public ModelAndView listarUsuarios() throws ClassNotFoundException, SQLException {
         UsuarioService service = new UsuarioService();
         List<Usuario> lista = service.listar();
         ModelAndView resposta = new ModelAndView("ListarUsuarios");
