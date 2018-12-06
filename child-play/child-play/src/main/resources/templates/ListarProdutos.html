@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+          crossorigin="anonymous">
 
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
@@ -22,12 +22,19 @@
 
     <div class="body">
         <div class="container">
-            <h2>Animated Sidenav Example</h2>
-            <p>Click on the element below to open the side navigation menu.</p>
+            <br>
+            <br>
+            <div class="row">
+                    <div class="col-6">
+                        <h1>Lista Produtos</h1>
+                    </div>
+                </div>
+           <!-- <h2>Animated Sidenav Example</h2>
+            <p>Click on the element below to open the side navigation menu.</p> -->
 
             <div>
                 <table id="datatable" class="table">
-                    <thead class="thead-dark">
+                    <thead>
                         <tr>
                             <th>Cód</th>
                             <th>Name</th>
@@ -35,7 +42,7 @@
                             <th>Marca</th>
                             <th>Estoque</th>
                             <th>Enabled</th>
-                            <th></th>
+                            <th>Opções</th>
 
                         </tr>
                     </thead>
@@ -43,25 +50,25 @@
                         <tr th:each="prod : ${produtos}">
                             <th scope="row" th:text="${prod.idProduto}" name="id"></th>
                             <td>
-                                <h6 th:text="${prod.nome}"></h6>
+                                <span th:text="${prod.nome}"></span>
                             </td>
                             <td>
-                                <h6 th:text="${prod.preco}"></h6>
+                                <span th:text="${prod.preco}"></span>
                             </td>
                             <td>
-                                <h6 th:text="${prod.marca}"></h6>
+                                <span th:text="${prod.marca}"></span>
                             </td>
                             <td>
-                                <h6 th:text="${prod.estoque}"></h6>
+                                <span th:text="${prod.estoque}"></span>
                             </td>
                             <td>
-                                <h6 th:text="${prod.enable}"></h6>
+                                <span th:text="${prod.enable}"></span>
                             </td>
                             <td>
                                 <a class="btn btn-primary" href="/teste/listar">Editar</a>
-                                <button type="button" class="btn btn-primary" id="verModal" value="${prod.idProduto}">Ver</button>
-                                <button type="button" class="btn btn-warning">Editar</button>
-                                <button type="button" class="btn btn-danger">Excluir</button>
+                                <button type="button" class="btn btn-outline-success" id="verModal" value="${prod.idProduto}">Detalhes</button>
+                                <button type="button" class="btn btn-outline-info">Editar</button>
+                                <button type="button" class="btn btn-outline-danger">Excluir</button>
                             </td>
 
                         </tr>
@@ -101,9 +108,9 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
     <script th:inline="javascript" media="screen" href="/static/util.js" th:src="@{/util.js}"></script>
 

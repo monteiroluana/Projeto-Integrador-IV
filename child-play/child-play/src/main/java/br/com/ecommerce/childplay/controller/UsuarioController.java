@@ -126,6 +126,8 @@ public class UsuarioController {
     @PostMapping("/cadastrarUsuario")
     public ModelAndView salvar(@ModelAttribute("usuario") Usuario usuario,
             RedirectAttributes redirectAttributes) throws SQLException, ClassNotFoundException {
+        
+        //ModelAndView cad = new ModelAndView("CadastrarUsuario");
 
         System.out.println(usuario.getNome());
         redirectAttributes.addFlashAttribute("usuario", usuario);

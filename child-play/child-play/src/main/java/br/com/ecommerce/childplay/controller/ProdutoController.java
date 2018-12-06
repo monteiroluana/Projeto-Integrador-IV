@@ -106,7 +106,7 @@ public class ProdutoController {
         ProdutoService service = new ProdutoService();
         List<Produto> lista = service.list();
         
-        ModelAndView resposta = new ModelAndView("produtos");
+        ModelAndView resposta = new ModelAndView("ListarProdutos");
         resposta.addObject("produtos", lista);
         
         return resposta;
