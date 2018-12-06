@@ -21,7 +21,7 @@
 
             <div class="row">
                 <div class="form-group row">
-                    <form id="Usuario" th:object="${usuario}" th:action="@{/produto/update}" method="post">
+                    <form id="Usuario" th:object="${usuario}" th:action="@{/usuario/cadastrarUsuario}" method="post">
                         <div class="form-group">
                             <label for="nome">Nome*</label>
                             <input type="text" aria-labelledby="nome" class="form-control" name="nome" id="nome" placeholder="Nome completo" th:field="${usuario.nome}">

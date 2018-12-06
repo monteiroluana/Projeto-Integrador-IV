@@ -113,7 +113,6 @@ public class UsuarioController {
 //        List<Usuario> lista = service.listar();
 //        return new ModelAndView("telaUsuario").addObject("usuarios", lista);
 //    }
-
     @GetMapping("/listarUsuarios")
     public ModelAndView listarUsuarios() throws ClassNotFoundException, SQLException {
         UsuarioService service = new UsuarioService();
@@ -126,9 +125,8 @@ public class UsuarioController {
     @PostMapping("/cadastrarUsuario")
     public ModelAndView salvar(@ModelAttribute("usuario") Usuario usuario,
             RedirectAttributes redirectAttributes) throws SQLException, ClassNotFoundException {
-        
-        //ModelAndView cad = new ModelAndView("CadastrarUsuario");
 
+        //ModelAndView cad = new ModelAndView("CadastrarUsuario");
         System.out.println(usuario.getNome());
         redirectAttributes.addFlashAttribute("usuario", usuario);
 
@@ -145,6 +143,13 @@ public class UsuarioController {
         System.out.println("controller: " + usuario.getNome());
         usuario = service.getUsuarioId(usuario.getIdUsuario());
         return new ModelAndView("telaUsuario").addObject("usuario", usuario);
+    }
+
+    @GetMapping("/abrirCadastro")
+    public ModelAndView abrirForm() {
+        ModelAndView retorno = new ModelAndView("CadastrarUsuario")
+                .addObject("usuario", new Usuario());
+        return retorno;
     }
 
     /* @GetMapping("/delete/{id}")
