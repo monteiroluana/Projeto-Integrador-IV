@@ -103,13 +103,7 @@ public class ProdutoController {
 
     @GetMapping("/listarProdutos")
     public ModelAndView listarProdutos() throws ClassNotFoundException, SQLException {
-        ProdutoService service = new ProdutoService();
-        List<Produto> lista = service.list();
-
-        ModelAndView resposta = new ModelAndView("ListarProdutos");
-        resposta.addObject("produtos", lista);
-
-        return resposta;
+        return new ModelAndView("ListarProdutos");
     }
 
 }
