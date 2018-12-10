@@ -1,6 +1,7 @@
 package br.com.ecommerce.childplay.controller;
 
 import br.com.ecommerce.childPlay.model.Cliente;
+import br.com.ecommerce.childplay.model.ClienteInteressado;
 import br.com.ecommerce.childplay.model.ResponseEntity;
 import br.com.ecommerce.childplay.service.ClienteService;
 import java.sql.SQLException;
@@ -54,6 +55,21 @@ public class ClienteController {
         try {
             re = ResponseEntity.createSuccess();
             re.setData(service.save(cliente));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+
+    }
+    
+        @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/enviaEmail", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
+    public ResponseEntity enviaEmailAviseMe(@RequestBody ClienteInteressado cliInteressado) throws ClassNotFoundException, SQLException, MessagingException {
+        ClienteService service = new ClienteService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.enviaEmailAviseMe(cliInteressado));
         } catch (SQLException e) {
             re = ResponseEntity.createUnknownError();
         }
