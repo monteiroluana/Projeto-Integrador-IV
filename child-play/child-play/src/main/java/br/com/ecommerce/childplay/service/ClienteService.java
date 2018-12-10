@@ -1,7 +1,10 @@
 package br.com.ecommerce.childplay.service;
 
+import br.com.ecommerce.childPlay.dao.ProdutoDAO;
 import br.com.ecommerce.childPlay.model.Cliente;
+import br.com.ecommerce.childPlay.model.Produto;
 import br.com.ecommerce.childplay.dao.ClienteDAO;
+import br.com.ecommerce.childplay.model.ClienteInteressado;
 import br.com.ecommerce.childplay.utils.Email;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,6 +41,28 @@ public class ClienteService {
     
             email.generateAndSendEmail(cliente.getEmail(), emailBody, subject);
         } else {
+            msg = "Erro ao cadastrar conta!";
+        }
+        return msg;
+    }
+    
+    public String enviaEmailAviseMe(ClienteInteressado cliInteressado) throws ClassNotFoundException, SQLException, MessagingException {        
+        String msg = null;        
+        ProdutoDAO produtodao = new ProdutoDAO();
+        Produto produto = produtodao.getProdutoById(cliInteressado.getIdProduto());
+        
+        
+        
+        try{
+            msg = "Você será avisado por email quando o produto de seu interesse estiver em estoque";
+            Email email = new Email();
+            String subject = "ChildPlay - Interesse em produto";
+            String emailBody = "Que pena " + cliInteressado.getNome() + "! O produto "+ produto.getNome() + " da marca " + produto.getMarca() + " não está disponível no momento." +
+                    "<br><br> Mas não se preocupe, assim que chegar, avisaremos por email!" +
+                    "<br><br>Atenciosamente,<br> BackOffice ChildPlay";
+    
+            email.generateAndSendEmail(cliInteressado.getEmail(), emailBody, subject);
+        } catch(Exception ex) {
             msg = "Erro ao cadastrar conta!";
         }
         return msg;
