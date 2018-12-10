@@ -29,7 +29,7 @@ $(document).ready(function () {
 
                     '        <td>' +
                     '           <button type="button" class="btn btn-outline-success" onclick="abrirModal(' + listProdutos[i].idProduto + ')" title="Ver mais detalhes do produto ' + listProdutos[i].nome + '">Detalhes</button>' +
-                  /*  '           <button type="button" class="btn btn-outline-info" title="Editar o produto ' + listProdutos[i].nome + '">Editar</button>' +*/
+                    /*  '           <button type="button" class="btn btn-outline-info" title="Editar o produto ' + listProdutos[i].nome + '">Editar</button>' +*/
                     '           <button type="button" class="btn btn-outline-danger" title="Excluir o produto ' + listProdutos[i].nome + '">Excluir</button>' +
                     '        </td>' +
 
@@ -39,7 +39,7 @@ $(document).ready(function () {
             }
         }
     });
-    
+
 });
 
 
@@ -48,6 +48,9 @@ $(document).ready(function () {
 function abrirModal(idProduto) {
     let i = idProduto - 1;
     let imgs = listProdutos[i].imagem.length;
+
+    document.querySelector(".idProduto").value = listProdutos[i].idProduto;
+    document.querySelector(".idProduto").disabled = true;
 
     // imagens
     document.querySelector(".carousel-inner").innerHTML = '';
@@ -63,8 +66,8 @@ function abrirModal(idProduto) {
             '    <img class="d-block w-100" src="' + listProdutos[i].imagem[j].imagem + '" alt="First slide">' +
             '</div>'
         );
-    }
-
+    }   
+    
     document.querySelector(".nome").value = listProdutos[i].nome;
     document.querySelector(".nome").disabled = true;
 
@@ -91,7 +94,7 @@ function abrirModal(idProduto) {
     $('#detalhes').modal();
 }
 
-function editar(){
+function editar() {
     document.querySelector(".nome").disabled = false;
     document.querySelector(".marca").disabled = false;
     document.querySelector(".idade").disabled = false;
@@ -100,38 +103,39 @@ function editar(){
     document.querySelector(".desconto").disabled = false;
     document.querySelector(".descricao").disabled = false;
     document.querySelector(".caracteristicas").disabled = false;
-   
+
     $('.modal-footer').append(
         '<button type="button" class="btn btn-primary btnAtualizar" onclick="atualizar()">Atualizar</button>'
     );
-    document.querySelector(".btnEditar").disabled=true;
+    document.querySelector(".btnEditar").disabled = true;
 
 }
 
-function atualizar(){
-   let nome = document.querySelector(".nome").value;
-   let marca = document.querySelector(".marca").value;
-   let idade = document.querySelector(".idade").value;
-   let preco = document.querySelector(".preco").value;
-   let estoque = document.querySelector(".estoque").value;
-   let desconto = document.querySelector(".desconto").value;
-   let descricao = document.querySelector(".descricao").value;
-   let caracteristicas = document.querySelector(".caracteristicas").value;
+function atualizar() {
+    let idProduto = document.querySelector(".idProduto").value;
+    let nome = document.querySelector(".nome").value;
+    let marca = document.querySelector(".marca").value;
+    let idade = document.querySelector(".idade").value;
+    let preco = document.querySelector(".preco").value;
+    let estoque = document.querySelector(".estoque").value;
+    let desconto = document.querySelector(".desconto").value;
+    let descricao = document.querySelector(".descricao").value;
+    let caracteristicas = document.querySelector(".caracteristicas").value;
 
     let obj = {
-        "idProduto":1,
+        "idProduto": idProduto,
         "nome": nome,
-        "marca":marca,
-        "descricao":descricao,
-        "caracteristicas":caracteristicas,
-        "idade":idade,
+        "marca": marca,
+        "descricao": descricao,
+        "caracteristicas": caracteristicas,
+        "idade": idade,
         /*"categoria":"categoria teste post",*/
         "preco": preco,
-        "estoque":estoque,
-        "desconto":desconto
-      }
-     
-      $.ajax({
+        "estoque": estoque,
+        "desconto": desconto
+    }
+
+    $.ajax({
         url: '/produto/update',
         type: 'post',
         dataType: 'json',
@@ -139,7 +143,9 @@ function atualizar(){
         data: JSON.stringify(obj),
         success: function (data) {
             console.log("resultado", data);
+            alert("Atualizado com sucesso!");
+            $('#detalhes').modal('hide');
         }
-       
+
     });
 }
