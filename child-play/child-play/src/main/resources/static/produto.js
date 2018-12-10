@@ -1,8 +1,39 @@
 let listProdutos = []
 
 $(document).ready(function () {
+    listarProdutos();
+    $('#example').DataTable({
+        language: {
+			"decimal": "",
+			"emptyTable": "Nenhum registro disponivel",
+			"info": "Mostrando  _START_ até _END_ de _TOTAL_ registros",
+			"infoEmpty": "Nenhum registro encontrado",
+			"infoFiltered": "(filtrado de _MAX_ total de registros)",
+			"infoPostFix": "",
+			"thousands": ",",
+			"lengthMenu": "Mostrar _MENU_ registros",
+			"loadingRecords": "Carregando...",
+			"processing": "Processando...",
+			"search": "Pesquisar:",
+			"zeroRecords": "Não encontramos nenhum registro",
+			"paginate": {
+				"first": "Primeira",
+				"last": "Última",
+				"next": "Próximo",
+				"previous": "Anterior"
+			},
+			"aria": {
+				"sortAscending": ": activate to sort column ascending",
+				"sortDescending": ": activate to sort column descending"
+			}
+		}
+    });
+    
+});
 
-    $.ajax({
+// -----chamada JSON listar Produtos-----------
+function listarProdutos(){
+ $.ajax({
         url: '/produto/list-produto', method: 'GET', success: function (data) {
             listProdutos = data.data;
             console.log(listProdutos);
@@ -40,7 +71,8 @@ $(document).ready(function () {
             }
         }
     });
-});
+}
+
 
 
 //------Modal - ver mais detalhes do produto ----------------------------
