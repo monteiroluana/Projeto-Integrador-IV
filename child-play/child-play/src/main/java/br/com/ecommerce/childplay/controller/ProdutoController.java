@@ -89,10 +89,12 @@ public class ProdutoController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/enable", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity enable(@RequestBody Produto produto) throws ClassNotFoundException, SQLException {
+    public ResponseEntity enable(@RequestBody String idProduto) throws ClassNotFoundException, SQLException {
         ProdutoService service = new ProdutoService();
         ResponseEntity re = null;
         try {
+            
+            Produto produto = service.getProdutoById(Integer.parseInt(idProduto));
             re = ResponseEntity.createSuccess();
             re.setData(service.enable(produto));
         } catch (ClassNotFoundException | SQLException e) {
