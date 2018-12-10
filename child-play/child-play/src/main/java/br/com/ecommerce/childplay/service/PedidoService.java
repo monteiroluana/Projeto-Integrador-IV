@@ -19,10 +19,17 @@ public class PedidoService {
     public String save(Pedido pedido) throws SQLException, ClassNotFoundException {
         pedido.setProtocolo(gerarProtocolo());
         List<ItemPedido> itens = pedido.getItens();
+        ProdutoDAO produtodao = new ProdutoDAO();
+        
 
         double total = 0; //Somando o valor total dos itens
         for (ItemPedido iten : itens) {
-            total = total + (iten.getPreco() * iten.getQuantidade());
+            Produto produto = produtodao.getProdutoById(iten.getProduto().getIdProduto());
+            iten.setDesconto(produto.getDesconto());
+            
+            double valDesconto = iten.getPreco() * iten.getDesconto()/100;                        
+            total += (iten.getPreco() - valDesconto) * iten.getQuantidade();
+            
         }
 
         pedido.setValorTotal(total + pedido.getValorFrete());

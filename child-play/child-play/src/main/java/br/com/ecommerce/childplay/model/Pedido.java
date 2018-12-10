@@ -13,8 +13,9 @@ public class Pedido {
     private Date dataPedido;
     private String tipoPagamento;
     private List<ItemPedido> itens;
-    private double valorTotal;
     private double valorFrete;
+    private double valorTotal;
+    
     
     private String cep;
     private String logradouro;
