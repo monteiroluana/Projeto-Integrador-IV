@@ -7,18 +7,16 @@ public class ItemPedido {
     private int idPedido;
     private int quantidade;
     private double preco;
-    private Produto produto;
-    
-//test jonas
-    private int idProduto;
+    private int desconto;
 
-    public int getIdProduto() {
-        return idProduto;
+    public int getDesconto() {
+        return desconto;
     }
 
-    public void setIdProduto(int idProduto) {
-        this.idProduto = idProduto;
+    public void setDesconto(int desconto) {
+        this.desconto = desconto;
     }
+    private Produto produto;    
 
     public int getIdItem() {
         return idItem;
