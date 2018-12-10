@@ -30,7 +30,7 @@ $(document).ready(function () {
                     '        <td>' +
                     '           <button type="button" class="btn btn-outline-success" onclick="abrirModal(' + listProdutos[i].idProduto + ')" title="Ver mais detalhes do produto ' + listProdutos[i].nome + '">Detalhes</button>' +
                     /*  '           <button type="button" class="btn btn-outline-info" title="Editar o produto ' + listProdutos[i].nome + '">Editar</button>' +*/
-                    '           <button type="button" class="btn btn-outline-danger" title="Excluir o produto ' + listProdutos[i].nome + '">Excluir</button>' +
+                    '           <button type="button" class="btn btn-outline-danger" onclick="mostrarModalExcluir(' + listProdutos[i].idProduto + ') title="Excluir o produto ' + listProdutos[i].nome + '">Excluir</button>' +
                     '        </td>' +
 
                     '    </tr >'
@@ -49,7 +49,7 @@ function abrirModal(idProduto) {
     let i = idProduto - 1;
     let imgs = listProdutos[i].imagem.length;
 
-    document.querySelector(".idProduto").value = listProdutos[i].idProduto;
+    document.querySelector(".idProduto").value = idProduto;
     document.querySelector(".idProduto").disabled = true;
 
     // imagens
@@ -66,8 +66,8 @@ function abrirModal(idProduto) {
             '    <img class="d-block w-100" src="' + listProdutos[i].imagem[j].imagem + '" alt="First slide">' +
             '</div>'
         );
-    }   
-    
+    }
+
     document.querySelector(".nome").value = listProdutos[i].nome;
     document.querySelector(".nome").disabled = true;
 
@@ -110,6 +110,28 @@ function editar() {
     document.querySelector(".btnEditar").disabled = true;
 
 }
+
+/*function mostrarModalExcluir(idProduto) {
+    document.querySelector(".idProdutoExcluir").value = idProduto;
+    document.querySelector(".nomeExcluir").value = listProdutos[i].nome;
+    $('#modalConfirmExcluir').modal();
+
+  if()
+    $.ajax({
+        url: '/produto/enable',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(idProduto),
+        success: function (data) {
+            console.log("resultado", data);
+            alert("Excluído com sucesso!");
+            $('#modalConfirmExcluir').modal('hide');
+        }
+
+    });
+}*/
+
 
 function atualizar() {
     let idProduto = document.querySelector(".idProduto").value;
