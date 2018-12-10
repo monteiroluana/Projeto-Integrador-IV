@@ -221,17 +221,6 @@ public class ProdutoDAO {
                 System.out.println("idGerado: " + idGerado);
             }
 
-            List<Imagem> listImagens = new ArrayList<>();
-            listImagens = produto.getImagem();
-
-            if (!listImagens.isEmpty()) {
-                for (Imagem img : listImagens) {
-                    img.setIdProduto(idGerado);
-                    ImagemDAO imagemDao = new ImagemDAO();
-                    imagemDao.save(img);
-                }
-            }
-
             return (true);
 
         } catch (SQLException ex) {

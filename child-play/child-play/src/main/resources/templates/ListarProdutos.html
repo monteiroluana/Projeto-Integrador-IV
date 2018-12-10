@@ -7,22 +7,19 @@
     <title>CHILDPLAY - PRODUTOS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
-    <!-- datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
     <!-- favicon -->
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen">
-    
+
     <!-- local -->
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/util.css}" href="/static/util.css">
-      
+
 </head>
 
 <body>
@@ -41,7 +38,7 @@
         <table id="datatable" class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th>Cód</th>
+                    <th></th>
                     <th>Name</th>
                     <th>Preço</th>
                     <th>Marca</th>
@@ -97,48 +94,69 @@
                             <input type="text" class="form-control nome">
                         </div>
                         <div class="col-md-4">
-                            <label for="marca do produto">Marca</label>
+                            <label for="marca">Marca</label>
                             <input type="text" class="form-control marca">
                         </div>
                         <div class="col-md-4">
-                            <label for="marca do produto">Marca</label>
-                            <input type="text" class="form-control marca">
+                            <label for="idade indicativa">Idade</label>
+                            <input type="text" class="form-control idade">
                         </div>
                     </div>
                     <!--row-->
 
+                    <br/>
                     <div class="row">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                            <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-                            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-                            <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div id="home" class="tab-pane fade in active">
-                                <h3>HOME</h3>   
-                            </div><!--div home-->
-                            
-                            <div id="menu1" class="tab-pane fade">
-                                <h3>Menu 1</h3>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
-                            <div id="menu2" class="tab-pane fade">
-                                <h3>Menu 2</h3>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                            </div>
-                        </div> <!-- tab-content -->
-                    </div> <!--row-->
-
-                    <div>
-                        <label for="exampleFormControlTextarea1">Descrição</label>
-                        <textarea class="form-control descricao" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <div class="col-md-4">
+                            <label for="preço">Preço</label>
+                            <input type="text" class="form-control preco">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="quantidade no estoque">Estoque</label>
+                            <input type="text" class="form-control estoque">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="valor de desconto">Desconto</label>
+                            <input type="text" class="form-control desconto">
+                        </div>
                     </div>
+                    <!--row-->
 
+                    <br/>
+                    <div class="row">
+                        <div class="container">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#descricao" role="tab" aria-controls="nav-home"
+                                        aria-selected="true">Descrição</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#caracteristicas" role="tab" aria-controls="nav-profile"
+                                        aria-selected="false">Caracteristicas</a>
+
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="descricao" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div>
+                                        <br/>
+                                        <textarea class="form-control descricao" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="caracteristicas" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div>
+                                        <br/>
+                                        <textarea class="form-control caracteristicas" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--tab-content-->
+                        </div>
+                        <!--container-->
+                    </div>
+                    <!--row-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" aria-label="Cancelar" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-warning btnEditar" onclick="editar()">Editar</button>
                 </div>
             </div>
         </div>
@@ -153,16 +171,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
-    <!-- dataTable -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
     <!-- local -->
     <script th:inline="javascript" media="screen" href="/static/util.js" th:src="@{/util.js}"></script>
     <script th:inline="javascript" media="screen" href="/static/produto.js" th:src="@{/produto.js}"></script>
-    
+
 </body>
 
 </html>
