@@ -51,7 +51,7 @@ public class ProdutoService {
         if (produtoDao.update(produto)) {
             msg = "Produto excluído com Sucesso!";
         } else {
-            msg = "Falha ao excuir produto!";
+            msg = "Falha ao excluir produto!";
         }
         return msg;
     }
