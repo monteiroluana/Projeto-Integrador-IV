@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!--<html xmlns:th="http://www.thymeleaf.org"> </html>-->
 
-</html>
+<html>
 
 <head>
     <title>CHILDPLAY - PRODUTOS</title>
@@ -164,7 +164,30 @@
                 </div>
             </div>
         </div>
-        
+    </div>
+
+    <!--modal confirmação exclusão-->
+    <div class="modal" tabindex="-1" role="dialog" name="modalConfirmExcluir" id="modalConfirmExcluir" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="idProdutoExcluir" hidden>
+                    <p>Deseja mesmo excluir
+                        <span class="nomeExcluir">?</span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" aria-label="Cancelar exclusão" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                    <button type="button" aria-label="Confirmar exclusão" onclick="confirmExcluir(idProdutoExcluir)" class="btn btn-danger">Excluir</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
