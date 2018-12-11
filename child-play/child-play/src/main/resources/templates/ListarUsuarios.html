@@ -1,111 +1,159 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Gerenciamento Usuários</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-              crossorigin="anonymous"> 
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciamento Usuários</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
 
-        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" media="screen" th:href="@{/util.css}" href="/static/util.css">
+    <!-- favicon
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen"> -->
+    
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/util.css}" href="/static/util.css">
 
-    </head>
+</head>
 
-    <body>
-        <div id="demo">
-            <center>
-                <span style="font-size:30px;cursor:pointer;color:white;" onclick="openNav()">&#9776;</span>
-            </center>
-        </div>
-        <div class="sidenav"></div>
-        <!--menu sendo gerado pelo js-->
+<body>
+    <div id="demo">
+        <center>
+            <span style="font-size:30px;cursor:pointer;color:white;" onclick="openNav()">&#9776;</span>
+        </center>
+    </div>
+    <div class="sidenav"></div>
+    <!--menu sendo gerado pelo js-->
 
-        <!-- .......Fim menu.......................-->
+    <!-- .......Fim menu.......................-->
 
-        <div class="conteudo">
-            <div class="container" id="topo">
-                <br>
-                <br>
-                <div class="row">
-                    <div class="col-6">
-                        <h1>Lista Usuários</h1>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Cód</th>
-                                    <th>Nome</th>
-                                    <th>Login</th>
-                                    <th>Função</th>
-                                    <th>Opções</th>
-                                </tr>
-                            </thead>
-                            <tbody id="bodyTable">
-                                <tr th:each="usuario : ${usuarios}">
-                                    <td>
-                                        <span th:text="${usuario.idUsuario}"></span>
-                                    </td>
-                                    <td>
-                                        <span th:text="${usuario.nome}"></span>
-                                    </td>
-                                    <td>
-                                        <span th:text="${usuario.login}"></span>
-                                    </td>
-                                    <td>
-                                        <span th:text="${usuario.funcao}"></span>
-                                    </td>
-                                    <td>
-                                        <button type="submit" aria-label="editar ${usuario.nome}" class="btn btn-outline-info">Editar</button>
-                                        <button type="button" aria-label="remover ${usuario.nome}" class="btn btn-outline-danger" data-toggle="modal" data-target="#modalConfirmExcluir">Remover</button>
-                                    </td>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <!--<button type="button" aria-label="Cadastrar novo usuário" class="btn btn-dark">Cadastrar Usuário
-                    </button>-->
-                    <a class="btn btn-dark" href="/usuario/abrirCadastro" aria-label="Cadastrar novo usuário" role="button">Cadastrar Usuário</a>
+    <div class="conteudo">
+        <div class="container" id="topo">
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <h1>Lista Usuários</h1>
                 </div>
             </div>
 
-            <!--modal confirmação exclusão-->
-            <div class="modal" tabindex="-1" role="dialog" name="modalConfirmExcluir" id="modalConfirmExcluir" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Excluir?</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Deseja mesmo excluir este usuário?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" aria-label="Cancelar exclusão" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                            <button type="button" aria-label="Confirmar exclusão" class="btn btn-danger">Excluir</button>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-responsive tableUsuario">
+                        <thead>
+                            <tr>
+                                <th>Cód</th>
+                                <th>Nome</th>
+                                <th>Login</th>
+                                <th>Função</th>
+                                <th>Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyTableUsuario" class="bodyTableUsuario">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" aria-label="Cadastrar novo usuário" class="btn btn-dark" data-toggle="modal" data-target="#cadastroUsuario">Cadastrar Usuário</button>
+                <!-- <a class="btn btn-dark" href="/usuario/abrirCadastro" aria-label="Cadastrar novo usuário" role="button">Cadastrar Usuário</a> -->
+            </div>
+        </div>
+
+        <!--modal cadastrar usuario-->
+        <div class="modal fade" role="dialog" id="cadastroUsuario">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cadastrar Usuário</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <form id="formCadastroUsuario" class="formCadastroUsuario">
+                                <div class="form-group">
+                                    <label for="nome">Nome*</label>
+                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" name="nome" placeholder="Nome completo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="login">Login*</label>
+                                    <input type="text" aria-labelledby="login" class="form-control" id="login" name="login" placeholder="Login" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="senha">Senha*</label>
+                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" name="senha"
+                                        placeholder="Mínimo 8 caracteres">
+                                </div>
+                                <div class="form-group">
+                                    <label for="funcao">Função*</label>
+                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" name="funcao" placeholder="Insira a função">
+                                </div>
+                                <button type="button" aria-label="Cancelar cadastro" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                                <button type="button" aria-label="Cadastrar usuário" class="btn btn-dark" onclick="cadastrar()">Cadastrar</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+        <!--modal editar usuario-->
+        <div class="modal fade" role="dialog" id="detalhesUsuario">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <form id="formEditarUsuario" class="formEditarUsuario">
+                                <input type="text" class="idUsuario" hidden>
+                                <div class="form-group">
+                                    <label for="nome">Nome*</label>
+                                    <input type="text" aria-labelledby="nome" class="form-control" id="nomeEditar" name="nomeEditar" placeholder="Nome completo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="login">Login*</label>
+                                    <input type="text" aria-labelledby="login" class="form-control" id="loginEditar" name="loginEditar" placeholder="Login" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="senha">Senha*</label>
+                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senhaEditar"
+                                        name="senhaEditar" placeholder="Mínimo 8 caracteres">
+                                </div>
+                                <div class="form-group">
+                                    <label for="funcao">Função*</label>
+                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcaoEditar" name="funcaoEditar" placeholder="Insira a função">
+                                </div>
+                                <button type="button" aria-label="Cancelar" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                                <button type="button" aria-label="Atualizar usuário" class="btn btn-dark" onclick="atualizar()">Atualizar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script>
 
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <!-- local -->
         <script th:inline="javascript" media="screen" href="/static/util.js" th:src="@{/util.js}"></script>
+        <script th:inline="javascript" media="screen" href="/static/usuario.js" th:src="@{/usuario.js}"></script>
 
-    </body>
+
+</body>
 
 </html>
