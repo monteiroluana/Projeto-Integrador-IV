@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--<html xmlns:th="http://www.thymeleaf.org"> </html>-->
-
 <html>
 
 <head>
@@ -13,9 +11,9 @@
         crossorigin="anonymous">
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
-    <!-- favicon -->
+    <!-- favicon
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen">
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen"> -->
 
     <!-- local -->
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/util.css}" href="/static/util.css">
@@ -49,7 +47,7 @@
                     <th>Opções</th>
                 </tr>
             </thead>
-            <tbody id="table-produtos">
+            <tbody id="table-produtos" class="table-produtos">
             </tbody>
         </table>
 
@@ -201,6 +199,8 @@
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- local -->
     <script th:inline="javascript" media="screen" href="/static/util.js" th:src="@{/util.js}"></script>

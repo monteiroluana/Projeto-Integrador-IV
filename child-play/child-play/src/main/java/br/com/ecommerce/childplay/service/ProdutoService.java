@@ -48,7 +48,7 @@ public class ProdutoService {
     public String enable(Produto produto) throws ClassNotFoundException, SQLException {
         ProdutoDAO produtoDao = new ProdutoDAO();
         String msg = null;
-        if (produtoDao.update(produto)) {
+        if (produtoDao.enable(produto)) {
             msg = "Produto excluído com Sucesso!";
         } else {
             msg = "Falha ao excluir produto!";
