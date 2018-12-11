@@ -281,10 +281,8 @@ public class ProdutoDAO {
     }
 
     public boolean enable(Produto produto) throws SQLException {
-
         String sql = "UPDATE PRODUTO SET enable = ? WHERE idProduto = ?";
-
-        System.out.println("idProduto: " + produto.getIdProduto());
+        
         Connection connection = null;
         PreparedStatement p = null;
 

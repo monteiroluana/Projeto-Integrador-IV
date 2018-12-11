@@ -4,7 +4,7 @@
     '<a href="/usuario/listarUsuarios">Usuários</a>'+
     '<a href="/produto/listarProdutos">Produtos</a>'+
     '<a href="/pedido/listarPedidos">Pedidos</a>'+
-    '<a href="/pedido/relatorio">Relatório</a>'+
+    '<a href="/relatorio/relatorio">Relatório</a>'+
     '<a href="#">Descontos</a>'
 );*/
 
@@ -14,7 +14,7 @@ $('.sidenav').append(
     '<a href="/usuario/listarUsuarios">Usuários</a>'+
     '<a href="/produto/listarProdutos">Produtos</a>'+
     '<a href="#">Pedidos</a>'+
-    '<a href="#">Relatório</a>'+
+    '<a href="/relatorio/relatorio">Relatório</a>'+
     '<a href="#">Descontos</a>'
 );
 
