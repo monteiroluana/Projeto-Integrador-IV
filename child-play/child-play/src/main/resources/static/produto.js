@@ -1,17 +1,16 @@
 let listProdutos = []
 
 $(document).ready(function () {
-    listarProduto();
+    listarProdutos();
 });
 
 
-//------Modal - ver mais detalhes do produto ----------------------------
-
+//abre modal com detalhes do produto
 function abrirModal(idProd) {
 
     for (var i = 0; i <= listProdutos.length; i++) {
-        if (idProd == listProdutos[i].idProduto ) {
-            
+        if (idProd == listProdutos[i].idProduto) {
+
             let imgs = listProdutos[i].imagem.length;
 
             document.querySelector(".idProduto").value = idProd;
@@ -56,11 +55,14 @@ function abrirModal(idProd) {
 
             document.querySelector(".caracteristicas").value = listProdutos[i].caracteristicas;
             document.querySelector(".caracteristicas").disabled = true;
+
+            document.querySelector(".btnEditar").disabled = false;
+            document.querySelector(".btnAtualizar").disabled = true;
+
             $('#detalhes').modal();
 
         }
     }
-
 }
 
 function editar() {
@@ -73,11 +75,11 @@ function editar() {
     document.querySelector(".descricao").disabled = false;
     document.querySelector(".caracteristicas").disabled = false;
 
-    $('.modal-footer').append(
+   /* $('.modal-footer').append(
         '<button type="button" class="btn btn-primary btnAtualizar" onclick="atualizar()">Atualizar</button>'
-    );
+    );*/
     document.querySelector(".btnEditar").disabled = true;
-
+    document.querySelector(".btnAtualizar").disabled = false;
 }
 
 function atualizar() {
@@ -112,15 +114,14 @@ function atualizar() {
         data: JSON.stringify(obj),
         success: function (data) {
             swal("Success!", data.data, "success");
+
+            $('#detalhes').modal('hide');
+            listarProdutos();
         }
     });
-
 }
 
-
-
 function excluir(idProduto) {
-
     swal({
         title: "Tem certeza?",
         text: "O produto (" + listProdutos[idProduto - 1].nome + ") será apagado!",
@@ -142,7 +143,7 @@ function excluir(idProduto) {
                     data: JSON.stringify(obj),
                     success: function (data) {
                         swal("Success!", data.data, "success");
-                        listarProduto();
+                        listarProdutos();
                     }
                 });
             }
@@ -150,7 +151,7 @@ function excluir(idProduto) {
 }
 
 
-function listarProduto() {
+function listarProdutos() {
     document.querySelector(".table-produtos").innerHTML = '';
 
     $.ajax({

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>CHILDPLAY - PRODUTOS</title>
+    <title>Gerenciamento Produtos</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -85,7 +85,9 @@
 
 
                     <center>
-                        <span>INFORMAÇÕES DO PRODUTO</span>
+                        <span>
+                            <strong>INFORMAÇÕES DO PRODUTO</strong>
+                        </span>
                         <input type="text" class="idProduto" hidden>
                     </center>
                     <br>
@@ -159,36 +161,11 @@
                 <div class="modal-footer">
                     <button type="button" aria-label="Cancelar" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-warning btnEditar" onclick="editar()">Editar</button>
+                    <button type="button" class="btn btn-primary btnAtualizar" onclick="atualizar()">Atualizar</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!--modal confirmação exclusão-->
-    <div class="modal" tabindex="-1" role="dialog" name="modalConfirmExcluir" id="modalConfirmExcluir" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Excluir?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="idProdutoExcluir" hidden>
-                    <p>Deseja mesmo excluir
-                        <span class="nomeExcluir">?</span>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" aria-label="Cancelar exclusão" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                    <button type="button" aria-label="Confirmar exclusão" onclick="confirmExcluir(idProdutoExcluir)" class="btn btn-danger">Excluir</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
     <!-- bootstrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
