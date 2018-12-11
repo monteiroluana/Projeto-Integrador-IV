@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-//@RestController
-@Controller
+@RestController
+//@Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
 
