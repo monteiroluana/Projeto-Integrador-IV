@@ -13,9 +13,8 @@ $('.sidenav').append(
     // '<hr/>'+
     '<a href="/usuario/listarUsuarios">Usuários</a>'+
     '<a href="/produto/listarProdutos">Produtos</a>'+
-    '<a href="#">Pedidos</a>'+
-    '<a href="/relatorio/relatorio">Relatório</a>'+
-    '<a href="#">Descontos</a>'
+    '<a href="/pedido/listarPedidos">Pedidos</a>'+
+    '<a href="/relatorio/relatorio">Relatório</a>'
 );
 
 
