@@ -289,7 +289,6 @@ public class ClienteDAO {
             ResultSet rs = p.getGeneratedKeys();
             if (rs.next()) {
                 idGerado = rs.getInt(1);
-                System.out.println("idGerado: " + idGerado);
             }
 
             Cartao cartao = new Cartao();

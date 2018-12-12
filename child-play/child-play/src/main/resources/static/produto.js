@@ -217,7 +217,6 @@ function addImagem(){
 function salvar(){
     
     let nome = document.querySelector(".nomeA").value;
-    console.log(nome);
     let marca = document.querySelector(".marcaA").value;
     let idade = document.querySelector(".idadeA").value;
     let preco = document.querySelector(".precoA").value;
