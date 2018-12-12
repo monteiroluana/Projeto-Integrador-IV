@@ -35,9 +35,9 @@
         <br>
         <br>
         <h1 class="teste">Listar Produtos</h1>
-        <button type="button" class="btn btn-primary" onclick="abrirModal()">Adicionar</button>
+        <button type="button" class="btn btn-primary" onclick="">Adicionar</button>
 
-        <table id="datatable" class="table" style="width:100%">
+        <table id="datatable" class="table" style="width:100%; margin-top:1%;">
             <thead class="thead-dark">
                 <tr>
                     <th></th>
@@ -191,12 +191,6 @@
                                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#geral" role="tab" aria-controls="nav-home"
                                         aria-selected="true">Geral</a>
 
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#descricao" role="tab" aria-controls="nav-profile"
-                                        aria-selected="false">Descrição</a>
-
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#caracteristicas" role="tab" aria-controls="nav-profile"
-                                        aria-selected="false">Caracteristicas</a>
-
                                     <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#imagens" role="tab" aria-controls="nav-profile"
                                         aria-selected="false">Imagens</a>
                                 </div>
@@ -229,40 +223,40 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label for="preço">Preço</label>
-                                                <input type="text" class="form-control preco">
+                                                <input type="text" class="form-control precoA">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="quantidade no estoque">Estoque</label>
-                                                <input type="text" class="form-control estoque">
+                                                <input type="text" class="form-control estoqueA">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="valor de desconto">Desconto</label>
-                                                <input type="text" class="form-control desconto">
+                                                <input type="text" class="form-control descontoA">
                                             </div>
                                         </div>
                                         <!--row-->
+
+                                        <div class="row">
+                                            <div class="container">
+                                                <br/>
+                                                <label for="valor de desconto">Descrição</label>
+                                                <textarea class="form-control descricao" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="container">
+                                                <br/>
+                                                <label for="valor de desconto">Caracteristicas</label>
+                                                <textarea class="form-control caracteristicas" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            </div>
+                                        </div>
 
 
 
                                     </div>
                                 </div>
                                 <!--geral-->
-
-                                <div class="tab-pane fade show active" id="descricao" role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <div>
-                                        <br/>
-                                        <textarea class="form-control descricao" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    </div>
-                                </div>
-                                <!--descricao-->
-
-                                <div class="tab-pane fade" id="caracteristicas" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    <div>
-                                        <br/>
-                                        <textarea class="form-control caracteristicas" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    </div>
-                                </div>
-                                <!--caracteristicas-->
 
                                 <div class="tab-pane fade" id="imagens" role="tabpanel" aria-labelledby="nav-profile-tab">
                                     <div>
@@ -306,7 +300,7 @@
 
                 <div class="modal-footer">
                     <button type="button" aria-label="Cancelar" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
+                    <button type="button" class="btn btn-success" onclick="salvar()">Salvar</button>
                 </div>
                 <!--modal-footer-->
 

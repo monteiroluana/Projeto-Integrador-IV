@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
 //abre modal com detalhes do produto
-function abrirModal(idProd) {
+function abrirModalDetalhes(idProd) {
 
     for (var i = 0; i <= listProdutos.length; i++) {
         if (idProd == listProdutos[i].idProduto) {
@@ -181,7 +181,7 @@ function listarProdutos() {
                     '        </td >' +
 
                     '        <td>' +
-                    '           <button type="button" class="btn btn-outline-success" onclick="abrirModal(' + listProdutos[i].idProduto + ')" title="Ver mais detalhes do produto ' + listProdutos[i].nome + '">Detalhes</button>' +
+                    '           <button type="button" class="btn btn-outline-success" onclick="abrirModalDetalhes(' + listProdutos[i].idProduto + ')" title="Ver mais detalhes do produto ' + listProdutos[i].nome + '">Detalhes</button>' +
                     '           <button type="button" class="btn btn-outline-danger" onclick="excluir(' + listProdutos[i].idProduto + ')" title="Excluir o produto ' + listProdutos[i].nome + '">Excluir</button>' +
                     '        </td>' +
 
@@ -194,11 +194,11 @@ function listarProdutos() {
 }
 
 
-function abrirModal(){
+function abrirModalAdicionar(){
     $('#adicionar').modal();
-  }
+}
   
-  function addImagem(){
+function addImagem(){
     $('.addImagem').append(
     ' <div class="row">'+
     '   <div class="col-md-6">'+
@@ -211,4 +211,63 @@ function abrirModal(){
     '    </div>'+
     ' </div>'
     );
-  }
+}
+
+
+function salvar(){
+    
+    let nome = document.querySelector(".nomeA").value;
+    console.log(nome);
+    let marca = document.querySelector(".marcaA").value;
+    let idade = document.querySelector(".idadeA").value;
+    let preco = document.querySelector(".precoA").value;
+    let estoque = document.querySelector(".estoqueA").value;
+    let desconto = document.querySelector(".descontoA").value;
+    let descricao = document.querySelector(".descricaoA").value;
+    let caracteristicas = document.querySelector(".caracteristicasA").value;
+    /*let url = document.querySelectorAll(".url").value;
+    let alt = document.querySelectorAll(".alt").value;
+*/
+
+    let imagens = [];
+
+/*    if(url.length>0){
+        for (var i =0; i< url.length;i++){
+            let img ={
+                "imagem":url[i].value,
+                "alt":alt[i].value,
+            }
+            imagens.push(img);
+        }
+    }*/
+   
+    let obj = {
+        "nome": nome,
+        "marca": marca,
+        "descricao":descricao,
+        "caracteristicas":caracteristicas ,
+        "idade":idade,
+       // "categoria":"categoria teste post",
+        "preco": preco,
+        "estoque":estoque,
+        "desconto":desconto,
+        "imagem":imagens
+      }
+
+
+      $.ajax({
+        url: '/produto/save',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(obj),
+        success: function (data) {
+
+            console.log("savar",data);
+            swal("Success!", data.data, "success");
+
+            $('#adicionar').modal('hide');
+            listarProdutos();
+        }
+    });
+}
