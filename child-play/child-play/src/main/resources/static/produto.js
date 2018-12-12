@@ -2,6 +2,33 @@ let listProdutos = []
 
 $(document).ready(function () {
     listarProdutos();
+     $('#datatable').DataTable({
+		columns: [{ data: 'n' }, { data: 'd' }, { data: 's' }, { data: 'o' }],
+		language: {
+			"decimal": "",
+			"emptyTable": "Nenhum registro disponivel",
+			"info": "Mostrando  _START_ até _END_ de _TOTAL_ registros",
+			"infoEmpty": "Nenhum registro encontrado",
+			"infoFiltered": "(filtrado de _MAX_ total de registros)",
+			"infoPostFix": "",
+			"thousands": ",",
+			"lengthMenu": "Mostrar _MENU_ registros",
+			"loadingRecords": "Carregando...",
+			"processing": "Processando...",
+			"search": "Pesquisar:",
+			"zeroRecords": "Não encontramos nenhum registro",
+			"paginate": {
+				"first": "Primeira",
+				"last": "Última",
+				"next": "Próximo",
+				"previous": "Anterior"
+			},
+			"aria": {
+				"sortAscending": ": activate to sort column ascending",
+				"sortDescending": ": activate to sort column descending"
+			}
+		}
+	});
 });
 
 
