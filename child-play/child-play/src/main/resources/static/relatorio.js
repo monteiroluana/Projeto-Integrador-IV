@@ -28,3 +28,7 @@ $(document).ready(function () {
     }
   });
 });
+
+
+/*SELECT idPedido, protocolo, idCliente, idUsuario, dataPedido, tipoPagamento, status, valorTotal, valorFrete, cep, logradouro, numero, bairro, cidade, uf, complemento,DATE_FORMAT(pedido.dataPedido, "%M") as mes,
+DATE_FORMAT(pedido.dataPedido, "%Y") as ano  FROM `pedido` */
