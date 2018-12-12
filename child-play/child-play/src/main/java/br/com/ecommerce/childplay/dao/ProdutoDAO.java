@@ -143,7 +143,6 @@ public class ProdutoDAO {
         PreparedStatement p = null;
 
         try {
-            System.out.println("Produto DAO");
             connection = Conexao.getConnection();
             p = connection.prepareStatement(sql);
             p.setBoolean(1, true);
@@ -217,8 +216,7 @@ public class ProdutoDAO {
 
             ResultSet rs = p.getGeneratedKeys();
             if (rs.next()) {
-                idGerado = rs.getInt(1);
-                System.out.println("idGerado: " + idGerado);
+                idGerado = rs.getInt(1);        
             }
 
             return (true);
