@@ -80,7 +80,7 @@ public class UsuarioController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = {"text/plain;charset=UTF-8", "application/*"})
-    public ResponseEntity update(@PathVariable("email") Usuario usuario) throws ClassNotFoundException, SQLException {
+    public ResponseEntity update(@RequestBody Usuario usuario) throws ClassNotFoundException, SQLException {
         UsuarioService service = new UsuarioService();
         ResponseEntity re = null;
         try {

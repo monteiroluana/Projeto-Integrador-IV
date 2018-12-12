@@ -4,22 +4,53 @@ $(document).ready(function () {
     listarUsuarios();
 });
 
+function abrirModalCadastro() {
+    $('#cadastroUsuario').modal();
+}
+
+function addUsuario() {
+    let nome = document.querySelector(".nome").value;
+    let login = document.querySelector(".login").value;
+    let senha = document.querySelector(".senha").value;
+    let funcao = document.querySelector(".funcao").value;
+
+    let obj = {       
+        "nome": nome,
+        "login": login,
+        "senha": senha,
+        "funcao": funcao
+    }
+
+    $.ajax({
+        url: '/usuario/save',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(obj),
+        success: function (data) {
+            swal("Success!", data.data, "success");
+            $('#cadastroUsuario').modal('hide');
+            listarUsuarios();
+        }
+    });
+}
 
 //------Modal ver mais detalhes do usuario ---------
-
-function abrirModal(idUsuario) {
+function abrirModalEditar(idUsuario) {
     for (var i = 0; i <= listUsuarios.length; i++) {
         if (idUsuario == listUsuarios[i].idUsuario) {
 
             document.querySelector(".idUsuario").value = idUsuario;
             document.querySelector(".idUsuario").disabled = true;
 
-            document.querySelector(".modal-title").innerHTML = "Editar" + listUsuarios[i].nome;
+            document.querySelector(".titleModalEditar").innerHTML = "Editar cadastro " + listUsuarios[i].nome;
 
             document.querySelector(".nomeEditar").value = listUsuarios[i].nome;
 
             document.querySelector(".loginEditar").value = listUsuarios[i].login;
             document.querySelector(".loginEditar").disabled = true;
+
+            document.querySelector(".senhaEditar").value = listUsuarios[i].senha;
 
             document.querySelector(".funcaoEditar").value = listUsuarios[i].funcao;
 
@@ -32,10 +63,10 @@ function abrirModal(idUsuario) {
 
 function atualizar() {
     let idUsuario = document.querySelector(".idUsuario").value;
-    let nome = document.querySelector(".nome").value;
-    let login = document.querySelector(".login").value;
-    let senha = document.querySelector(".senha").value;
-    let funcao = document.querySelector(".funcao").value;
+    let nome = document.querySelector(".nomeEditar").value;
+    let login = document.querySelector(".loginEditar").value;
+    let senha = document.querySelector(".senhaEditar").value;
+    let funcao = document.querySelector(".funcaoEditar").value;
 
     let obj = {
         "idUsuario": idUsuario,
@@ -59,7 +90,7 @@ function atualizar() {
     });
 }
 
-function excluir(idUsuario) {
+function excluir(login) {
     swal({
         title: "Tem certeza?",
         text: "O usuário (" + listUsuarios[idUsuario - 1].nome + ") será apagado!",
@@ -70,7 +101,7 @@ function excluir(idUsuario) {
         .then((willDelete) => {
             if (willDelete) {
                 let obj = {
-                    "idUsuario": idUsuario,
+                    "login": login,
                 }
 
                 $.ajax({
@@ -111,8 +142,8 @@ function listarUsuarios() {
                     '            <span>' + listUsuarios[i].funcao + '</span>' +
                     '        </td >' +
                     '        <td>' +
-                    '           <button type="button" class="btn btn-outline-success" onclick="abrirModal(' + listUsuarios[i].idUsuario + ')" title="Editar ' + listUsuarios[i].nome + '">Detalhes</button>' +
-                    '           <button type="button" class="btn btn-outline-danger" onclick="excluir(' + listUsuarios[i].idUsuario + ')" title="Excluir o usuário ' + listUsuarios[i].nome + '">Excluir</button>' +
+                    '           <button type="button" class="btn btn-outline-success" onclick="abrirModalEditar(' + listUsuarios[i].idUsuario + ')" title="Editar ' + listUsuarios[i].nome + '">Editar</button>' +
+                    '           <button type="button" class="btn btn-outline-danger" onclick="excluir(' + listUsuarios[i].login + ')" title="Excluir o usuário ' + listUsuarios[i].nome + '">Excluir</button>' +
                     '        </td>' +
                     '    </tr >'
 

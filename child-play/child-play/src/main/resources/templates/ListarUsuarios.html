@@ -11,7 +11,7 @@
     <!-- favicon
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon" th:href="@{/favicon.ico}" media="screen"> -->
-    
+
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/util.css}" href="/static/util.css">
 
 </head>
@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-12">
                     <table class="table table-responsive tableUsuario">
-                        <thead>
+                        <thead class="thead-dark">
                             <tr>
                                 <th>Cód</th>
                                 <th>Nome</th>
@@ -56,8 +56,7 @@
                 </div>
             </div>
             <div class="row">
-                <button type="button" aria-label="Cadastrar novo usuário" class="btn btn-dark" data-toggle="modal" data-target="#cadastroUsuario">Cadastrar Usuário</button>
-                <!-- <a class="btn btn-dark" href="/usuario/abrirCadastro" aria-label="Cadastrar novo usuário" role="button">Cadastrar Usuário</a> -->
+                <button type="button" aria-label="Cadastrar novo usuário" class="btn btn-dark" data-toggle="modal" onclick="abrirModalCadastro()">Cadastrar Usuário</button>
             </div>
         </div>
 
@@ -66,34 +65,36 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Cadastrar Usuário</h5>
+                        <h5 class="modal-title titleModalCadastro">Cadastrar Usuário</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <form id="formCadastroUsuario" class="formCadastroUsuario">
-                                <div class="form-group">
-                                    <label for="nome">Nome*</label>
-                                    <input type="text" aria-labelledby="nome" class="form-control" id="nome" name="nome" placeholder="Nome completo">
-                                </div>
-                                <div class="form-group">
-                                    <label for="login">Login*</label>
-                                    <input type="text" aria-labelledby="login" class="form-control" id="login" name="login" placeholder="Login" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="senha">Senha*</label>
-                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senha" name="senha"
-                                        placeholder="Mínimo 8 caracteres">
-                                </div>
-                                <div class="form-group">
-                                    <label for="funcao">Função*</label>
-                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcao" name="funcao" placeholder="Insira a função">
-                                </div>
-                                <button type="button" aria-label="Cancelar cadastro" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                                <button type="button" aria-label="Cadastrar usuário" class="btn btn-dark" onclick="cadastrar()">Cadastrar</button>
-                            </form>
+                            <div class="container">
+                                <form id="formCadastroUsuario" class="formCadastroUsuario">
+                                    <div class="form-group">
+                                        <label for="nome">Nome*</label>
+                                        <input type="text" aria-labelledby="nome" class="form-control nome" id="nome" name="nome" placeholder="Nome completo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="login">Login*</label>
+                                        <input type="text" aria-labelledby="login" class="form-control login" id="login" name="login" placeholder="Login" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="senha">Senha*</label>
+                                        <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control senha" id="senha" name="senha"
+                                            placeholder="Mínimo 8 caracteres">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="funcao">Função*</label>
+                                        <input type="text" aria-labelledby="funcao" class="form-control funcao" id="funcao" name="funcao" placeholder="Insira a função">
+                                    </div>
+                                    <button type="button" aria-label="Cancelar cadastro" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" aria-label="Cadastrar usuário" class="btn btn-dark" onclick="addUsuario()">Cadastrar</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,38 +103,43 @@
 
         <!--modal editar usuario-->
         <div class="modal fade" role="dialog" id="detalhesUsuario">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"></h5>
+                        <h5 class="modal-title titleModalEditar"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <form id="formEditarUsuario" class="formEditarUsuario">
-                                <input type="text" class="idUsuario" hidden>
-                                <div class="form-group">
-                                    <label for="nome">Nome*</label>
-                                    <input type="text" aria-labelledby="nome" class="form-control" id="nomeEditar" name="nomeEditar" placeholder="Nome completo">
-                                </div>
-                                <div class="form-group">
-                                    <label for="login">Login*</label>
-                                    <input type="text" aria-labelledby="login" class="form-control" id="loginEditar" name="loginEditar" placeholder="Login" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="senha">Senha*</label>
-                                    <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control" id="senhaEditar"
-                                        name="senhaEditar" placeholder="Mínimo 8 caracteres">
-                                </div>
-                                <div class="form-group">
-                                    <label for="funcao">Função*</label>
-                                    <input type="text" aria-labelledby="funcao" class="form-control" id="funcaoEditar" name="funcaoEditar" placeholder="Insira a função">
-                                </div>
-                                <button type="button" aria-label="Cancelar" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                                <button type="button" aria-label="Atualizar usuário" class="btn btn-dark" onclick="atualizar()">Atualizar</button>
-                            </form>
+                            <div class="container">
+                                <form id="formEditarUsuario" class="formEditarUsuario">
+                                    <input type="text" class="idUsuario" hidden>
+                                    <div class="form-group">
+                                        <label for="nome">Nome*</label>
+                                        <input type="text" aria-labelledby="nome" class="form-control nomeEditar" id="nomeEditar" name="nomeEditar" placeholder="Nome completo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="login">Login*</label>
+                                        <input type="text" aria-labelledby="login" class="form-control loginEditar" id="loginEditar" name="loginEditar" placeholder="Login"
+                                            required>
+                                        <small id="loginHelp" class="form-text text-muted">Não é possível alterar o login.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="senha">Senha*</label>
+                                        <input type="password" aria-labelledby="senha" aria-describedby="Mínimo 8 caracteres" class="form-control senhaEditar" id="senhaEditar"
+                                            name="senhaEditar" placeholder="Mínimo 8 caracteres">
+                                        <small id="senhaHelp" class="form-text text-muted">Não é necessário confirmar senha, caso queira manter a mesma.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="funcao">Função*</label>
+                                        <input type="text" aria-labelledby="funcao" class="form-control funcaoEditar" id="funcaoEditar" name="funcaoEditar" placeholder="Insira a função">
+                                    </div>
+                                    <button type="button" aria-label="Cancelar" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" aria-label="Atualizar usuário" class="btn btn-dark" onclick="atualizar()">Atualizar</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
