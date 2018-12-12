@@ -2,33 +2,6 @@ let listProdutos = []
 
 $(document).ready(function () {
     listarProdutos();
-     $('#datatable').DataTable({
-		columns: [{ data: 'n' }, { data: 'd' }, { data: 's' }, { data: 'o' }],
-		language: {
-			"decimal": "",
-			"emptyTable": "Nenhum registro disponivel",
-			"info": "Mostrando  _START_ até _END_ de _TOTAL_ registros",
-			"infoEmpty": "Nenhum registro encontrado",
-			"infoFiltered": "(filtrado de _MAX_ total de registros)",
-			"infoPostFix": "",
-			"thousands": ",",
-			"lengthMenu": "Mostrar _MENU_ registros",
-			"loadingRecords": "Carregando...",
-			"processing": "Processando...",
-			"search": "Pesquisar:",
-			"zeroRecords": "Não encontramos nenhum registro",
-			"paginate": {
-				"first": "Primeira",
-				"last": "Última",
-				"next": "Próximo",
-				"previous": "Anterior"
-			},
-			"aria": {
-				"sortAscending": ": activate to sort column ascending",
-				"sortDescending": ": activate to sort column descending"
-			}
-		}
-	});
 });
 
 
@@ -219,3 +192,23 @@ function listarProdutos() {
         }
     });
 }
+
+
+function abrirModal(){
+    $('#adicionar').modal();
+  }
+  
+  function addImagem(){
+    $('.addImagem').append(
+    ' <div class="row">'+
+    '   <div class="col-md-6">'+
+    '      <label for="url">Url</label> '+
+    '      <input type="text"class="form-control url">'+
+    '    </div>'+
+    '    <div class="col-md-6">'+
+    '      <label for="quantidade no alt">Alt</label>'+ 
+    '      <input type="text" class="form-control alt">'+
+    '    </div>'+
+    ' </div>'
+    );
+  }

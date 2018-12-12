@@ -35,8 +35,10 @@
         <br>
         <br>
         <h1 class="teste">Listar Produtos</h1>
-        <table id="datatable" class="table">
-            <thead>
+        <button type="button" class="btn btn-primary" onclick="abrirModal()">Adicionar</button>
+
+        <table id="datatable" class="table" style="width:100%">
+            <thead class="thead-dark">
                 <tr>
                     <th></th>
                     <th>Name</th>
@@ -167,6 +169,155 @@
         </div>
     </div>
 
+
+    <!--modal adicionar novo produto-->
+    <div class="modal fade" role="dialog" id="adicionar">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar novo produto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--modal-header-->
+
+                <div class="modal-body">
+                    <br />
+                    <div class="row">
+                        <div class="container">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#geral" role="tab" aria-controls="nav-home"
+                                        aria-selected="true">Geral</a>
+
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#descricao" role="tab" aria-controls="nav-profile"
+                                        aria-selected="false">Descrição</a>
+
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#caracteristicas" role="tab" aria-controls="nav-profile"
+                                        aria-selected="false">Caracteristicas</a>
+
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#imagens" role="tab" aria-controls="nav-profile"
+                                        aria-selected="false">Imagens</a>
+                                </div>
+                                <!--nav nav-tabs-->
+                            </nav>
+
+                            <div class="tab-content" id="nav-tabContent">
+
+                                <div class="tab-pane fade show active" id="geral" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div>
+                                        <br/>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="nome do produto">Nome</label>
+                                                <input type="text" class="form-control nome">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="marca">Marca</label>
+                                                <input type="text" class="form-control marca">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="idade indicativa">Idade</label>
+                                                <input type="text" class="form-control idade">
+                                            </div>
+                                        </div>
+                                        <!--row-->
+                                        <br/>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="preço">Preço</label>
+                                                <input type="text" class="form-control preco">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="quantidade no estoque">Estoque</label>
+                                                <input type="text" class="form-control estoque">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="valor de desconto">Desconto</label>
+                                                <input type="text" class="form-control desconto">
+                                            </div>
+                                        </div>
+                                        <!--row-->
+
+
+
+                                    </div>
+                                </div>
+                                <!--geral-->
+
+                                <div class="tab-pane fade show active" id="descricao" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div>
+                                        <br/>
+                                        <textarea class="form-control descricao" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <!--descricao-->
+
+                                <div class="tab-pane fade" id="caracteristicas" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div>
+                                        <br/>
+                                        <textarea class="form-control caracteristicas" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <!--caracteristicas-->
+
+                                <div class="tab-pane fade" id="imagens" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div>
+                                        <br/>
+
+                                        <div class="container">
+                                            <div class="row addImagem">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="url">Url</label>
+                                                        <input type="text" class="form-control url">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="quantidade no alt">Alt</label>
+                                                        <input type="text" class="form-control alt">
+                                                    </div>
+                                                </div>
+                                                <!--row-->
+                                            </div>
+                                            <!--row-->
+                                        </div>
+                                        <!--container-->
+
+                                        <div class="col-md-2">
+                                            <br/>
+                                            <button type="button" class="btn btn-primary" onclick="addImagem()">Imagem++</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--imagens-->
+
+                            </div>
+                            <!--tab-content-->
+                        </div>
+                        <!--container-->
+                    </div>
+                    <!--row-->
+                </div>
+                <!--modal-body-->
+
+                <div class="modal-footer">
+                    <button type="button" aria-label="Cancelar" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success">Salvar</button>
+                </div>
+                <!--modal-footer-->
+
+            </div>
+            <!--modal-content-->
+        </div>
+        <!--modal-dialog modal-lg-->
+    </div>
+    <!--modal fade-->
+
+
     <!-- bootstrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -179,9 +330,6 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <!-- dataTable -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    
     <!-- local -->
     <script th:inline="javascript" media="screen" href="/static/util.js" th:src="@{/util.js}"></script>
     <script th:inline="javascript" media="screen" href="/static/produto.js" th:src="@{/produto.js}"></script>
