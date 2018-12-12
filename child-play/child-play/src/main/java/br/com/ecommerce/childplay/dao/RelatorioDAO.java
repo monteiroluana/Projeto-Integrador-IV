@@ -16,7 +16,7 @@ public class RelatorioDAO {
         String sql = "SELECT sum(pedido.valorTotal) as somaMes,"
                 + "DATE_FORMAT(pedido.dataPedido, \"%M\") as mes,"
                 + "DATE_FORMAT(pedido.dataPedido, \"%Y\") as ano "
-                + "from pedido"
+                + "from pedido "
                 + "group by mes,ano "
                 + "order by ano,mes;";
         Connection con = null;
