@@ -8,8 +8,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
               crossorigin="anonymous"> 
 
-        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+       <!-- <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">-->
         <link rel="stylesheet" type="text/css" media="screen" th:href="@{/util.css}" href="/static/util.css">
 
     </head>
@@ -47,6 +47,7 @@
                                     <th>Tipo Pag.</th>
                                     <th>Valor Total</th>
                                     <th>Status</th>
+                                    <th>Opções</th>
                                 </tr>
                             </thead>
                             <tbody id="bodyTable">
@@ -86,6 +87,7 @@
         crossorigin="anonymous"></script>
 
         <script th:inline="javascript" media="screen" href="/static/util.js" th:src="@{/util.js}"></script>
+        <script th:inline="javascript" media="screen" href="/static/pedido.js" th:src="@{/pedido.js}"></script>
 
     </body>
 

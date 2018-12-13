@@ -94,15 +94,23 @@ public class PedidoController {
         return re;
     }
 
+    @GetMapping("/list-pedido-status/{status}")
+    public ResponseEntity listPedidosByStatus(@PathVariable("status") String status) throws ClassNotFoundException, SQLException {
+        PedidoService service = new PedidoService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.listPedidosByStatus(status));
+        } catch (SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+    }
+
+    
     @GetMapping("/listarPedidos")
     public ModelAndView listarPedidos() throws ClassNotFoundException, SQLException {
-        PedidoService service = new PedidoService();
-        List<PlanZ> lista = service.listPedido();
-
-        ModelAndView resposta = new ModelAndView("ListarPedidos");
-        resposta.addObject("pedidos", lista);
-
-        return resposta;
+         return new ModelAndView("ListarPedidos");
     }
 
     @GetMapping("/relatorio")

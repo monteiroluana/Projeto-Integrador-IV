@@ -23,7 +23,7 @@ public class PedidoDAO {
                 + "logradouro, numero, cep, complemento, bairro, cidade, uf) "
                 + "VALUES (?,?,?,?,?,?,?, ?,?,?,?,?,?,?)";
 
-        int idGerado=-1;
+        int idGerado = -1;
         Timestamp times = new Timestamp(System.currentTimeMillis());
         Date date = new Date(times.getTime());
         Connection con = null;
@@ -129,9 +129,6 @@ public class PedidoDAO {
         }
         return true;
     }
-    
-
-    
 
     public PlanZ getPedidosByProtocolo(String protocolo) throws SQLException, ClassNotFoundException {
 
@@ -228,7 +225,7 @@ public class PedidoDAO {
         return lista;
 
     }
-    
+
     public List<ItemPedido> getItensPedido(String protocolo) throws SQLException, ClassNotFoundException {
         String sql = "select idItem, idPedido, idProduto, quantidade, preco from itemPedido where protocolo = ?;";
 
@@ -373,9 +370,48 @@ public class PedidoDAO {
             }
         }
         return list;
-    }    
+    }
 
+    public List<PlanZ> listPedidosByStatus(String status) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM pedido WHERE status LIKE ?";
+        Connection con = null;
+        PreparedStatement p = null;
+        ResultSet rs = null;
+        List<PlanZ> lista = new ArrayList<>();
+        try {
+            con = Conexao.getConnection();
+            p = con.prepareStatement(sql);
+            p.setString(1, "%"+ status+"%" );
+            rs = p.executeQuery();
 
-    
+            while (rs.next()) {
+                PlanZ pedido = new PlanZ();
+                pedido.setIdPedido(rs.getInt("idPedido"));
+                pedido.setDataPedido(rs.getDate("dataPedido"));
+                pedido.setValorTotal(rs.getDouble("valorTotal"));
+                pedido.setTipoPagamento(rs.getString("tipoPagamento"));
+                pedido.setStatus(rs.getString("status"));
+                pedido.setProtocolo(rs.getString("protocolo"));
+                pedido.setValorFrete(rs.getDouble("valorFrete"));
+        
+                List<ItemPedido> itens = getItensPedido(pedido.getIdPedido());
+                pedido.setItens(itens);
+                     
+                ClienteDAO clienteDao = new ClienteDAO();
+                pedido.setCliente(clienteDao.getClienteById(rs.getInt("idCliente")));
+                
+                lista.add(pedido);
+            }
+        } catch (SQLException e) {
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+            if (p != null) {
+                p.close();
+            }
+        }
+        return lista;
+    }
 
 }

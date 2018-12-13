@@ -108,5 +108,8 @@ public class PedidoService {
         return true;
     }
 
-    
+    public List<PlanZ> listPedidosByStatus(String status) throws SQLException, ClassNotFoundException {
+        PedidoDAO pedidoDao = new PedidoDAO();
+        return pedidoDao.listPedidosByStatus(status);
+    }
 }
