@@ -61,10 +61,10 @@ public class GerarBoleto {
 
         //Quem paga o boleto
         Endereco enderecoPagador = Endereco.novoEndereco()
-                .comLogradouro(pedido.getLogradouro())
-                .comBairro(pedido.getBairro())
-                .comCep(pedido.getCep())
-                .comCidade(pedido.getCidade())
+                .comLogradouro(pedido.getCliente().getLogradouro())
+                .comBairro(pedido.getCliente().getBairro())
+                .comCep(pedido.getCliente().getCep())
+                .comCidade(pedido.getCliente().getCidade())
                 .comUf(pedido.getUf());
 
         Pagador pagador = Pagador.novoPagador()
