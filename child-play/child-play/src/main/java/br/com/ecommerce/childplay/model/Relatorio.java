@@ -5,6 +5,15 @@ public class Relatorio {
     private double somaMes;
     private String mes;
     private String ano;
+    private PlanZ pedido;
+
+    public PlanZ getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(PlanZ pedido) {
+        this.pedido = pedido;
+    }
 
     public double getSomaMes() {
         return somaMes;

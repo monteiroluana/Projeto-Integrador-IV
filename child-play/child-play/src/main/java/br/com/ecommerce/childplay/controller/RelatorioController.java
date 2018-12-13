@@ -26,6 +26,20 @@ public class RelatorioController {
         return re;
     }
     
+    
+    @GetMapping("/pedido")
+    public ResponseEntity relatorioPedidos() throws ClassNotFoundException, SQLException {
+        RelatorioService service = new RelatorioService();
+        ResponseEntity re = null;
+        try {
+            re = ResponseEntity.createSuccess();
+            re.setData(service.relatorioPedidos());
+        } catch (ClassNotFoundException | SQLException e) {
+            re = ResponseEntity.createUnknownError();
+        }
+        return re;
+    }
+    
     @GetMapping("/relatorio")
     public ModelAndView listarProdutos() throws ClassNotFoundException, SQLException {
         return new ModelAndView("Relatorio");

@@ -32,20 +32,70 @@
             <br>
             <br>
             <div class="row">
-            
-                    <h1>Relatório de Vendas</h1>
-                   
-               <br><br>
+
+                <h1>Relatório de Vendas</h1>
+
+                <br>
+                <br>
                 <!--gráfico...............-->
-            
 
-                    <div id="bar"></div>
-
-
+                <div class="row">
                     <div id="line"></div>
+                </div>
+                <br>
+                <br>
 
-             
 
+                <div class="row">
+
+                    <form>
+                        <div >
+                            <select id="mesSelecionado">
+                                <option value="01">Janeiro</option>
+                                <option value="02">Fevereiro</option>
+                                <option value="03">Março</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Maio</option>
+                                <option value="06">Junho</option>
+                                <option value="07">Julho</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembrp</option>
+                                <option value="12">Dezembro</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <button type="button" class="btn btn-primary" onclick="listPedido()">Pesquisar</button>
+                        </div>
+                    </form>
+
+                </div>
+                <br>
+                <br>
+
+
+                <div class="row">
+
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Cód</th>
+                                <th>Protocolo</th>
+                                <th>Cliente</th>
+                                <th>Tipo Pag.</th>
+                                <th>Valor Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="bodyTable">
+
+                        </tbody>
+                    </table>
+
+                </div>
 
             </div>
             <!--row-->

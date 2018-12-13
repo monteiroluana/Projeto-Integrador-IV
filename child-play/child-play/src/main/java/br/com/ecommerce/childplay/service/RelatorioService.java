@@ -1,4 +1,3 @@
-
 package br.com.ecommerce.childplay.service;
 
 import br.com.ecommerce.childplay.dao.RelatorioDAO;
@@ -8,8 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RelatorioService {
+
     public List<Relatorio> relatorio() throws ClassNotFoundException, SQLException {
         RelatorioDAO relatorioDao = new RelatorioDAO();
         return new ArrayList<>(relatorioDao.relatorio());
-    }    
+    }
+
+    public List<Relatorio> relatorioPedidos() throws ClassNotFoundException, SQLException {
+        RelatorioDAO relatorioDao = new RelatorioDAO();
+        return new ArrayList<>(relatorioDao.relatorioPedidos());
+    }
 }
