@@ -113,7 +113,7 @@ public class ProdutoDAO {
                 produto.setImagem(imgList);
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         } finally {
             //Fechando todas as conexões que foram abertas
 

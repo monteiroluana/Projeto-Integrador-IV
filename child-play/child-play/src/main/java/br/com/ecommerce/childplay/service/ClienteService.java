@@ -5,6 +5,7 @@ import br.com.ecommerce.childPlay.model.Cliente;
 import br.com.ecommerce.childPlay.model.Produto;
 import br.com.ecommerce.childplay.dao.ClienteDAO;
 import br.com.ecommerce.childplay.model.ClienteInteressado;
+import br.com.ecommerce.childplay.model.ContatoCliente;
 import br.com.ecommerce.childplay.utils.Email;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,7 +68,26 @@ public class ClienteService {
         }
         return msg;
     }
-
+    
+    //EmailContatoCliente
+    public String EmailContatoCliente(ContatoCliente contatoCliente) throws ClassNotFoundException, SQLException, MessagingException {        
+        String msg = null;                                
+        
+        try{
+            msg = "Email enviado! Assim que um de nossos colaboradores visualizare o email, retornará em contato!";
+            Email email = new Email();
+            String subject = "Contato de cliente. Nome: " + contatoCliente.getNome();
+            String emailBody = "O cliente  " + contatoCliente.getNome() + "entrou em contato com a seguinte mensagem: " +
+                    "<br>" + contatoCliente.getMensagem() +
+                    "<br><br> Caro Backoffice, retorne em 24 horas para o email " +contatoCliente.getEmail() +
+                    "<br> BackOffice ChildPlay";
+    
+            email.generateAndSendEmail("devolution.tads@gmail.com", emailBody, subject);
+        } catch(Exception ex) {
+            msg = "Erro!";
+        }
+        return msg;
+    }
     public String update(Cliente cliente) throws ClassNotFoundException, SQLException {
         ClienteDAO clienteDao = new ClienteDAO();
         String msg = null;
