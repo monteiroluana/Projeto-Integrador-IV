@@ -1,53 +1,53 @@
 body{
-  height: auto;
+    height: auto;
 }
 
 .sidenav {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: #144982;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 80px;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #144982;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 80px;
 }
-  
+
 .sidenav a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 20px;
-      color: #b1b1b1;
-      display: block;
-      transition: 0.3s;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #b1b1b1;
+    display: block;
+    transition: 0.3s;
 }
-  
+
 .sidenav a:hover {
-      color: #fff;
-      background-color: #0b315b;
+    color: #fff;
+    background-color: #0b315b;
 }
-  
+
 .sidenav .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-      color:white;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color:white;
 }
-  
+
 #demo{
-        width: 4%;
-        height: 100%;
-        position: absolute;
-        background-color: #144982;
+    width: 4%;
+    height: 100%;
+    position: absolute;
+    background-color: #144982;
 }
-  
+
 .conteudo{
-  margin-left: 5%;
-  margin-right: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 
@@ -68,8 +68,26 @@ body,#line {
     width: 100%;
 }
 .color-us {
-  stroke:blue
+    stroke:blue
 }
 .color-bug {
-  stroke:red
+    stroke:red
+}
+
+
+h1{
+    margin-top:8%;
+    margin-bottom:30px; 
+    font-weight:800; 
+    font-size:30px; 
+    color: #DE6262;
+}
+
+
+h2{
+    margin-top:8%;
+    margin-bottom:15px; 
+    font-weight:800; 
+    font-size:20px; 
+    color: #2aa6d3;
 }

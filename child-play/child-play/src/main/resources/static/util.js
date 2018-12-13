@@ -11,6 +11,7 @@
 $('.sidenav').append(
     '<span style="font-size:40px;cursor:pointer" class="closebtn" onclick="closeNav()">&times;</span>'+
     // '<hr/>'+
+    '<a href="/childplay/index">Home</a>'+
     '<a href="/usuario/listarUsuarios">Usuários</a>'+
     '<a href="/produto/listarProdutos">Produtos</a>'+
     '<a href="/pedido/listarPedidos">Pedidos</a>'+
