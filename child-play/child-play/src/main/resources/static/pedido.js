@@ -101,15 +101,19 @@ function filtrarStatus() {
 function autorizaPagamento(aux) {
     console.log(listPedidos[aux].protocolo);
 
-    $.ajax({
-        url: '/pedido/autorizaPagamento/' + listPedidos[aux].protocolo,
-        type: 'post',
-        success: function (data) {
-            swal("Success!", "Pagamento Aprovado!", "success");
+    if (listPedidos[aux].status.localeCompare("aguardando pagamento") == 0) {
+        $.ajax({
+            url: '/pedido/autorizaPagamento/' + listPedidos[aux].protocolo,
+            type: 'post',
+            success: function (data) {
+                swal("Success!", "Pagamento Aprovado!", "success");
 
-            listarTodosPedidos();
-        }
-    });
+                listarTodosPedidos();
+            }
+        });
+    } else {
+        swal("", "Erro ao aprovar pagamento!", "warning");
+    }
 
 }
 
@@ -126,18 +130,15 @@ function aprovarPedido(aux) {
                 listarTodosPedidos();
             }
         });
-
     } else {
-        swal("", "Só é possível liberar o pedido com pagamento aprovado!", "warning");
+        swal("", "Pedido não pode ser aprovado!", "warning");
     }
 }
 
 function cancelarPedido(aux) {
     console.log(listPedidos[aux].protocolo);
 
-    if (listPedidos[aux].status.localeCompare("Aprovado") == 0) {
-        swal("", "Não é possível cancelar um pedido já aprovado!", "warning");
-    } else {
+    if (listPedidos[aux].status.localeCompare("aguardando pagamento") == 0) {
         $.ajax({
             url: '/pedido/cancelaPedido/' + listPedidos[aux].protocolo,
             type: 'post',
@@ -147,6 +148,8 @@ function cancelarPedido(aux) {
                 listarTodosPedidos();
             }
         });
+    } else {
+        swal("", "Não foi possível cancelar o pedido!", "warning");
     }
 
 
