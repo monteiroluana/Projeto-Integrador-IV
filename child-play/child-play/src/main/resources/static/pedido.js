@@ -33,7 +33,8 @@ function listarPedidos(status) {
                     '           <span>' + listPedidos[i].status + '</span>' +
                     '        </td >' +
                     '        <td>' +
-                    '           <button type="button" class="btn btn-success" onclick="aprovarPedido(' + i + ')" title="Aprovar pedido">Aprovar</button>' +
+                    '           <button type="button" class="btn btn-info" onclick="autorizaPagamento(' + i + ')" title="Aprovar pagamento">Aprovar pag.</button>' +
+                    '           <button type="button" class="btn btn-success" onclick="aprovarPedido(' + i + ')" title="Liberar pedido">Liberar</button>' +
                     '           <button type="button" class="btn btn-danger" onclick="cancelarPedido(' + i + ')" title="Cancelar pedido">Cancelar</button>' +
                     '        </td>' +
                     //     '        <td>' +
@@ -74,7 +75,8 @@ function listarTodosPedidos() {
                     '           <span>' + listPedidos[i].status + '</span>' +
                     '        </td >' +
                     '        <td>' +
-                    '           <button type="button" class="btn btn-success" onclick="aprovarPedido(' + i + ')" title="Aprovar pedido">Aprovar</button>' +
+                    '           <button type="button" class="btn btn-info" onclick="autorizaPagamento(' + i + ')" title="Aprovar pagamento">Aprovar pag.</button>' +
+                    '           <button type="button" class="btn btn-success" onclick="aprovarPedido(' + i + ')" title="Liberar pedido">Liberar</button>' +
                     '           <button type="button" class="btn btn-danger" onclick="cancelarPedido(' + i + ')" title="Cancelar pedido">Cancelar</button>' +
                     '        </td>' +
                     '    </tr >'
@@ -96,6 +98,21 @@ function filtrarStatus() {
 
 }
 
+function autorizaPagamento(aux) {
+    console.log(listPedidos[aux].protocolo);
+
+    $.ajax({
+        url: '/pedido/autorizaPagamento/' + listPedidos[aux].protocolo,
+        type: 'post',
+        success: function (data) {
+            swal("Success!", "Pagamento Aprovado!", "success");
+
+            listarTodosPedidos();
+        }
+    });
+
+}
+
 function aprovarPedido(aux) {
     console.log(listPedidos[aux].protocolo);
 
@@ -104,26 +121,33 @@ function aprovarPedido(aux) {
             url: '/pedido/autorizaPedido/' + listPedidos[aux].protocolo,
             type: 'post',
             success: function (data) {
-                swal("Success!", "Aprovado!", "success");
+                swal("Success!", "Pedido liberado!!", "success");
 
                 listarTodosPedidos();
             }
         });
 
     } else {
-        alert("Só é possível liberar o pedido com pagamento aprovado!");
+        swal("", "Só é possível liberar o pedido com pagamento aprovado!", "warning");
     }
 }
 
 function cancelarPedido(aux) {
     console.log(listPedidos[aux].protocolo);
-    $.ajax({
-        url: '/pedido/cancelaPedido/' + listPedidos[aux].protocolo,
-        type: 'post',
-        success: function (data) {
-            swal("Success!", "Cancelado!", "success");
 
-            listarTodosPedidos();
-        }
-    });
+    if (listPedidos[aux].status.localeCompare("Aprovado") == 0) {
+        swal("", "Não é possível cancelar um pedido já aprovado!", "warning");
+    } else {
+        $.ajax({
+            url: '/pedido/cancelaPedido/' + listPedidos[aux].protocolo,
+            type: 'post',
+            success: function (data) {
+                swal("Success!", "Pedido cancelado!", "success");
+
+                listarTodosPedidos();
+            }
+        });
+    }
+
+
 }

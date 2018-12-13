@@ -48,6 +48,16 @@ public class PedidoController {
         return re;
     }
 
+     @PostMapping("/autorizaPagamento/{protocolo}")
+    public ResponseEntity AutorizaPagamento(@PathVariable("protocolo") String protocolo) throws SQLException, ClassNotFoundException {
+        PedidoService service = new PedidoService();
+        ResponseEntity re = null;
+        re = ResponseEntity.createSuccess();
+        boolean respostaAutorizaPedido = service.AutorizaPagamento(protocolo);
+        re.setData(service.AutorizaPagamento(protocolo));
+        return re;
+    }
+    
     @PostMapping("/autorizaPedido/{protocolo}")
     public ResponseEntity AutorizaPedido(@PathVariable("protocolo") String protocolo) throws SQLException, ClassNotFoundException {
         PedidoService service = new PedidoService();

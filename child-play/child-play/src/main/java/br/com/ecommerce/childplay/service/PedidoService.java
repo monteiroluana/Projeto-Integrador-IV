@@ -49,6 +49,11 @@ public class PedidoService {
         PedidoDAO pedidoDao = new PedidoDAO();
         return pedidoDao.getPedidosByProtocolo(protocolo);
     }
+    
+    public boolean AutorizaPagamento(String protocolo) throws SQLException, ClassNotFoundException {
+        PedidoDAO pedidoDao = new PedidoDAO();
+        return pedidoDao.AutorizaPedido(protocolo, "Pagamento Aprovado");
+    }
 
     public boolean AutorizaPedido(String protocolo) throws SQLException, ClassNotFoundException {
         PedidoDAO pedidoDao = new PedidoDAO();
