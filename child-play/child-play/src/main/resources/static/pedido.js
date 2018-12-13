@@ -34,7 +34,7 @@ function listarPedidos(status) {
                     '        </td >' +
                     '        <td>' +
                     '           <button type="button" class="btn btn-success" onclick="aprovarPedido(' + i + ')" title="Aprovar pedido">Aprovar</button>' +
-                    '           <button type="button" class="btn btn-danger" onclick="cancelarPedido(' + i + ')" title="Cancelar pedido">Reprovar</button>' +
+                    '           <button type="button" class="btn btn-danger" onclick="cancelarPedido(' + i + ')" title="Cancelar pedido">Cancelar</button>' +
                     '        </td>' +
                     //     '        <td>' +
                     //     '           <button type="button" class="btn btn-outline-info" onclick="abrirModalDetalhes(' + listPedidos[i].idPedido + ')" title="Ver mais detalhes do pedido">Detalhes</button>' +
@@ -75,7 +75,7 @@ function listarTodosPedidos() {
                     '        </td >' +
                     '        <td>' +
                     '           <button type="button" class="btn btn-success" onclick="aprovarPedido(' + i + ')" title="Aprovar pedido">Aprovar</button>' +
-                    '           <button type="button" class="btn btn-danger" onclick="cancelarPedido(' + i + ')" title="Cancelar pedido">Reprovar</button>' +
+                    '           <button type="button" class="btn btn-danger" onclick="cancelarPedido(' + i + ')" title="Cancelar pedido">Cancelar</button>' +
                     '        </td>' +
                     '    </tr >'
 
