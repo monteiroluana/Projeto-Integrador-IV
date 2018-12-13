@@ -1,15 +1,13 @@
-let listPedidos= [];
+let listPedidos = [];
 
 $(document).ready(function () {
     listarPedidos("aguardando pagamento");
 });
 
 
-
-
-function  listarPedidos(status){
+function listarPedidos(status) {
     $.ajax({
-        url: '/pedido/list-pedido-status/'+status, method: 'GET', success: function (data) {
+        url: '/pedido/list-pedido-status/' + status, method: 'GET', success: function (data) {
             listPedidos = data.data;
             console.log(listPedidos);
             for (var i = 0; i < listPedidos.length; i++) {
@@ -25,21 +23,18 @@ function  listarPedidos(status){
                     '            <span>' + listPedidos[i].cliente.nome + '</span>' +
                     '        </td >' +
                     '        <td>' +
-                    '            <span> produtos ....</span>' +
-                    '        </td >' +
-                    '        <td>' +
-                    '            <span>' + listPedidos[i].tipoPagamento + '</span>' +
-                    '        </td >' +
-                    '        <td>' +
                     '            <span>' + listPedidos[i].valorTotal + '</span>' +
                     '        </td >' +
                     '        <td>' +
-                    '            <span>' + listPedidos[i].status + '</span>' +
+                    '            <form><select class="form-control"><option>' + listPedidos[i].status + '</option></select></form>' +
                     '        </td >' +
-
                     '        <td>' +
-                    '           <button type="button" class="btn btn-outline-success" onclick="abrirModalDetalhes(' + listPedidos[i].idProduto + ')" title="Ver mais detalhes do pedido">Detalhes</button>' +
+                    '           <button type="button" class="btn btn-success" onclick="aprovarPedido(' + listPedidos[i].idPedido + ')" title="Aprovar pedido">Aprovar</button>' +
+                    '           <button type="button" class="btn btn-danger" onclick="cancelarPedido(' + listPedidos[i].idPedido + ')" title="Cancelar pedido">Reprovar</button>' +
                     '        </td>' +
+                    '        <td>' +
+                    '           <button type="button" class="btn btn-outline-info" onclick="abrirModalDetalhes(' + listPedidos[i].idPedido + ')" title="Ver mais detalhes do pedido">Detalhes</button>' +
+                    '        <td>' +
 
                     '    </tr >'
 
@@ -47,6 +42,26 @@ function  listarPedidos(status){
             }
         }
     });
+}
 
+function filtrarStatus(){
+    let filtroStatus = $("#filtroStatus option:selected").val();
+    console.log(filtroStatus);
+
+    $.ajax({
+        url: '/pedido/list-pedido-status/{status}',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(obj),
+        success: function (data) {
+
+            console.log("savar",data);
+            swal("Success!", data.data, "success");
+
+            $('#adicionar').modal('hide');
+            listarProdutos();
+        }
+    });
 
 }

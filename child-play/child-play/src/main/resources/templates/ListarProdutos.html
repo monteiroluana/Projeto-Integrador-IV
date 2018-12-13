@@ -34,8 +34,14 @@
     <div class="conteudo">
         <br>
         <br>
-        <h1 class="teste">Listar Produtos</h1>
-        <button type="button" class="btn btn-primary" onclick="abrirModalAdicionar()">Adicionar</button>
+        <div class="row align-items-center">
+            <div class="col-5">
+                <h1>Lista Produtos</h1>
+            </div>
+            <div class="col-5">
+                <button type="button" aria-label="Cadastrar novo produto" class="btn btn-outline-info" data-toggle="modal" onclick="abrirModalAdicionar()">Adicionar</button>
+            </div>
+        </div>
 
         <table id="datatable" class="table" style="width:100%; margin-top:1%;">
             <thead class="thead-dark">
