@@ -98,10 +98,8 @@ function filtrarStatus() {
 
 function aprovarPedido(aux) {
     console.log(listPedidos[aux].protocolo);
-    
-    if (listPedidos[aux].status == "Cancelado") {
-       alert("Não é possível aprovar um pedido cancelado!");
-    } else {
+
+    if (listPedidos[aux].status.localeCompare("Pagamento Aprovado") == 0) {
         $.ajax({
             url: '/pedido/autorizaPedido/' + listPedidos[aux].protocolo,
             type: 'post',
@@ -111,6 +109,9 @@ function aprovarPedido(aux) {
                 listarTodosPedidos();
             }
         });
+
+    } else {
+        alert("Só é possível liberar o pedido com pagamento aprovado!");
     }
 }
 
