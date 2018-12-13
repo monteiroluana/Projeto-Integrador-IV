@@ -9,7 +9,7 @@ $(document).ready(function () {
 });
 
 
-function grafico(){
+function grafico() {
   $.ajax({
     url: '/relatorio/ver', method: 'GET', success: function (data) {
 
@@ -36,18 +36,20 @@ function grafico(){
 }
 
 
-function listPedido(){
+function listPedido() {
+
+  document.querySelector('.bodyTable').innerHTML='';
 
   let mes = document.getElementById("mesSelecionado").value;
   $.ajax({
     url: '/relatorio/pedido', method: 'GET', success: function (data) {
 
       listPedidos = data.data;
-     console.log(listPedidos);
+      console.log(listPedidos);
       for (var i = 0; i < listPedidos.length; i++) {
 
-        if(listPedidos[i].mes == mes){
-          $('#bodyTable').append(
+        if (listPedidos[i].mes == mes) {
+          $('.bodyTable').append(
             '    <tr>' +
             '        <td>' +
             '            <span>' + listPedidos[i].pedido.idPedido + '</span>' +
@@ -70,16 +72,12 @@ function listPedido(){
 
             '    </tr >'
 
-        );
+          );
 
         }
-
-       
-    }
-
+      }
     }
   });
-
 }
 
 /*SELECT idPedido, protocolo, idCliente, idUsuario, dataPedido, tipoPagamento, status, valorTotal, valorFrete, cep, logradouro, numero, bairro, cidade, uf, complemento,DATE_FORMAT(pedido.dataPedido, "%M") as mes,

@@ -14,6 +14,21 @@
 
     <!-- local -->
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/util.css}" href="/static/util.css">
+
+    <style>
+        body,
+        #line {
+            height: 100%
+        }
+
+        .color-us {
+            stroke: blue
+        }
+
+        .color-bug {
+            stroke: red
+        }
+    </style>
 </head>
 
 <body>
@@ -29,54 +44,57 @@
 
     <div class="conteudo">
         <div class="container" id="topo">
-            <br>
-            <br>
+            <br/>
+
             <div class="row">
 
-                <h1>Relatório de Vendas</h1>
+                <h1>Relatório</h1>
 
-                <br>
-                <br>
-                <!--gráfico...............-->
+                <div class="col-12" style="margin-top:5%">
+                    <h3>Gráfico de lucros mensais</h3>
 
-                <div class="row">
+                    <!--gráfico...............-->
                     <div id="line"></div>
                 </div>
                 <br>
                 <br>
 
+            </div>
 
-                <div class="row">
+            <div class="row">
 
-                    <form>
-                        <div >
-                            <select id="mesSelecionado">
-                                <option value="01">Janeiro</option>
-                                <option value="02">Fevereiro</option>
-                                <option value="03">Março</option>
-                                <option value="04">Abril</option>
-                                <option value="05">Maio</option>
-                                <option value="06">Junho</option>
-                                <option value="07">Julho</option>
-                                <option value="08">Agosto</option>
-                                <option value="09">Setembro</option>
-                                <option value="10">Outubro</option>
-                                <option value="11">Novembrp</option>
-                                <option value="12">Dezembro</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <button type="button" class="btn btn-primary" onclick="listPedido()">Pesquisar</button>
-                        </div>
-                    </form>
-
+                <div class="col-12">
+                        <h3>Selecionar pedidos</h3>
                 </div>
-                <br>
-                <br>
+                    
+                <form>
+                    <div class="col-6">
+                           
+                        <select id="mesSelecionado">
+                            <option value="01">Janeiro</option>
+                            <option value="02">Fevereiro</option>
+                            <option value="03">Março</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Maio</option>
+                            <option value="06">Junho</option>
+                            <option value="07">Julho</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembrp</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+                </form>
 
+                <div class="col-6">
+                    <button type="button" class="btn btn-primary" onclick="listPedido()">Pesquisar</button>
+                </div>
+            </div>
+            <br>
 
-                <div class="row">
+            <div class="row">
+                <div class="col-12">
 
                     <table class="table table-responsive">
                         <thead>
@@ -90,14 +108,14 @@
                             </tr>
                         </thead>
 
-                        <tbody id="bodyTable">
+                        <tbody class="bodyTable">
 
                         </tbody>
                     </table>
 
                 </div>
-
             </div>
+
             <!--row-->
         </div>
         <!--container-->
