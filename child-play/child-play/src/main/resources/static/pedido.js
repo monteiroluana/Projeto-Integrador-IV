@@ -1,11 +1,12 @@
 let listPedidos = [];
 
 $(document).ready(function () {
-    listarPedidos("aguardando pagamento");
+    //listarPedidos(filtrarStatus());
 });
 
 
 function listarPedidos(status) {
+    document.querySelector(".bodyTable").innerHTML = '';
     $.ajax({
         url: '/pedido/list-pedido-status/' + status, method: 'GET', success: function (data) {
             listPedidos = data.data;
@@ -26,7 +27,10 @@ function listarPedidos(status) {
                     '            <span>' + listPedidos[i].valorTotal + '</span>' +
                     '        </td >' +
                     '        <td>' +
-                    '            <form><select class="form-control"><option>' + listPedidos[i].status + '</option></select></form>' +
+                    '            <span>' + listPedidos[i].valorTotal + '</span>' +
+                    '        </td >' +
+                    '        <td>' +
+                    '           <span>' + listPedidos[i].status + '</span>' +
                     '        </td >' +
                     '        <td>' +
                     '           <button type="button" class="btn btn-success" onclick="aprovarPedido(' + listPedidos[i].idPedido + ')" title="Aprovar pedido">Aprovar</button>' +
@@ -44,24 +48,14 @@ function listarPedidos(status) {
     });
 }
 
-function filtrarStatus(){
+function listarProdutos(i) {
+
+}
+
+function filtrarStatus() {
     let filtroStatus = $("#filtroStatus option:selected").val();
     console.log(filtroStatus);
 
-    $.ajax({
-        url: '/pedido/list-pedido-status/{status}',
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(obj),
-        success: function (data) {
-
-            console.log("savar",data);
-            swal("Success!", data.data, "success");
-
-            $('#adicionar').modal('hide');
-            listarProdutos();
-        }
-    });
+    listarPedidos(filtroStatus);
 
 }
