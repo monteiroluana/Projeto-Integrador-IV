@@ -90,10 +90,10 @@ function atualizar() {
     });
 }
 
-function excluir(login) {
+function excluir(aux) {
     swal({
         title: "Tem certeza?",
-        text: "O usuário (" + listUsuarios[idUsuario - 1].nome + ") será apagado!",
+        text: "O usuário (" + listUsuarios[aux].nome + ") será apagado!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -101,7 +101,7 @@ function excluir(login) {
         .then((willDelete) => {
             if (willDelete) {
                 let obj = {
-                    "login": login,
+                    "login": listUsuarios[aux].login,
                 }
 
                 $.ajax({
@@ -143,7 +143,7 @@ function listarUsuarios() {
                     '        </td >' +
                     '        <td>' +
                     '           <button type="button" class="btn btn-outline-success" onclick="abrirModalEditar(' + listUsuarios[i].idUsuario + ')" title="Editar ' + listUsuarios[i].nome + '">Editar</button>' +
-                    '           <button type="button" class="btn btn-outline-danger" onclick="excluir(' + listUsuarios[i].login + ')" title="Excluir o usuário ' + listUsuarios[i].nome + '">Excluir</button>' +
+                    '           <button type="button" class="btn btn-outline-danger" onclick="excluir(' +i+ ')" title="Excluir o usuário ' + listUsuarios[i].nome + '">Excluir</button>' +
                     '        </td>' +
                     '    </tr >'
 
